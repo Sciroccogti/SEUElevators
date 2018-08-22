@@ -1,5 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-/Rear_End/Debug
-/Rear_End/ipch
+/Rear_End/Debug/
+/Rear_End/ipch/
 /Rear_End/Rear_End.sdf
