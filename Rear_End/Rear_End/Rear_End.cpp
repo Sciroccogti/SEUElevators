@@ -1,7 +1,9 @@
-#include <iostream>
 #include "Rear_End.h"
+#include "Elevator.h"
+#include "People.h"
 
 int main(){
-	People people;
-
+	//People people;//²âÊÔÓÃ´úÂë
+	Refresh();
+	return 0;
 }

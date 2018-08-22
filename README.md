@@ -1,7 +1,8 @@
-#	电梯模拟
+﻿#	电梯模拟
 ##	项目概述
 本项目为信息科学与工程学院大二短学期项目，主要需求为**使用MFC动态仿真电梯运行情况**，前期将项目分为Rear_End和Front_End两部分
 
+>	项目托管于：[GitHub](https://github.com/Sciroccogti/SEUElevators	"Sciroccogti的GitHub")
 ##	小组成员
 *	鱼嘉诚：负责调研，时间脉冲
 *	魏晨阳：负责前端，人员刷新

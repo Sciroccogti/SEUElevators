@@ -23,5 +23,11 @@
     <ClInclude Include="Rear_End.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Elevator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="People.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

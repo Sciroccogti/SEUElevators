@@ -74,6 +74,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Elevator.h" />
+    <ClInclude Include="People.h" />
     <ClInclude Include="Rear_End.h" />
   </ItemGroup>
   <ItemGroup>
