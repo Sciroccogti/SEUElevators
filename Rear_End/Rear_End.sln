@@ -5,12 +5,22 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Rear_End", "Rear_End\Rear_E
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|Win32 = Debug|Win32
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C2405BD-0121-4460-921A-6F3F1B89EDEB}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{7C2405BD-0121-4460-921A-6F3F1B89EDEB}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{7C2405BD-0121-4460-921A-6F3F1B89EDEB}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{7C2405BD-0121-4460-921A-6F3F1B89EDEB}.Debug|Win32.ActiveCfg = Debug|Win32
 		{7C2405BD-0121-4460-921A-6F3F1B89EDEB}.Debug|Win32.Build.0 = Debug|Win32
+		{7C2405BD-0121-4460-921A-6F3F1B89EDEB}.Release|Any CPU.ActiveCfg = Release|Win32
+		{7C2405BD-0121-4460-921A-6F3F1B89EDEB}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{7C2405BD-0121-4460-921A-6F3F1B89EDEB}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{7C2405BD-0121-4460-921A-6F3F1B89EDEB}.Release|Win32.ActiveCfg = Release|Win32
 		{7C2405BD-0121-4460-921A-6F3F1B89EDEB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
