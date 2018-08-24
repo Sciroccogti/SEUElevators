@@ -1,4 +1,4 @@
-#ifndef REAR_END_H
+ï»¿#ifndef REAR_END_H
 #define REAR_END_H 
 #include "Rear_End.h"
 #endif
@@ -6,54 +6,31 @@
 class People
 {
 //protected:
-//TODO£º¸ÄÎªprotected++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-public://µ÷ÊÔÊ±Ê¹ÓÃ
-	int presflr;
-	int objflr;
-	int direction;
-	int weight;
+//TODOï¼šæ”¹ä¸ºprotected++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+public://è°ƒè¯•æ—¶ä½¿ç”¨
+	int presflr;			//æ‰€åœ¨å±‚
+	int objflr;				//ç›®æ ‡å±‚
+	int direction;			//æ–¹å‘
+	int weight;				//ä½“é‡
 
 public:
-	People();
+	People();				//æ„é€ 
+	friend void Check();	//è½®è¯¢å¾…ä¹˜ä¹˜å®¢
 };
-
-list <People> ListUp, ListDown;
 
 People::People()
 {
-	//Ëæ»úÉú³ÉËùÔÚ²ãÓëÄ¿±ê²ã
-	presflr = rand() % TOP;
+	//éšæœºç”Ÿæˆæ‰€åœ¨å±‚ä¸ç›®æ ‡å±‚
+	presflr = rand() % L + 1;
 	do{
-		objflr = rand() % TOP;
+		objflr = rand() % L +1;
 	}while(presflr == objflr);
 
-	//Éú³É·½Ïò
+	//ç”Ÿæˆæ–¹å‘
 	direction = presflr < objflr ? UP : DOWN;
 
-	//Ëæ»úÉú³ÉÌåÖØ
+	//éšæœºç”Ÿæˆä½“é‡
 	weight = 50 + rand() % 50;
-	//TODO£º¸ÄÎªÕıÌ¬·Ö²¼+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	//cout<<presflr<<endl<<objflr<<endl<<direction<<endl<<weight<<endl;//²âÊÔÓÃ´úÂë
+	//TODOï¼šæ”¹ä¸ºæ­£æ€åˆ†å¸ƒ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//cout<<presflr<<endl<<objflr<<endl<<direction<<endl<<weight<<endl;//æµ‹è¯•ç”¨ä»£ç 
 }
-
-void Refresh()
-{
-	//srand((int)time(0));	//±¸ÓÃ·½·¨
-	//int n = rand() % TOP;	//±¸ÓÃ·½·¨
-	int n = 1;
-	//TODO£º¸ÄÎªËæ»ú¡¢´óÁ¿++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-	int i = 0;
-	People *p;
-	srand((int)time(0));
-	while(i++ < n){
-		p = new People;
-		if(p->direction == UP){
-			ListUp.push_front(*p);
-		}else{
-			ListDown.push_front(*p);
-		}
-		//cout<<p->weight<<"\t"<<p->objflr<<endl;//²âÊÔÓÃ´úÂë
-	}
-}
-

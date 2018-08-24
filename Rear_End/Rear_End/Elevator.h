@@ -1,4 +1,4 @@
-#ifndef REAR_END_H
+ï»¿#ifndef REAR_END_H
 #define REAR_END_H 
 #include "Rear_End.h"
 #endif
@@ -6,28 +6,48 @@
 class Elevator
 {
 protected:
-	int num;		//±àºÅ
-	int passenger;	//ÈËÊı
-	int presflr;	//ËùÔÚ²ã
-	int condition;	//ÔËĞĞ×´Ì¬
-	int objflr;		//Ä¿±ê²ã
-	double time;	//Ê±¼ä
+	int num;		//ç¼–å·
+	int passenger;	//äººæ•°
+	int presflr;	//æ‰€åœ¨å±‚
+	int condition;	//è¿è¡ŒçŠ¶æ€
+	int objflr;		//ç›®æ ‡å±‚
+	double time;	//æ—¶é—´
+	int waiting;	//çŠ¶æ€ä¿æŒæ—¶é—´
 
 public:
-	Elevator(int,int);					//¹¹Ôì
-	~Elevator();						//Îö¹¹
-	void move(int sflr,int eflr,int n);	//µçÌİÒÆ¶¯
-	void movein(int num_in);			//µçÌİÉÏ¿Í
-	void moveout(int num_out);			//µçÌİÏÂ¿Í
-	int check();						//ÂÖÑ¯´ı³Ë³Ë¿Í
+	Elevator(int,int);	//æ„é€ 
+	void Move(int goal);//ç”µæ¢¯ç§»åŠ¨
+	void Board(int n);	//ç”µæ¢¯ä¸Šå®¢
+	void Drop(int n);	//ç”µæ¢¯ä¸‹å®¢
 };
 
-Elevator::Elevator(int num1, int presflr1)//¹¹Ôì
+Elevator::Elevator(int num1, int presflr1)//æ„é€ 
 {
 	num = num1;
 	passenger = 0;
 	presflr = presflr1;
 	condition = STOP;
-	objflr=0;
-	time=0;
+	objflr = 0;
+	time = 0;
+	waiting = 0;
+}
+
+void Elevator::Move(int goal)//ç”µæ¢¯ç§»åŠ¨
+{
+	objflr = goal;
+
+}
+
+void Elevator::Board(int n)//ç”µæ¢¯ä¸Šå®¢
+{
+	passenger += n;
+	condition = ON;
+	waiting += T * n;
+}
+
+void Elevator::Drop(int n)//ç”µæ¢¯ä¸‹å®¢
+{
+	passenger -= n;
+	condition = OFF;
+	waiting += T * n;
 }
