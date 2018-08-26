@@ -1,13 +1,13 @@
-﻿#ifndef REAR_END_H
-#define REAR_END_H 
-#include "Rear_End.h"
-#endif
+﻿#include "Rear_End.h"
+
+#ifndef PEOPLE_H
+#define PEOPLE_H 
 
 class People
 {
 //protected:
 //TODO：改为protected++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-public://调试时使用
+protected://调试时使用
 	int presflr;			//所在层
 	int objflr;				//目标层
 	int direction;			//方向
@@ -15,7 +15,8 @@ public://调试时使用
 
 public:
 	People();				//构造
-	friend void Check();	//轮询待乘乘客
+	void Check();	//轮询待乘乘客
+	int Direction();
 };
 
 People::People()
@@ -34,3 +35,15 @@ People::People()
 	//TODO：改为正态分布+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//cout<<presflr<<endl<<objflr<<endl<<direction<<endl<<weight<<endl;//测试用代码
 }
+
+int People::Direction()
+{
+	return direction;
+}
+
+void People::Check()
+{
+
+}
+
+#endif

@@ -1,7 +1,8 @@
-﻿#ifndef REAR_END_H
-#define REAR_END_H 
-#include "Rear_End.h"
-#endif
+﻿#include "Rear_End.h"
+#include "People.h"
+
+#ifndef ELEVATOR_H
+#define ELEVATOR_H
 
 class Elevator
 {
@@ -19,6 +20,7 @@ public:
 	void Move(int goal);//电梯移动
 	void Board(int n);	//电梯上客
 	void Drop(int n);	//电梯下客
+	friend void People::Check();
 };
 
 Elevator::Elevator(int num1, int presflr1)//构造
@@ -51,3 +53,5 @@ void Elevator::Drop(int n)//电梯下客
 	condition = OFF;
 	waiting += T * n;
 }
+
+#endif
