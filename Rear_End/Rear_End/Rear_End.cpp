@@ -1,6 +1,6 @@
 ﻿#include "Elevator.h"
 
-list <People> ListUp, ListDown;
+List <People> ListUp, ListDown;
 
 void Refresh()
 {
@@ -15,9 +15,9 @@ void Refresh()
 	while(i++ < n){
 		p = new People;
 		if(p->Direction() == UP){
-			ListUp.push_back(*p);
+			ListUp.push_back(p);
 		}else{
-			ListDown.push_back(*p);
+			ListDown.push_back(p);
 		}
 		//cout<<p->weight<<"\t"<<p->objflr<<endl;//测试用代码
 	}
@@ -28,11 +28,11 @@ int main(){
 	int i;
 	for(i = 0; i < N; i++){
 		if(i < N / 3){
-			e[i] = new Elevator(1);
+			e[i] = new Elevator(i, 1);
 		}else if(i > 2 * N / 3){
-			e[i] = new Elevator(L);
+			e[i] = new Elevator(i, L);
 		}else{
-			e[i] = new Elevator(L / 2);
+			e[i] = new Elevator(i, L / 2);
 		}
 	}
 	return 0;

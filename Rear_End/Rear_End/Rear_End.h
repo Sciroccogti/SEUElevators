@@ -2,7 +2,6 @@
 #define REAR_END_H 
 
 #include <iostream>
-#include <list>
 #include <cstdlib>
 #include <ctime>
 #include <cmath>

@@ -75,8 +75,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Elevator.h" />
-    <ClInclude Include="People.h" />
     <ClInclude Include="Rear_End.h" />
+    <ClInclude Include="List.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Rear_End.cpp" />
