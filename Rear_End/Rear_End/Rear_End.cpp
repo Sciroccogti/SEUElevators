@@ -1,6 +1,4 @@
-﻿#include "Rear_End.h"
-#include "Elevator.h"
-#include "People.h"
+﻿#include "People.h"
 
 list <People> ListUp, ListDown;
 
@@ -16,24 +14,26 @@ void Refresh()
 	srand((int)time(0));
 	while(i++ < n){
 		p = new People;
-		if(p->direction == UP){
-			ListUp.push_front(*p);
+		if(p->Direction() == UP){
+			ListUp.push_back(*p);
 		}else{
-			ListDown.push_front(*p);
+			ListDown.push_back(*p);
 		}
 		//cout<<p->weight<<"\t"<<p->objflr<<endl;//测试用代码
 	}
 }
 
-void Check()
-{
-
-}
-
 int main(){
-	//People people;//测试用代码
-	//Refresh();
-	Elevator e1(1, 1);
-	e1.Board(2);
+	Elevator *e[N];
+	int i;
+	for(i = 0; i < N; i++){
+		if(i < N / 3){
+			e[i] = new Elevator(1);
+		}else if(i > 2 * N / 3){
+			e[i] = new Elevator(L);
+		}else{
+			e[i] = new Elevator(L / 2);
+		}
+	}
 	return 0;
 }
