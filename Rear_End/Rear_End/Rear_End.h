@@ -12,6 +12,10 @@
 #define ON 2		//上客中
 #define OFF -2		//下客中
 
+#define NOTARRANGED -1
+#define WAITING 0
+#define IN 1
+
 #define N 3			//电梯数量
 #define L 20		//最高楼层
 #define MAX 1600	//最大载重量

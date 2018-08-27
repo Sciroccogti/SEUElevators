@@ -23,7 +23,7 @@ public:
 	void Drop(int n);		//电梯下客
 	void Change();			//电梯改变状态
 	void Continue();		//电梯续航
-	Elevator& operator [](const int n);
+	Elevator& operator [](const int n){return this[n];}
 	bool IsFull(int weight1){return MAX - total < weight1;}
 	int Direction(){return direction;}
 	int Objflr(){return objflr;}
@@ -45,6 +45,8 @@ public:
 	void Check(Elevator *p);//轮询电梯
 	int Direction(){return direction;}
 	int Objflr(){return objflr;}
+	int Presflr(){return presflr;}
+	void Arrange(){condition = WAITING;}
 	People *pNext;
 	People *pFront;
 };
@@ -96,42 +98,50 @@ void Change()//电梯改变状态
 void Elevator::Continue()//电梯续航
 {
 	if(waiting != 0){
-		if(condition = OFF){//下客
-			waiting -= T;
-			if(waiting == 0){
-				condition = STOP;
-			}
-			People *i;
-			for(i = Up[num]->pHead; i <= Up[num]->pRear; i++){
-				if (i->Objflr() == presflr){
+		if(direction == STOP){
+			if(condition = ON){//上客
+				waiting --;
+				if(waiting == 0){
+					condition = STOP;
+				}
 
+				if(waiting % T){//寻找待上乘客
+					People *i;
+					for(i = Up[num]->pHead; i <= Up[num]->pRear; i++){
+						if (i->Presflr() == presflr){
+							i->Arrange();
+							Up[num]->dele(i);
+							Down[num]->push_back(i);
+						}
+					}
 				}
 			}
-		}
 
-		if(condition = ON){//上客
-			waiting -= T;
-			if(waiting == 0){
-				condition=STOP;
+			if(condition = OFF){//下客
+				waiting --;
+				if(waiting == 0){
+					condition = STOP;
+				}
+
+				if(waiting % T){//寻找待下乘客
+					People *i;
+					for(i = Down[num]->pHead; i <= Down[num]->pRear; i++){
+						if (i->Objflr() == presflr){
+							Down[num]->dele(i);
+							delete i;
+						}
+					}
+				}
+			}
+		}else if (direction != UP)
+		{
+			waiting--;
+			if (!waiting)
+			{
+				direction = STOP;
 			}
 		}
-	}else{
-		if(condition = UP && presflr != objflr){
-			condition = UP;
-		}else{
-			condition = STOP;
-		}
-		if(condition = DOWN && presflr != objflr){
-			condition=DOWN;
-		}else {
-			condition=STOP;
-		}
 	}
-}
-
-Elevator& Elevator::operator [](const int n)
-{
-	return this[n];
 }
 
 /************************************************************************************************************************/
@@ -154,7 +164,7 @@ People::People()
 	//TODO：改为正态分布+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//cout<<presflr<<endl<<objflr<<endl<<direction<<endl<<weight<<endl;//测试用代码
 
-	condition = 0;
+	condition = NOTARRANGED;
 	pFront = NULL;
 	pNext = NULL;
 }
@@ -176,7 +186,7 @@ void People::Check(Elevator *p)
 	}
 
 	if(j >= 0){
-		condition = 1;
+		condition = WAITING;
 		if (direction == UP){
 			Up[j]->push_back(this);
 		}else{
