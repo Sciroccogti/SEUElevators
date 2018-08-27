@@ -1,7 +1,8 @@
-﻿#include "Rear_End.h"
-
+﻿#pragma once
 #ifndef PEOPLE_H
 #define PEOPLE_H 
+
+#include "Elevator.h"
 
 class People
 {
@@ -12,15 +13,27 @@ protected://调试时使用
 	int objflr;				//目标层
 	int direction;			//方向
 	int weight;				//体重
+	int condition;			//状态
 
 public:
 	People();				//构造
-	void Check();	//轮询待乘乘客
-	int Direction();
+	int Direction(){return direction;}
+	void Check(Elevator *p);//轮询电梯
 };
+/*
+list <People> *Up[N];
+list <People> *Down[N];
+Up[0] = new list <People>;
+Down[0] = new list <People>;
+Up[1] = new list <People>;
+Down[1] = new list <People>;
+Up[2] = new list <People>;
+Down[2] = new list <People>;
+*/
 
 People::People()
 {
+	Elevator e1(1);
 	//随机生成所在层与目标层
 	presflr = rand() % L + 1;
 	do{
@@ -34,16 +47,34 @@ People::People()
 	weight = 50 + rand() % 50;
 	//TODO：改为正态分布+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//cout<<presflr<<endl<<objflr<<endl<<direction<<endl<<weight<<endl;//测试用代码
+
+	condition = 0;
 }
 
-int People::Direction()
+
+
+void People::Check(Elevator *p)
 {
-	return direction;
+	int i, j = -1;
+
+	for(i = 0; i < N; i++){
+		if(!p[i].IsFull(weight)){
+			if(p[i].Direction() == direction){
+				if((objflr - p[i].Objflr()) * direction > 0){
+					if(j < 0 || (p[i].Objflr() - p[j].Objflr()) * direction > 0){
+						j = i;
+					}
+				}
+			}
+		}
+	}
+
+	if(j >= 0){
+		condition = 1;
+
+	}
 }
 
-void People::Check()
-{
 
-}
 
 #endif

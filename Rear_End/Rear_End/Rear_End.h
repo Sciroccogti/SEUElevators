@@ -1,25 +1,19 @@
-﻿#include <iostream>
+﻿#ifndef REAR_END_H
+#define REAR_END_H 
+
+#include <iostream>
 #include <list>
 #include <cstdlib>
 #include <ctime>
-
-#ifndef REAR_END_H
-#define REAR_END_H 
-/*
-#ifndef ELEVATOR_H
-#include "Elevator.h"
-#endif
-
-
-#ifndef PEOPLE_H
-#include "People.h"
-#endif*/
+#include <cmath>
 
 #define STOP 0		//停止
 #define UP 1		//上行
 #define DOWN -1		//下行
 #define ON 2		//上客中
 #define OFF -2		//下客中
+
+#define N 3			//电梯数量
 #define L 20		//最高楼层
 #define MAX 1600	//最大载重量
 #define S 3			//电梯运行速度S秒/层
