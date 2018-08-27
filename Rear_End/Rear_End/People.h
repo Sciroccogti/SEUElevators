@@ -20,16 +20,10 @@ public:
 	int Direction(){return direction;}
 	void Check(Elevator *p);//轮询电梯
 };
-/*
-list <People> *Up[N];
-list <People> *Down[N];
-Up[0] = new list <People>;
-Down[0] = new list <People>;
-Up[1] = new list <People>;
-Down[1] = new list <People>;
-Up[2] = new list <People>;
-Down[2] = new list <People>;
-*/
+
+list <People> *Up[N] = {new list <People>};
+list <People> *Down[N] = {new list <People>};
+list <People> NotArranged = new list <People>;
 
 People::People()
 {
@@ -51,8 +45,6 @@ People::People()
 	condition = 0;
 }
 
-
-
 void People::Check(Elevator *p)
 {
 	int i, j = -1;
@@ -71,7 +63,13 @@ void People::Check(Elevator *p)
 
 	if(j >= 0){
 		condition = 1;
-
+		if (direction == UP){
+			Up[j]->push_back(this);
+		}else{
+			Down[j]->push_back(this);
+		}
+	}else{
+		NotArranged->push_back(this);
 	}
 }
 

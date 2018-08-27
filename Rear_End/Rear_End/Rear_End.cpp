@@ -1,4 +1,4 @@
-﻿#include "People.h"
+﻿#include "Elevator.h"
 
 list <People> ListUp, ListDown;
 
