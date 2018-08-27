@@ -1,6 +1,8 @@
 /Rear_End/Debug
 /Rear_End/ipch
-/Rear_End/Rear_ENd.suo
-/Rear_End/Rear_End.sdf
+*.suo
+*.sdf
 /Rear_End/Rear_End/Debug
+/Temp1001/Temp1001/Debug
+/Temp1001/Temp1001/res
 *.temp
