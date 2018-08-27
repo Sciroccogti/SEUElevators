@@ -3,11 +3,10 @@
 #define PEOPLE_H 
 
 #include "Elevator.h"
+#include "List.h"
 
 class People
 {
-//protected:
-//TODO：改为protected++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 protected://调试时使用
 	int presflr;			//所在层
 	int objflr;				//目标层
@@ -17,17 +16,21 @@ protected://调试时使用
 
 public:
 	People();				//构造
+	void Check(Elevator <People> *p);//轮询电梯
 	int Direction(){return direction;}
-	void Check(Elevator *p);//轮询电梯
+	int Objflr(){return objflr;}
+	int Presflr(){return presflr;}
+	void Arrange(){condition = WAITING;}
+	People *pNext;
+	People *pFront;
 };
 
-list <People> *Up[N] = {new list <People>};
-list <People> *Down[N] = {new list <People>};
-list <People> NotArranged = new list <People>;
+List <People> *Up[N] = {new List <People>};
+List <People> *Down[N] = {new List <People>};
+List <People> *NotArranged = new List <People>;
 
 People::People()
 {
-	Elevator e1(1);
 	//随机生成所在层与目标层
 	presflr = rand() % L + 1;
 	do{
@@ -42,10 +45,12 @@ People::People()
 	//TODO：改为正态分布+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//cout<<presflr<<endl<<objflr<<endl<<direction<<endl<<weight<<endl;//测试用代码
 
-	condition = 0;
+	condition = NOTARRANGED;
+	pFront = NULL;
+	pNext = NULL;
 }
 
-void People::Check(Elevator *p)
+void People::Check(Elevator <People> *p)
 {
 	int i, j = -1;
 

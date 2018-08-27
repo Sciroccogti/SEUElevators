@@ -1,4 +1,4 @@
-﻿#include "Elevator.h"
+﻿#include "People.h"
 
 List <People> ListUp, ListDown;
 
@@ -24,15 +24,15 @@ void Refresh()
 }
 
 int main(){
-	Elevator *e[N];
+	Elevator <People> *e[N];
 	int i;
 	for(i = 0; i < N; i++){
 		if(i < N / 3){
-			e[i] = new Elevator(i, 1);
+			e[i] = new Elevator <People> (i, 1);
 		}else if(i > 2 * N / 3){
-			e[i] = new Elevator(i, L);
+			e[i] = new Elevator <People> (i, L);
 		}else{
-			e[i] = new Elevator(i, L / 2);
+			e[i] = new Elevator <People> (i, L / 2);
 		}
 	}
 	return 0;
