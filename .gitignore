@@ -1,7 +1,13 @@
 /Rear_End/Debug
 /Rear_End/ipch
-*.suo
-*.sdf
 /Rear_End/Rear_End/Debug
 /Temp1001/Temp1001/Debug
+/Temp1001/ipch
+*.aps
+*.exe
+*.ilk
+*.opensdf
+*.pdb
+*.suo
+*.sdf
 *.temp
