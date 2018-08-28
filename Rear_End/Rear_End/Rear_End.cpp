@@ -23,17 +23,24 @@ void Refresh()
 	}
 }
 
-int main(){
-	Elevator <People> *e[N];
+void Initialize(Elevator <People> *e[N])
+{
 	int i;
 	for(i = 0; i < N; i++){
 		if(i < N / 3){
 			e[i] = new Elevator <People> (i, 1);
-		}else if(i > 2 * N / 3){
+		}else if(i >= 2 * N / 3){
 			e[i] = new Elevator <People> (i, L);
 		}else{
 			e[i] = new Elevator <People> (i, L / 2);
 		}
 	}
+}
+
+int main(){
+	Elevator <People> *e[N];
+	Initialize(e);
+	People p;
+	p.Check(*e);
 	return 0;
 }

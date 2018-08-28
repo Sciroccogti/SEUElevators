@@ -52,13 +52,19 @@ People::People()
 
 void People::Check(Elevator <People> *p)
 {
-	int i, j = -1;
+	int i, j = -1;//j用于存储准备调用的电梯编号
 
 	for(i = 0; i < N; i++){
 		if(!p[i].IsFull(weight)){
 			if(p[i].Direction() == direction){
-				if((objflr - p[i].Objflr()) * direction > 0){
-					if(j < 0 || (p[i].Objflr() - p[j].Objflr()) * direction > 0){
+				if((presflr - p[i].Presflr()) * direction > 0){
+					if(j < 0 || (p[i].Presflr() - p[j].Presflr()) * direction > 0){
+						j = i;
+					}
+				}
+			}else if (!p[i].Direction()){
+				if ((presflr - p[i].Presflr()) * direction > 0){
+					if(j < 0 || (p[i].Presflr() - p[j].Presflr()) * direction > 0){
 						j = i;
 					}
 				}

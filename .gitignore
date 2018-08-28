@@ -6,6 +6,7 @@
 *.aps
 *.exe
 *.ilk
+*.json
 *.opensdf
 *.pdb
 *.suo

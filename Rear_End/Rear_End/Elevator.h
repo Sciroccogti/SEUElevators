@@ -49,7 +49,14 @@ public:
 		waiting += T;
 	}
 
-	void Change();			//电梯改变状态
+	void Change(){			//电梯改变状态
+		TYPE *i;
+		for(i = Up[num]->pHead; i <= Up[num]->pRear; i++){
+			if (i->Presflr() == presflr){
+				
+			}
+		}
+	}
 
 	void Continue(){//电梯续航
 		if(waiting != 0){
@@ -61,7 +68,7 @@ public:
 					}
 
 					if(waiting % T){//寻找待上乘客
-						People *i;
+						TYPE *i;
 						for(i = Up[num]->pHead; i <= Up[num]->pRear; i++){
 							if (i->Presflr() == presflr){
 								i->Arrange();
@@ -79,7 +86,7 @@ public:
 					}
 
 					if(waiting % T){//寻找待下乘客
-						People *i;
+						TYPE *i;
 						for(i = Down[num]->pHead; i <= Down[num]->pRear; i++){
 							if (i->Objflr() == presflr){
 								Down[num]->dele(i);
@@ -103,6 +110,7 @@ public:
 	bool IsFull(int weight1){return MAX - total < weight1;}
 	int Direction(){return direction;}
 	int Objflr(){return objflr;}
+	int Presflr(){return presflr;}
 };
 
 #endif
