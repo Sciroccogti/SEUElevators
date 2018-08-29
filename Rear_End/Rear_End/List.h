@@ -87,21 +87,15 @@ public:
 		{
 			if(p == pHead)
 			{
-				TYPE* pCur = pHead;
 				pHead = pHead->pNext;
-				delete pCur;
 			}
 			else if(p == pRear)
 			{
-				TYPE* pCur = pRear;
 				pRear = pRear->pFront;
-				delete pCur;
 			}
 			else
 			{
-				TYPE* pCur = p;
 				p->pFront->pNext = p->pNext;
-				delete pCur;
 			}
 		}
 	}

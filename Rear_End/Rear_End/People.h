@@ -17,9 +17,11 @@ protected://调试时使用
 public:
 	People();				//构造
 	void Check(Elevator <People> *p);//轮询电梯
+	void Delete();//从链表中移除
 	int Direction(){return direction;}
 	int Objflr(){return objflr;}
 	int Presflr(){return presflr;}
+	int Weight(){return weight;}
 	void Arrange(){condition = WAITING;}
 	People *pNext;
 	People *pFront;
@@ -28,6 +30,8 @@ public:
 List <People> *Up[N] = {new List <People>};
 List <People> *Down[N] = {new List <People>};
 List <People> *NotArranged = new List <People>;
+
+List <People> ListUp, ListDown;
 
 People::People()
 {
@@ -84,6 +88,14 @@ void People::Check(Elevator <People> *p)
 	}
 }
 
-
+void People::Delete()
+{
+	if (direction == UP)
+	{
+		ListUp.dele(this);
+	}else{
+		ListDown.dele(this);
+	}
+}
 
 #endif

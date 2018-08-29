@@ -1,6 +1,5 @@
 ﻿#include "People.h"
 
-List <People> ListUp, ListDown;
 
 void Refresh()
 {
