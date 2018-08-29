@@ -37,29 +37,33 @@ public:
 
 	void Change(){			//电梯改变状态
 		TYPE *i;
-		for(i = Up[num]->pHead; i; i = i->pNext){
-			if (i->Presflr() == presflr && condition == STOP && !waiting){//上当前楼层的乘客
-				condition == ON;
-				waiting += T;
-				total += i->Weight();
-				if ((i->Objflr() - objflr) * direction < 0){//更改目标楼层
-					objflr = i->Objflr();
+		if(Up[num]->pHead){
+			for(i = Up[num]->pHead; i; i = i->pNext){
+				if (i->Presflr() == presflr && condition == STOP && !waiting){//上当前楼层的乘客
+					condition == ON;
+					waiting += T;
+					total += i->Weight();
+					if ((i->Objflr() - objflr) * direction < 0){//更改目标楼层
+						objflr = i->Objflr();
+					}
+				}else if (!direction && !condition && !objflr){//更改目标楼层并开动电梯
+					objflr = i->Presflr();
+					direction = objflr > presflr ? UP : DOWN;
 				}
-			}else if (!direction && !condition && !objflr){//更改目标楼层并开动电梯
-				objflr = i->Presflr();
-				direction = objflr > presflr ? UP : DOWN;
-			}
+			}		
 		}
-
-		for(i = Down[num]->pHead; i; i = i->pNext) {
-			if (i->Objflr() == presflr && !condition){//下客
-				condition == OFF;
-				waiting += T;
-				total -= i->Weight();
-			}else if (!waiting && (i->Objflr() - objflr) * direction >= 0){//到下一个目标楼层
-				objflr = i->Objflr();
-				direction = objflr - presflr > 0 ? UP : DOWN;
-				waiting += S;
+		
+		if(Down[num]->pHead){
+			for(i = Down[num]->pHead; i; i = i->pNext) {
+				if (i->Objflr() == presflr && !condition){//下客
+					condition == OFF;
+					waiting += T;
+					total -= i->Weight();
+				}else if (!waiting && (i->Objflr() - objflr) * direction >= 0){//到下一个目标楼层
+					objflr = i->Objflr();
+					direction = objflr - presflr > 0 ? UP : DOWN;
+					waiting += S;
+				}
 			}
 		}
 	}

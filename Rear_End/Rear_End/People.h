@@ -4,6 +4,7 @@
 
 #include "Elevator.h"
 #include "List.h"
+#include <cmath>
 
 class People
 {
@@ -16,7 +17,7 @@ protected://调试时使用
 
 public:
 	People();				//构造
-	void Check(Elevator <People> *p);//轮询电梯
+	void Check(Elevator <People> *e[N]);//轮询电梯
 	void Delete();//从链表中移除
 	int Direction(){return direction;}
 	int Objflr(){return objflr;}
@@ -27,8 +28,8 @@ public:
 	People *pFront;
 };
 
-List <People> *Up[N] = {new List <People>};
-List <People> *Down[N] = {new List <People>};
+List <People> *Up[N] = {new List <People>, new List <People>, new List <People>};
+List <People> *Down[N] = {new List <People>, new List <People>, new List <People>};
 List <People> *NotArranged = new List <People>;
 
 List <People> ListUp, ListDown;
@@ -40,7 +41,6 @@ People::People()
 	do{
 		objflr = rand() % L +1;
 	}while(presflr == objflr);
-
 	//生成方向
 	direction = presflr < objflr ? UP : DOWN;
 
@@ -54,23 +54,21 @@ People::People()
 	pNext = NULL;
 }
 
-void People::Check(Elevator <People> *p)
+void People::Check(Elevator <People> *e[N])
 {
 	int i, j = -1;//j用于存储准备调用的电梯编号
 
 	for(i = 0; i < N; i++){
-		if(!p[i].IsFull(weight)){
-			if(p[i].Direction() == direction){
-				if((presflr - p[i].Presflr()) * direction > 0){
-					if(j < 0 || (p[i].Presflr() - p[j].Presflr()) * direction > 0){
+		if(!e[i]->IsFull(weight)){
+			if(e[i]->Direction() == direction){
+				if((presflr - e[i]->Presflr()) * direction > 0){
+					if(j < 0 || (e[i]->Presflr() - e[j]->Presflr()) * direction > 0){
 						j = i;
 					}
 				}
-			}else if (!p[i].Direction()){
-				if ((presflr - p[i].Presflr()) * direction > 0){
-					if(j < 0 || (p[i].Presflr() - p[j].Presflr()) * direction > 0){
-						j = i;
-					}
+			}else if (!e[i]->Direction()){
+				if(j < 0 || abs(e[i]->Presflr() - presflr) < abs(e[j]->Presflr() - presflr)){
+					j = i;
 				}
 			}
 		}
@@ -78,11 +76,7 @@ void People::Check(Elevator <People> *p)
 
 	if(j >= 0){
 		condition = 1;
-		if (direction == UP){
-			Up[j]->push_back(this);
-		}else{
-			Down[j]->push_back(this);
-		}
+		Up[j]->push_back(this);
 	}else{
 		NotArranged->push_back(this);
 	}

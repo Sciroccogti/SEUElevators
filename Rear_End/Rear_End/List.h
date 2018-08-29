@@ -17,7 +17,6 @@ public:
 		{
 			TYPE* pCur=pHead;
 			pHead=pHead->pNext;
-			delete pCur;
 		}
 		pRear=NULL;
 		num=0;
