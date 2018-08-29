@@ -50,12 +50,13 @@ public:
 	}
 	*/
 	void push_back(TYPE *p){
-		if (pHead == pRear)
+		if (!pHead && !pRear)
 		{
 			pHead = pRear = p;
 		}else{
-			pRear = p;
 			p->pFront = pRear;
+			pRear->pNext = p;
+			pRear = p;
 		}
 	}
 	/*

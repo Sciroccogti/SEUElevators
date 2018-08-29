@@ -56,8 +56,10 @@ public:
 				condition == OFF;
 				waiting += T;
 				total -= i->Weight();
-			}else if (!waiting && ){//到下一个目标楼层
-				direction 
+			}else if (!waiting && (i->Objflr() - objflr) * direction >= 0){//到下一个目标楼层
+				objflr = i->Objflr();
+				direction = objflr - presflr > 0 ? UP : DOWN;
+				waiting += S;
 			}
 		}
 	}
@@ -102,8 +104,10 @@ public:
 				waiting--;
 				time++;
 				presflr += (1 / S)* direction;
-				if (!waiting){
+				if (!waiting && presflr == objflr){
 					direction = STOP;
+				}else if (!waiting){
+					waiting += S;
 				}
 			}
 		}

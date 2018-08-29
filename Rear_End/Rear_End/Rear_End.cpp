@@ -22,7 +22,7 @@ void Refresh()
 	}
 }
 
-void Initialize(Elevator <People> *e[N])
+void Initialize(Elevator <People> *e[N])//初始化电梯
 {
 	int i;
 	for(i = 0; i < N; i++){
@@ -36,10 +36,24 @@ void Initialize(Elevator <People> *e[N])
 	}
 }
 
+void Show(int *n)//显示各层等待人数
+{
+	People *i;
+	for(i = ListUp.pHead; i; i = i->pNext){
+		n[i->Presflr() - 1]++;
+	}
+	for(i = ListDown.pHead; i; i = i->pNext){
+		n[i->Presflr() - 1]++;
+	}
+}
+
 int main(){
-	Elevator <People> *e[N];
-	Initialize(e);
-	People p;
-	p.Check(*e);
+	Refresh();
+	int n[L + 1] = {0}, i;
+	Show(n);
+	for (i = 1; i <= L; i++)
+	{
+		cout<<i<<"\t"<<n[i]<<"\n";
+	}
 	return 0;
 }
