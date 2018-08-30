@@ -5,6 +5,7 @@
 #include "Temp1001.h"
 #include "Dialogmain.h"
 #include "afxdialogex.h"
+#include "People.h"
 
 
 // CDialogmain 对话框
@@ -101,7 +102,30 @@ void CDialogmain::OnClickedStart()            //程序启动函数；此后所有运算都在此
 	//一些初始化工作在此函数内完成
 {
 	// TODO: 在此添加控件通知处理程序代码
-	//SetTimer(1,1000,NULL);              //计时器设定，执行此语句后，跳入OnTimer函数中
+              //计时器设定，执行此语句后，跳入OnTimer函数中
+	Elevator <People> *e[N];
+	Ini(e);
+	int n[L + 1] = {0};
+
+	SetTimer(1,1000,NULL);//计时器设定，执行此语句后，跳入OnTimer函数中
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//以下为测试代码
 	/*MoveUp(1);
 	MoveUp(1);
@@ -135,29 +159,11 @@ void CDialogmain::OnBnClickedOk()	//点击结束按钮时执行的操作放入此函数中
 void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //计时器函数，主要部分。。。
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	/*Vtime++;
-	if(!(Vtime%3))
-	{
-		int nPos=m_PrEle1.GetPos();
-		int nLow,nUp;
-		m_PrEle1.GetRange(nLow,nUp);
-		if(nIDEvent==1)
-		nPos+=1;
-		if(nIDEvent==2)
-		nPos-=1;
-		if(nPos>nUp)
-		{	
-			nPos=nUp;
-			KillTimer(1);
-		}
-		if(nPos<=nLow)
-		{
-			nPos=nLow+1;
-			KillTimer(2);
-		}
-		m_PrEle1.SetPos(nPos);
-		/*m_Pos=nPos;
-		UpdateData(FALSE);*/
+	Refresh(e);
+	for(i = 0; i < N; i++){
+		e[i]->Change();
+		e[i]->Continue();
+	}
 	CDialogEx::OnTimer(nIDEvent);
 }
 
