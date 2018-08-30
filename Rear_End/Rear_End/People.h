@@ -26,12 +26,12 @@ public:
 	void Arrange(){condition = WAITING;}
 	People *pNext;//供ListUp/Down使用
 	People *pFront;//供ListUp/Down使用
-	People *next;//供Up/Down使用
-	People *prev;//供Up/Down使用
+	People *next;//供Board/Drop使用
+	People *prev;//供Board/Drop使用
 };
 
-List <People> *Up[N] = {new List <People>, new List <People>, new List <People>};
-List <People> *Down[N] = {new List <People>, new List <People>, new List <People>};
+List <People> *Board[N] = {new List <People>, new List <People>, new List <People>};
+List <People> *Drop[N] = {new List <People>, new List <People>, new List <People>};
 
 List <People> ListUp, ListDown, NotArranged;
 
@@ -76,9 +76,9 @@ void People::Check(Elevator <People> *e[N])
 
 	if(j >= 0){
 		condition = 1;
-		Up[j]->push_back(this, MODEUD);
+		Board[j]->push_back(this, MODEBD);
 	}else{
-		NotArranged.push_back(this, MODEUD);
+		NotArranged.push_back(this, MODEBD);
 	}
 }
 /*
@@ -92,7 +92,7 @@ void People::Delete(int mode)
 		}else{
 			ListDown.dele(this);
 		}
-	}else if (mode == MODEUD)
+	}else if (mode == MODEBD)
 	{
 
 	}

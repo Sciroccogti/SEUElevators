@@ -16,7 +16,7 @@
 #define WAITING 0
 #define IN 1
 
-#define MODEUD 1
+#define MODEBD 1
 #define MODELIST 2
 
 #define N 3			//电梯数量

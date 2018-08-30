@@ -19,7 +19,7 @@ void Refresh(Elevator <People> *e[N])
 			ListDown.push_back(p, MODELIST);
 		}
 		p->Check(e);
-		
+		cout<<p->Presflr()<<"\t"<<p->Objflr()<<"\n";
 	}
 }
 
@@ -51,8 +51,9 @@ void Show(int *n)//显示各层等待人数
 int main(){
 	Elevator <People> *e[N];
 	Initialize(e);
-	Refresh(e);	
 	int n[L + 1] = {0}, i;
+	Refresh(e);	
+	cout<<endl;
 	Show(n);
 	for (i = 1; i <= L; i++){
 		cout<<i<<"\t"<<n[i]<<"\n";
@@ -63,7 +64,53 @@ int main(){
 		cout<<i<<"\t"<<e[i]->Presflr()<<"\t";
 		e[i]->Change();
 		e[i]->Continue();
-		cout<<e[i]->Objflr()<<"\n";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+	}
+	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<e[i]->Presflr()<<"\t";
+		e[i]->Change();
+		e[i]->Continue();
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+	}	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<e[i]->Presflr()<<"\t";
+		e[i]->Change();
+		e[i]->Continue();
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+	}	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<e[i]->Presflr()<<"\t";
+		e[i]->Change();
+		e[i]->Continue();
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+	}
+	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<e[i]->Presflr()<<"\t";
+		e[i]->Change();
+		e[i]->Continue();
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+	}
+	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<e[i]->Presflr()<<"\t";
+		e[i]->Change();
+		e[i]->Continue();
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+	}
+	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<e[i]->Presflr()<<"\t";
+		e[i]->Change();
+		e[i]->Continue();
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+	}
+	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<e[i]->Presflr()<<"\t";
+		e[i]->Change();
+		e[i]->Continue();
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+	}
+	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<e[i]->Presflr()<<"\t";
+		e[i]->Change();
+		e[i]->Continue();
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
 	}
 	return 0;
 }

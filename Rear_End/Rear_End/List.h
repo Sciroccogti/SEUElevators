@@ -58,7 +58,7 @@ public:
 				p->pFront = pRear;
 				pRear->pNext = p;
 				pRear = p;
-			}else if(mode == MODEUD){
+			}else if(mode == MODEBD){
 				p->prev = pRear;
 				pRear->next = p;
 				pRear = p;
@@ -108,7 +108,7 @@ public:
 					p->pFront->pNext = p->pNext;
 				}
 			}
-		}else if (mode ==MODEUD)
+		}else if (mode ==MODEBD)
 		{
 			if(p && pHead && pRear)
 			{

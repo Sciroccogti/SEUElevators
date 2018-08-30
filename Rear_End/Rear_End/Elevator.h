@@ -7,7 +7,8 @@
 template <class TYPE>
 class Elevator
 {
-protected:
+//protected:
+public:
 	int num;		//编号
 	int total;		//总重
 	double presflr;	//所在层
@@ -37,8 +38,8 @@ public:
 
 	void Change(){			//电梯改变状态
 		TYPE *i;
-		if(Up[num]->pHead){
-			for(i = Up[num]->pHead; i; i = i->pNext){
+		if(Board[num]->pHead){
+			for(i = Board[num]->pHead; i; i = i->pNext){
 				if (i->Presflr() == presflr && condition == STOP && !waiting){//上当前楼层的乘客
 					condition = ON;
 					waiting += T;
@@ -49,12 +50,13 @@ public:
 				}else if (!direction && !condition && !objflr){//更改目标楼层并开动电梯
 					objflr = i->Presflr();
 					direction = objflr > presflr ? UP : DOWN;
+					waiting += S;
 				}
 			}		
 		}
 		
-		if(Down[num]->pHead){
-			for(i = Down[num]->pHead; i; i = i->pNext) {
+		if(Drop[num]->pHead){
+			for(i = Drop[num]->pHead; i; i = i->pNext) {
 				if (i->Objflr() == presflr && !condition){//下客
 					condition = OFF;
 					waiting += T;
@@ -71,33 +73,35 @@ public:
 	void Continue(){//电梯续航
 		if(waiting != 0){
 			if(direction == STOP){
-				if(condition = ON){//上客
+				if(condition == ON){//上客
 					waiting --;
 					if(waiting == 0){//寻找待上乘客
 						condition = STOP;
 						TYPE *i;
-						for(i = Up[num]->pHead; i; i = i->pNext){
+						for(i = Board[num]->pHead; i; i = i->pNext){
 							if (i->Presflr() == presflr){
 								i->Arrange();
-								Up[num]->Delete(i, MODEUD);
-								Down[num]->push_back(i, MODEUD);
+								Board[num]->Delete(i, MODEBD);
+								Drop[num]->push_back(i, MODEBD);
 							}
 						}
 					}
 				}
 
-				if(condition = OFF){//下客
+				if(condition == OFF){//下客
 					waiting --;			
 					if(waiting == 0){//寻找待下乘客
 						condition = STOP;
 						TYPE *i, *j;
-						for(i = Down[num]->pHead; i; i = i->pNext){
+						for(i = Drop[num]->pHead; i; i = i->pNext){
 							if (i->Objflr() == presflr){
 								j = i;
 								i = j->pFront;
-								Down[num]->Delete(j, MODEUD);
+								Drop[num]->Delete(j, MODEBD);
 								if (j->Direction() == UP){
 									ListUp.Delete(j, MODELIST);
+								}else{
+									ListDown.Delete(j, MODELIST);
 								}
 								delete j;
 								j = NULL;
@@ -109,8 +113,9 @@ public:
 			{
 				waiting--;
 				time++;
-				presflr += (1 / S)* direction;
+				presflr += (1 / (double)S)* direction;
 				if (!waiting && presflr == objflr){
+					objflr = 0;
 					direction = STOP;
 				}else if (!waiting){
 					waiting += S;
