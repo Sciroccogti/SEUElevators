@@ -48,14 +48,22 @@ public:
 		}
 	}
 	*/
-	void push_back(TYPE *p){
+	void push_back(TYPE *p, int mode){
 		if (!pHead && !pRear)
 		{
 			pHead = pRear = p;
 		}else{
-			p->pFront = pRear;
-			pRear->pNext = p;
-			pRear = p;
+			if (mode == MODELIST)
+			{
+				p->pFront = pRear;
+				pRear->pNext = p;
+				pRear = p;
+			}else if(mode == MODEUD){
+				p->prev = pRear;
+				pRear->next = p;
+				pRear = p;
+			}
+
 		}
 	}
 	/*
@@ -82,22 +90,43 @@ public:
 		cout<<"*******************************************************************"<<endl;
 	}
 	*/
-	void dele(TYPE* p){
-		if(p && pHead && pRear)
+	void Delete(TYPE* p, int mode){
+		if (mode == MODELIST)
 		{
-			if(p == pHead)
+			if(p && pHead && pRear)
 			{
-				pHead = pHead->pNext;
+				if(p == pHead)
+				{
+					pHead = pHead->pNext;
+				}
+				else if(p == pRear)
+				{
+					pRear = pRear->pFront;
+				}
+				else
+				{
+					p->pFront->pNext = p->pNext;
+				}
 			}
-			else if(p == pRear)
+		}else if (mode ==MODEUD)
+		{
+			if(p && pHead && pRear)
 			{
-				pRear = pRear->pFront;
-			}
-			else
-			{
-				p->pFront->pNext = p->pNext;
+				if(p == pHead)
+				{
+					pHead = pHead->next;
+				}
+				else if(p == pRear)
+				{
+					pRear = pRear->prev;
+				}
+				else
+				{
+					p->prev->next = p->next;
+				}
 			}
 		}
+		
 	}
 
 };

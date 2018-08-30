@@ -5,7 +5,7 @@ void Refresh(Elevator <People> *e[N])
 {
 	//srand((int)time(0));	//备用方法
 	//int n = rand() % TOP;	//备用方法
-	int n = 30;
+	int n = 9;
 	//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	int i = 0;
@@ -14,12 +14,12 @@ void Refresh(Elevator <People> *e[N])
 	while(i++ < n){
 		p = new People;
 		if(p->Direction() == UP){
-			ListUp.push_back(p);
+			ListUp.push_back(p, MODELIST);
 		}else{
-			ListDown.push_back(p);
+			ListDown.push_back(p, MODELIST);
 		}
 		p->Check(e);
-		//cout<<p->weight<<"\t"<<p->objflr<<endl;//测试用代码
+		
 	}
 }
 
@@ -51,25 +51,14 @@ void Show(int *n)//显示各层等待人数
 int main(){
 	Elevator <People> *e[N];
 	Initialize(e);
-	Refresh(e);
+	Refresh(e);	
 	int n[L + 1] = {0}, i;
 	Show(n);
 	for (i = 1; i <= L; i++){
 		cout<<i<<"\t"<<n[i]<<"\n";
 	}
+
 	cout<<"\n";
-	for(i = 0; i < N; i++){
-		cout<<i<<"\t"<<e[i]->Presflr()<<"\t";
-		e[i]->Change();
-		e[i]->Continue();
-		cout<<e[i]->Objflr()<<"\n";
-	}
-	for(i = 0; i < N; i++){
-		cout<<i<<"\t"<<e[i]->Presflr()<<"\t";
-		e[i]->Change();
-		e[i]->Continue();
-		cout<<e[i]->Objflr()<<"\n";
-	}
 	for(i = 0; i < N; i++){
 		cout<<i<<"\t"<<e[i]->Presflr()<<"\t";
 		e[i]->Change();

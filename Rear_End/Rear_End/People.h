@@ -24,15 +24,16 @@ public:
 	int Presflr(){return presflr;}
 	int Weight(){return weight;}
 	void Arrange(){condition = WAITING;}
-	People *pNext;
-	People *pFront;
+	People *pNext;//供ListUp/Down使用
+	People *pFront;//供ListUp/Down使用
+	People *next;//供Up/Down使用
+	People *prev;//供Up/Down使用
 };
 
 List <People> *Up[N] = {new List <People>, new List <People>, new List <People>};
 List <People> *Down[N] = {new List <People>, new List <People>, new List <People>};
-List <People> *NotArranged = new List <People>;
 
-List <People> ListUp, ListDown;
+List <People> ListUp, ListDown, NotArranged;
 
 People::People()
 {
@@ -50,8 +51,7 @@ People::People()
 	//cout<<presflr<<endl<<objflr<<endl<<direction<<endl<<weight<<endl;//测试用代码
 
 	condition = NOTARRANGED;
-	pFront = NULL;
-	pNext = NULL;
+	pFront = pNext = prev = next = NULL;
 }
 
 void People::Check(Elevator <People> *e[N])
@@ -76,20 +76,27 @@ void People::Check(Elevator <People> *e[N])
 
 	if(j >= 0){
 		condition = 1;
-		Up[j]->push_back(this);
+		Up[j]->push_back(this, MODEUD);
 	}else{
-		NotArranged->push_back(this);
+		NotArranged.push_back(this, MODEUD);
 	}
 }
-
-void People::Delete()
+/*
+void People::Delete(int mode)
 {
-	if (direction == UP)
+	if (mode == MODELIST)
 	{
-		ListUp.dele(this);
-	}else{
-		ListDown.dele(this);
-	}
-}
+		if (direction == UP)
+		{
+			ListUp.dele(this);
+		}else{
+			ListDown.dele(this);
+		}
+	}else if (mode == MODEUD)
+	{
 
+	}
+	
+}
+*/
 #endif

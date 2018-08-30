@@ -40,7 +40,7 @@ public:
 		if(Up[num]->pHead){
 			for(i = Up[num]->pHead; i; i = i->pNext){
 				if (i->Presflr() == presflr && condition == STOP && !waiting){//上当前楼层的乘客
-					condition == ON;
+					condition = ON;
 					waiting += T;
 					total += i->Weight();
 					if ((i->Objflr() - objflr) * direction < 0){//更改目标楼层
@@ -56,7 +56,7 @@ public:
 		if(Down[num]->pHead){
 			for(i = Down[num]->pHead; i; i = i->pNext) {
 				if (i->Objflr() == presflr && !condition){//下客
-					condition == OFF;
+					condition = OFF;
 					waiting += T;
 					total -= i->Weight();
 				}else if (!waiting && (i->Objflr() - objflr) * direction >= 0){//到下一个目标楼层
@@ -79,8 +79,8 @@ public:
 						for(i = Up[num]->pHead; i; i = i->pNext){
 							if (i->Presflr() == presflr){
 								i->Arrange();
-								Up[num]->dele(i);
-								Down[num]->push_back(i);
+								Up[num]->Delete(i, MODEUD);
+								Down[num]->push_back(i, MODEUD);
 							}
 						}
 					}
@@ -95,8 +95,10 @@ public:
 							if (i->Objflr() == presflr){
 								j = i;
 								i = j->pFront;
-								Down[num]->dele(j);
-								j->Delete();
+								Down[num]->Delete(j, MODEUD);
+								if (j->Direction() == UP){
+									ListUp.Delete(j, MODELIST);
+								}
 								delete j;
 								j = NULL;
 							}
