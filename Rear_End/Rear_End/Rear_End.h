@@ -14,7 +14,7 @@
 
 #define NOTARRANGED -1
 #define WAITING 0
-#define IN 1
+#define INELE 1
 
 #define MODEBD 1
 #define MODELIST 2
