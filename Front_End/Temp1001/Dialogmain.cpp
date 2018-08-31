@@ -16,6 +16,12 @@ CDialogmain::CDialogmain(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CDialogmain::IDD, pParent)
 	, Vtime(0)
 	, p(NULL)
+	, PrevCondition1(0)
+	, PrevCondition2(0)
+	, PrevCondition3(0)
+	, PrevFrontCondition1(0)
+	, PrevFrontCondition2(0)
+	, PrevFrontCondition3(0)
 {
 
 	m_Flrnum1 = 0;
@@ -43,6 +49,11 @@ CDialogmain::CDialogmain(CWnd* pParent /*=NULL*/)
 	m_time1 = 0;
 	m_time3 = 0;
 	m_time2 = 0;
+	for(int i=0;i<3;i++)
+	{
+		PrevCondition[i]=0;
+		PrevFrontCondition[i]=0;
+	}
 }
 
 CDialogmain::~CDialogmain()
@@ -98,17 +109,19 @@ END_MESSAGE_MAP()
 // CDialogmain ÏûÏ¢´¦Àí³ÌĞò
 
 /******************************************************************************************/
+Elevator <People> *e[N];
 void CDialogmain::OnClickedStart()            //³ÌĞòÆô¶¯º¯Êı£»´ËºóËùÓĞÔËËã¶¼ÔÚ´ËºóÔËĞĞ
 	//Ò»Ğ©³õÊ¼»¯¹¤×÷ÔÚ´Ëº¯ÊıÄÚÍê³É
 {
 	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
               //¼ÆÊ±Æ÷Éè¶¨£¬Ö´ĞĞ´ËÓï¾äºó£¬ÌøÈëOnTimerº¯ÊıÖĞ
-	Elevator <People> *e[N];
+	//Elevator <People> *e[N];
 	Ini(e);
 	int n[L + 1] = {0};
+	Connection(n);
 
 	SetTimer(1,1000,NULL);//¼ÆÊ±Æ÷Éè¶¨£¬Ö´ĞĞ´ËÓï¾äºó£¬ÌøÈëOnTimerº¯ÊıÖĞ
-
+	
 
 	
 	
@@ -152,6 +165,7 @@ void CDialogmain::OnClickedStart()            //³ÌĞòÆô¶¯º¯Êı£»´ËºóËùÓĞÔËËã¶¼ÔÚ´Ë
 void CDialogmain::OnBnClickedOk()	//µã»÷½áÊø°´Å¥Ê±Ö´ĞĞµÄ²Ù×÷·ÅÈë´Ëº¯ÊıÖĞ
 {
 	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	KillTimer(1);
 	CDialogEx::OnOK();
 }
 
@@ -160,10 +174,33 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //¼ÆÊ±Æ÷º¯Êı£¬Ö÷Òª²¿·Ö¡£¡£¡£
 {
 	// TODO: ÔÚ´ËÌí¼ÓÏûÏ¢´¦Àí³ÌĞò´úÂëºÍ/»òµ÷ÓÃÄ¬ÈÏÖµ
 	Refresh(e);
-	for(i = 0; i < N; i++){
+	//Vtime++;
+	for(int i = 0; i < N; i++){
 		e[i]->Change();
 		e[i]->Continue();
+
+
+		if(e[i]->condition==UP&&PrevCondition[i]==UP&&PrevFrontCondition[i]==UP)
+			MoveUp(e[i]->num);
+		if(e[i]->condition==DOWN&&PrevCondition[i]==DOWN&&PrevFrontCondition[i]==DOWN)
+			MoveDown(e[i]->num);
+		if(e[i]->condition==STOP)
+			Stop(e[i]->num);
+		if(e[i]->condition==ON||OFF&&PrevCondition[i]==ON||OFF)
+			Loading(e[i]->num);
+		PrevFrontCondition[i]=PrevCondition[i];
+		PrevCondition[i]=e[i]->condition;
+		SetTime(e[i]->num,e[i]->time);
+
+	
 	}
+	
+
+
+
+
+
+
 	CDialogEx::OnTimer(nIDEvent);
 }
 
@@ -180,9 +217,11 @@ void CDialogmain::MoveUp(int num)//ÏòÉÏÒ»²ãµÄº¯Êı£¬µçÌİºó¶Ë×´Ì¬ÎªÉÏÉıÊ±£¬Ã¿ÈıÃëÖ
 		if(nPos>nUp)
 		{	
 			nPos=nUp;
+			m_EditCondition1.SetWindowText(L"Í£Ö¹");
+		}else{
+		m_EditCondition1.SetWindowText(L"ÉÏÉıÖĞ");
 		}
 		m_PrEle1.SetPos(nPos);
-		m_EditCondition1.SetWindowText(L"ÉÏÉıÖĞ");
 	}
 	if(num==2)
 	{
@@ -193,9 +232,12 @@ void CDialogmain::MoveUp(int num)//ÏòÉÏÒ»²ãµÄº¯Êı£¬µçÌİºó¶Ë×´Ì¬ÎªÉÏÉıÊ±£¬Ã¿ÈıÃëÖ
 		if(nPos>nUp)
 		{	
 			nPos=nUp;
+			m_EditCondition2.SetWindowText(L"Í£Ö¹");
+		}else{
+		m_EditCondition2.SetWindowText(L"ÉÏÉıÖĞ");
 		}
 		m_PrEle2.SetPos(nPos);
-		m_EditCondition2.SetWindowText(L"ÉÏÉıÖĞ");
+
 	}
 	if(num==3)
 	{
@@ -206,9 +248,11 @@ void CDialogmain::MoveUp(int num)//ÏòÉÏÒ»²ãµÄº¯Êı£¬µçÌİºó¶Ë×´Ì¬ÎªÉÏÉıÊ±£¬Ã¿ÈıÃëÖ
 		if(nPos>nUp)
 		{	
 			nPos=nUp;
+			m_EditCondition3.SetWindowText(L"Í£Ö¹");
+		}else{
+		m_EditCondition3.SetWindowText(L"ÉÏÉıÖĞ");
 		}
 		m_PrEle3.SetPos(nPos);
-		m_EditCondition3.SetWindowText(L"ÉÏÉıÖĞ");
 	}
 }
 
@@ -244,9 +288,12 @@ void CDialogmain::MoveDown(int num)//µçÌİÏòÏÂµÄº¯Êı£¬ËµÃ÷Í¬MoveUp
 		if(nPos<=nLow)
 		{
 			nPos=nLow+1;
+			m_EditCondition1.SetWindowText(L"Í£Ö¹");
+		}
+		else{
+		m_EditCondition1.SetWindowText(L"ÏÂ½µÖĞ");
 		}
 		m_PrEle1.SetPos(nPos);
-		m_EditCondition1.SetWindowText(L"ÏÂ½µÖĞ");
 	}
 	if(num==2)
 	{
@@ -257,9 +304,12 @@ void CDialogmain::MoveDown(int num)//µçÌİÏòÏÂµÄº¯Êı£¬ËµÃ÷Í¬MoveUp
 		if(nPos<=nLow)
 		{
 			nPos=nLow+1;
+			m_EditCondition2.SetWindowText(L"Í£Ö¹");
+		}
+		else{
+		m_EditCondition2.SetWindowText(L"ÏÂ½µÖĞ");
 		}
 		m_PrEle2.SetPos(nPos);
-		m_EditCondition2.SetWindowText(L"ÏÂ½µÖĞ");
 	}
 	if(num==3)
 	{
@@ -270,9 +320,12 @@ void CDialogmain::MoveDown(int num)//µçÌİÏòÏÂµÄº¯Êı£¬ËµÃ÷Í¬MoveUp
 		if(nPos<=nLow)
 		{
 			nPos=nLow+1;
+			m_EditCondition3.SetWindowText(L"Í£Ö¹");
+		}
+		else{
+		m_EditCondition3.SetWindowText(L"ÏÂ½µÖĞ");
 		}
 		m_PrEle3.SetPos(nPos);
-		m_EditCondition3.SetWindowText(L"ÏÂ½µÖĞ");
 	}
 }
 
@@ -292,17 +345,17 @@ void CDialogmain::Stop(int num)//µçÌİÍ£Ö¹º¯Êı
 
 void CDialogmain::Loading(int num)//ÉÏÏÂ¿ÍµÄº¯Êı£¬Ê¹ÓÃÇ°Ğè¸üĞÂÈËÔ±·Ö²¼
 {
-	if(num==1)
+	if(num==0)
 		{
 			m_EditCondition1.SetWindowText(L"ÉÏÏÂ¿ÍÖĞ");
 			SetPeople();
 		}
-	if(num==2)
+	if(num==1)
 		{
 			m_EditCondition2.SetWindowText(L"ÉÏÏÂ¿ÍÖĞ");
 			SetPeople();
 		}
-	if(num==3)
+	if(num==2)
 		{
 			m_EditCondition3.SetWindowText(L"ÉÏÏÂ¿ÍÖĞ");
 			SetPeople();
@@ -312,26 +365,26 @@ void CDialogmain::Loading(int num)//ÉÏÏÂ¿ÍµÄº¯Êı£¬Ê¹ÓÃÇ°Ğè¸üĞÂÈËÔ±·Ö²¼
 
 void CDialogmain::SetPeople(void)//ÏÔÊ¾ÈË·Ö²¼µÄº¯Êı
 {
-	m_Flrnum1=p[0];
-	m_Flrnum2=p[1];
-	m_Flrnum3=p[2];
-	m_Flrnum4=p[3];
-	m_Flrnum5=p[4];
-	m_Flrnum6=p[5];
-	m_Flrnum7=p[6];
-	m_Flrnum8=p[7];
-	m_Flrnum9=p[8];
-	m_Flrnum10=p[9];
-	m_Flrnum11=p[10];
-	m_Flrnum12=p[11];
-	m_Flrnum13=p[12];
-	m_Flrnum14=p[13];
-	m_Flrnum15=p[14];
-	m_Flrnum16=p[15];
-	m_Flrnum17=p[16];
-	m_Flrnum18=p[17];
-	m_Flrnum19=p[18];
-	m_Flrnum20=p[19];
+	m_Flrnum1=p[1];
+	m_Flrnum2=p[2];
+	m_Flrnum3=p[3];
+	m_Flrnum4=p[4];
+	m_Flrnum5=p[5];
+	m_Flrnum6=p[6];
+	m_Flrnum7=p[7];
+	m_Flrnum8=p[8];
+	m_Flrnum9=p[9];
+	m_Flrnum10=p[10];
+	m_Flrnum11=p[11];
+	m_Flrnum12=p[12];
+	m_Flrnum13=p[13];
+	m_Flrnum14=p[14];
+	m_Flrnum15=p[15];
+	m_Flrnum16=p[16];
+	m_Flrnum17=p[17];
+	m_Flrnum18=p[18];
+	m_Flrnum19=p[19];
+	m_Flrnum20=p[20];
 	UpdateData(FALSE);
 }
 

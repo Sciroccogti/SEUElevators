@@ -1,6 +1,14 @@
 #pragma once
 
 
+/*#include "stdafx.h"
+#include "Temp1001.h"
+//#include "Dialogmain.h"
+#include "afxdialogex.h"*/
+//#include "People.h"
+
+
+
 // CDialogmain ¶Ô»°¿ò
 
 class CDialogmain : public CDialogEx
@@ -67,4 +75,12 @@ public:
 	void SetTime(int num, int time);
 	int GetRefreshNum(void);
 	int SetTransNum(int transportnum);
+	int PrevCondition1;
+	int PrevCondition2;
+	int PrevCondition3;
+	int PrevFrontCondition1;
+	int PrevFrontCondition2;
+	int PrevFrontCondition3;
+	int PrevCondition[3];
+	int PrevFrontCondition[3];
 };

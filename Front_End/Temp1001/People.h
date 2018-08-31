@@ -53,11 +53,12 @@ People::People()
 	condition = NOTARRANGED;
 	pFront = pNext = prev = next = NULL;
 }
-
+/*
+List<CString> list[10];
+*/
 void People::Check(Elevator <People> *e[N])
 {
 	int i, j = -1;//j用于存储准备调用的电梯编号
-
 	for(i = 0; i < N; i++){
 		if(!e[i]->IsFull(weight)){
 			if(e[i]->Direction() == direction){
