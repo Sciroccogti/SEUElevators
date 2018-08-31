@@ -5,7 +5,6 @@
 #include "Temp1001.h"
 //#include "Dialogmain.h"
 #include "afxdialogex.h"*/
-//#include "People.h"
 
 
 
@@ -65,7 +64,6 @@ public:
 	void Stop(int num);
 	void Loading(int num);
 	void SetPeople(void);
-	int* p;
 	void Connection(int* ptemp);
 //	afx_msg void OnEnChangeEdit2();
 //	CEdit m_time1;

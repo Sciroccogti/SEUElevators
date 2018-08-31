@@ -7,15 +7,13 @@
 #include "afxdialogex.h"
 #include "People.h"
 
-
 // CDialogmain 对话框
-
+int n[L + 1];
 IMPLEMENT_DYNAMIC(CDialogmain, CDialogEx)
 
 CDialogmain::CDialogmain(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CDialogmain::IDD, pParent)
 	, Vtime(0)
-	, p(NULL)
 	, PrevCondition1(0)
 	, PrevCondition2(0)
 	, PrevCondition3(0)
@@ -117,28 +115,15 @@ void CDialogmain::OnClickedStart()            //程序启动函数；此后所有运算都在此
               //计时器设定，执行此语句后，跳入OnTimer函数中
 	//Elevator <People> *e[N];
 	Ini(e);
-	int n[L + 1] = {0};
-	Connection(n);
+	int i;
+	for(i = 0; i < L + 1; i++){
+		n[i] = 0;
+	}
+
+	//Connection(n);
 
 	SetTimer(1,1000,NULL);//计时器设定，执行此语句后，跳入OnTimer函数中
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	//以下为测试代码
 	/*MoveUp(1);
 	MoveUp(1);
@@ -158,7 +143,6 @@ void CDialogmain::OnClickedStart()            //程序启动函数；此后所有运算都在此
 	SetTime(3,43);*/
 	//int i=GetRefreshNum();
 	//SetTransNum(43);
-
 }
 
 
@@ -174,11 +158,11 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //计时器函数，主要部分。。。
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
 	Refresh(e);
+	Show(n);
 	//Vtime++;
 	for(int i = 0; i < N; i++){
 		e[i]->Change();
 		e[i]->Continue();
-
 
 		if(e[i]->condition==UP&&PrevCondition[i]==UP&&PrevFrontCondition[i]==UP)
 			MoveUp(e[i]->num);
@@ -191,16 +175,8 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //计时器函数，主要部分。。。
 		PrevFrontCondition[i]=PrevCondition[i];
 		PrevCondition[i]=e[i]->condition;
 		SetTime(e[i]->num,e[i]->time);
-
-	
 	}
 	
-
-
-
-
-
-
 	CDialogEx::OnTimer(nIDEvent);
 }
 
@@ -365,35 +341,35 @@ void CDialogmain::Loading(int num)//上下客的函数，使用前需更新人员分布
 
 void CDialogmain::SetPeople(void)//显示人分布的函数
 {
-	m_Flrnum1=p[1];
-	m_Flrnum2=p[2];
-	m_Flrnum3=p[3];
-	m_Flrnum4=p[4];
-	m_Flrnum5=p[5];
-	m_Flrnum6=p[6];
-	m_Flrnum7=p[7];
-	m_Flrnum8=p[8];
-	m_Flrnum9=p[9];
-	m_Flrnum10=p[10];
-	m_Flrnum11=p[11];
-	m_Flrnum12=p[12];
-	m_Flrnum13=p[13];
-	m_Flrnum14=p[14];
-	m_Flrnum15=p[15];
-	m_Flrnum16=p[16];
-	m_Flrnum17=p[17];
-	m_Flrnum18=p[18];
-	m_Flrnum19=p[19];
-	m_Flrnum20=p[20];
+	m_Flrnum1=n[1];
+	m_Flrnum2=n[2];
+	m_Flrnum3=n[3];
+	m_Flrnum4=n[4];
+	m_Flrnum5=n[5];
+	m_Flrnum6=n[6];
+	m_Flrnum7=n[7];
+	m_Flrnum8=n[8];
+	m_Flrnum9=n[9];
+	m_Flrnum10=n[10];
+	m_Flrnum11=n[11];
+	m_Flrnum12=n[12];
+	m_Flrnum13=n[13];
+	m_Flrnum14=n[14];
+	m_Flrnum15=n[15];
+	m_Flrnum16=n[16];
+	m_Flrnum17=n[17];
+	m_Flrnum18=n[18];
+	m_Flrnum19=n[19];
+	m_Flrnum20=n[20];
 	UpdateData(FALSE);
 }
 
-
+/*
 void CDialogmain::Connection(int* ptemp)//将人员分布数组联入前端，最开始进行
 {
 	p=ptemp;
 }
-
+*/
 
 //void CDialogmain::OnEnChangeEdit2()
 //{

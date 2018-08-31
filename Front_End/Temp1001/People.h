@@ -101,7 +101,6 @@ void Refresh(Elevator <People> *e[N])
 			ListDown.push_back(p, MODELIST);
 		}
 		p->Check(e);
-		cout<<p->Presflr()<<"\t"<<p->Objflr()<<"\n";
 	}
 }
 

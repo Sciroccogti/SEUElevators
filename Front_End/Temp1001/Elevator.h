@@ -15,7 +15,7 @@ public:
 	int direction;	//方向
 	int condition;	//运行状态
 	int objflr;		//目标层
-	double time;	//总运行时间
+	int time;	//总运行时间
 	int waiting;	//状态保持时间
 
 public:

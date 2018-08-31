@@ -30,12 +30,6 @@ public:
 		waiting = 0;
 	}
 
-	void Move(int goal){//电梯移动
-		objflr = goal;
-		direction = objflr > presflr ? UP : DOWN;
-		waiting += S;
-	}
-
 	void Change(){			//电梯改变状态
 		TYPE *i;
 		if(Board[num]->pHead){
