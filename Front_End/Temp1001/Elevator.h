@@ -15,7 +15,7 @@ public:
 	int direction;	//方向
 	int condition;	//运行状态
 	int objflr;		//目标层
-	int time;	//总运行时间
+	double time;	//总运行时间
 	int waiting;	//状态保持时间
 
 public:
@@ -30,33 +30,36 @@ public:
 		waiting = 0;
 	}
 
-	void Move(int goal){//电梯移动
-		objflr = goal;
-		direction = objflr > presflr ? UP : DOWN;
-		waiting += S;
-	}
-
 	void Change(){			//电梯改变状态
 		TYPE *i;
 		if(Board[num]->pHead){
-			for(i = Board[num]->pHead; i; i = i->pNext){
+			int j = objflr;//存储扫描到的最近待乘乘客所在层
+			for(i = Board[num]->pHead; i; i = i->next){
 				if (i->Presflr() == presflr && condition == STOP && !waiting){//上当前楼层的乘客
 					condition = ON;
 					waiting += T;
 					total += i->Weight();
-					if ((i->Objflr() - objflr) * direction < 0){//更改目标楼层
+					if ((i->Objflr() - objflr) * direction < 0){//若新乘客目标更近，则更新目标
 						objflr = i->Objflr();
 					}
-				}else if (!direction && !condition && !objflr){//更改目标楼层并开动电梯
-					objflr = i->Presflr();
-					direction = objflr > presflr ? UP : DOWN;
-					waiting += S;
+					break;
+
+				}else if (!direction && !condition && (abs(i->Presflr() - presflr) > abs(j - presflr) || j == objflr)){//若电梯正无所事事
+					j = i->Presflr();
+				
+				}else if (j != objflr && (i->Presflr() - presflr) * direction < (j - presflr) * direction){//若电梯正在其它情况
+					j = i->Presflr();
 				}
 			}		
+			if (j != objflr){
+				objflr = j;
+				direction = objflr > presflr ? UP : DOWN;
+				if(!waiting)waiting += S;
+			}
 		}
 		
 		if(Drop[num]->pHead){
-			for(i = Drop[num]->pHead; i; i = i->pNext) {
+			for(i = Drop[num]->pHead; i; i = i->next) {
 				if (i->Objflr() == presflr && !condition){//下客
 					condition = OFF;
 					waiting += T;
@@ -86,17 +89,15 @@ public:
 							}
 						}
 					}
-				}
-
-				if(condition == OFF){//下客
+				}else if(condition == OFF){//下客
 					waiting --;			
 					if(waiting == 0){//寻找待下乘客
 						condition = STOP;
-						TYPE *i, *j;
-						for(i = Drop[num]->pHead; i; i = i->pNext){
+						TYPE *i = Drop[num]->pHead, *j;
+						for(i = Drop[num]->pHead; i != NULL; i = i->next){
 							if (i->Objflr() == presflr){
 								j = i;
-								i = j->pFront;
+								i = j->prev;
 								Drop[num]->Delete(j, MODEBD);
 								if (j->Direction() == UP){
 									ListUp.Delete(j, MODELIST);
@@ -105,15 +106,19 @@ public:
 								}
 								delete j;
 								j = NULL;
+								break;
 							}
 						}
 					}
 				}
-			}else if (direction != STOP)//移动
+			}else if (direction != STOP && objflr)//移动
 			{
 				waiting--;
 				time++;
 				presflr += (1 / (double)S)* direction;
+				if(abs(floor(presflr + 0.5) - presflr) < 0.1){
+					presflr = floor(presflr + 0.5);
+				}
 				if (!waiting && presflr == objflr){
 					objflr = 0;
 					direction = STOP;

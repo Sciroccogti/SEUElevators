@@ -30,8 +30,8 @@ public:
 	People *prev;//供Board/Drop使用
 };
 
-List <People> *Board[N] = {new List <People>, new List <People>, new List <People>};
-List <People> *Drop[N] = {new List <People>, new List <People>, new List <People>};
+List <People> *Board[N];
+List <People> *Drop[N];
 
 List <People> ListUp, ListDown, NotArranged;
 
@@ -53,12 +53,11 @@ People::People()
 	condition = NOTARRANGED;
 	pFront = pNext = prev = next = NULL;
 }
-/*
-List<CString> list[10];
-*/
+
 void People::Check(Elevator <People> *e[N])
 {
 	int i, j = -1;//j用于存储准备调用的电梯编号
+
 	for(i = 0; i < N; i++){
 		if(!e[i]->IsFull(weight)){
 			if(e[i]->Direction() == direction){
@@ -67,7 +66,7 @@ void People::Check(Elevator <People> *e[N])
 						j = i;
 					}
 				}
-			}else if (!e[i]->Direction()){
+			}else if (!e[i]->Direction() && !e[i]->Objflr()){
 				if(j < 0 || abs(e[i]->Presflr() - presflr) < abs(e[j]->Presflr() - presflr)){
 					j = i;
 				}
@@ -87,7 +86,7 @@ void Refresh(Elevator <People> *e[N])
 {
 	//srand((int)time(0));	//备用方法
 	//int n = rand() % TOP;	//备用方法
-	int n = 9;
+	int n = 1;
 	//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	int i = 0;
@@ -101,6 +100,7 @@ void Refresh(Elevator <People> *e[N])
 			ListDown.push_back(p, MODELIST);
 		}
 		p->Check(e);
+		cout<<p->Presflr()<<"\t"<<p->Objflr()<<"\n";
 	}
 }
 
@@ -115,6 +115,8 @@ void Ini(Elevator <People> *e[N])//初始化电梯
 		}else{
 			e[i] = new Elevator <People> (i, L / 2);
 		}
+		Board[i] = new List <People>;
+		Drop[i] = new List <People>;
 	}
 }
 
