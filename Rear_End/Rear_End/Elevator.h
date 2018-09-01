@@ -39,9 +39,6 @@ public:
 					condition = ON;
 					waiting += T;
 					total += i->Weight();
-					if ((i->Objflr() - objflr) * direction < 0){//若新乘客目标更近，则更新目标
-						objflr = i->Objflr();
-					}
 					break;
 
 				}else if (!direction && !condition && (abs(i->Presflr() - presflr) > abs(j - presflr) || j == objflr)){//若电梯正无所事事
@@ -83,9 +80,10 @@ public:
 						TYPE *i;
 						for(i = Board[num]->pHead; i; i = i->pNext){
 							if (i->Presflr() == presflr){
-								i->Arrange();
 								Board[num]->Delete(i, MODEBD);
 								Drop[num]->push_back(i, MODEBD);
+								i->Arrange(INELE);
+								break;
 							}
 						}
 					}

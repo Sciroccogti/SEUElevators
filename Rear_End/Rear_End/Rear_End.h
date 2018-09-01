@@ -12,12 +12,12 @@
 #define ON 2		//上客中
 #define OFF -2		//下客中
 
-#define NOTARRANGED -1
-#define WAITING 0
-#define INELE 1
+#define NOTARRANGED -1	//乘客状态：未安排
+#define WAITING 0		//乘客状态：等待中
+#define INELE 1			//乘客状态：电梯中
 
-#define MODEBD 1
-#define MODELIST 2
+#define MODEBD 1	//供Board/Drop/NotArranged使用
+#define MODELIST 2	//供ListUp/Down使用
 
 #define N 3			//电梯数量
 #define L 20		//最高楼层
