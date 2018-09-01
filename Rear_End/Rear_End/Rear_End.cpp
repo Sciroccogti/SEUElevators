@@ -17,72 +17,100 @@ int main(){
 	cout<<"\n";
 	for(i = 0; i < N; i++){
 		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
 		e[i]->Change();
 		e[i]->Continue();
-		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
-	}	
-	for(i = 0; i < N; i++){
+	}cout<<endl;	for(i = 0; i < N; i++){
 		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
 		e[i]->Change();
 		e[i]->Continue();
-		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
-	}	
-
-	for(i = 0; i < N; i++){
+	}cout<<endl;	for(i = 0; i < N; i++){
 		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
 		e[i]->Change();
 		e[i]->Continue();
-		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
-	}	
-
-	for(i = 0; i < N; i++){
+	}cout<<endl;	for(i = 0; i < N; i++){
 		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
 		e[i]->Change();
 		e[i]->Continue();
-		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
-	}	
-
-	for(i = 0; i < N; i++){
+	}cout<<endl;	for(i = 0; i < N; i++){
 		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
 		e[i]->Change();
 		e[i]->Continue();
-		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
-	}	
-
-	for(i = 0; i < N; i++){
+	}cout<<endl;	for(i = 0; i < N; i++){
 		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
 		e[i]->Change();
 		e[i]->Continue();
-		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
-	}	
-
-	for(i = 0; i < N; i++){
+	}cout<<endl;	for(i = 0; i < N; i++){
 		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
 		e[i]->Change();
 		e[i]->Continue();
-		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
-	}	
-
-	for(i = 0; i < N; i++){
+	}cout<<endl;	for(i = 0; i < N; i++){
 		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
 		e[i]->Change();
 		e[i]->Continue();
-		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
-	}	
-
-	for(i = 0; i < N; i++){
+	}cout<<endl;	for(i = 0; i < N; i++){
 		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
 		e[i]->Change();
 		e[i]->Continue();
-		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
-	}	
-
-	for(i = 0; i < N; i++){
+	}cout<<endl;	for(i = 0; i < N; i++){
 		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
 		e[i]->Change();
 		e[i]->Continue();
+	}cout<<endl;	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
 		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
-	}	
+		e[i]->Change();
+		e[i]->Continue();
+	}cout<<endl;	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+		e[i]->Change();
+		e[i]->Continue();
+	}cout<<endl;	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+		e[i]->Change();
+		e[i]->Continue();
+	}cout<<endl;	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+		e[i]->Change();
+		e[i]->Continue();
+	}cout<<endl;	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+		e[i]->Change();
+		e[i]->Continue();
+	}cout<<endl;	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+		e[i]->Change();
+		e[i]->Continue();
+	}cout<<endl;	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+		e[i]->Change();
+		e[i]->Continue();
+	}cout<<endl;	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+		e[i]->Change();
+		e[i]->Continue();
+	}cout<<endl;	for(i = 0; i < N; i++){
+		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+		e[i]->Change();
+		e[i]->Continue();
+	}cout<<endl;
 
 	return 0;
 }

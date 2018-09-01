@@ -120,8 +120,6 @@ void CDialogmain::OnClickedStart()            //³ÌĞòÆô¶¯º¯Êı£»´ËºóËùÓĞÔËËã¶¼ÔÚ´Ë
 		n[i] = 0;
 	}
 
-	//Connection(n);
-
 	SetTimer(1,1000,NULL);//¼ÆÊ±Æ÷Éè¶¨£¬Ö´ĞĞ´ËÓï¾äºó£¬ÌøÈëOnTimerº¯ÊıÖĞ
 		
 	//ÒÔÏÂÎª²âÊÔ´úÂë
@@ -164,13 +162,13 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //¼ÆÊ±Æ÷º¯Êı£¬Ö÷Òª²¿·Ö¡£¡£¡£
 		e[i]->Change();
 		e[i]->Continue();
 
-		if(e[i]->condition==UP&&PrevCondition[i]==UP&&PrevFrontCondition[i]==UP)
-			MoveUp(e[i]->num);
-		if(e[i]->condition==DOWN&&PrevCondition[i]==DOWN&&PrevFrontCondition[i]==DOWN)
-			MoveDown(e[i]->num);
+		//if(e[i]->condition==UP&&PrevCondition[i]==UP&&PrevFrontCondition[i]==UP)
+			//MoveUp(e[i]->num);
+		//if(e[i]->condition==DOWN&&PrevCondition[i]==DOWN&&PrevFrontCondition[i]==DOWN)
+			//MoveDown(e[i]->num);
 		if(e[i]->condition==STOP)
 			Stop(e[i]->num);
-		if(e[i]->condition==ON||OFF&&PrevCondition[i]==ON||OFF)
+		if(e[i]->condition==ON||OFF)
 			Loading(e[i]->num);
 		PrevFrontCondition[i]=PrevCondition[i];
 		PrevCondition[i]=e[i]->condition;
@@ -184,7 +182,7 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //¼ÆÊ±Æ÷º¯Êı£¬Ö÷Òª²¿·Ö¡£¡£¡£
 void CDialogmain::MoveUp(int num)//ÏòÉÏÒ»²ãµÄº¯Êı£¬µçÌİºó¶Ë×´Ì¬ÎªÉÏÉıÊ±£¬Ã¿ÈıÃëÖ´ĞĞÒ»´Î¸Ãº¯Êı
 	//¸Ãº¯Êı¿É×Ô¶¯Í¬²½µçÌİÇ°¶ËÏÔÊ¾×´Ì¬£¬²ÎÊınumÊÇµçÌİµÄ±àºÅ£¨ºóÃæµÄnum¶¼Ö¸µçÌİ±àºÅ£©
 {
-	if(num==1)
+	if(num==0)
 	{
 		int nPos=m_PrEle1.GetPos();
 		int nLow,nUp;
@@ -199,7 +197,7 @@ void CDialogmain::MoveUp(int num)//ÏòÉÏÒ»²ãµÄº¯Êı£¬µçÌİºó¶Ë×´Ì¬ÎªÉÏÉıÊ±£¬Ã¿ÈıÃëÖ
 		}
 		m_PrEle1.SetPos(nPos);
 	}
-	if(num==2)
+	if(num==1)
 	{
 		int nPos=m_PrEle2.GetPos();
 		int nLow,nUp;
@@ -215,7 +213,7 @@ void CDialogmain::MoveUp(int num)//ÏòÉÏÒ»²ãµÄº¯Êı£¬µçÌİºó¶Ë×´Ì¬ÎªÉÏÉıÊ±£¬Ã¿ÈıÃëÖ
 		m_PrEle2.SetPos(nPos);
 
 	}
-	if(num==3)
+	if(num==2)
 	{
 		int nPos=m_PrEle3.GetPos();
 		int nLow,nUp;
@@ -255,7 +253,7 @@ BOOL CDialogmain::OnInitDialog()
 
 void CDialogmain::MoveDown(int num)//µçÌİÏòÏÂµÄº¯Êı£¬ËµÃ÷Í¬MoveUp
 {
-	if(num==1)
+	if(num==0)
 	{
 		int nPos=m_PrEle1.GetPos();
 		int nLow,nUp;
@@ -271,7 +269,7 @@ void CDialogmain::MoveDown(int num)//µçÌİÏòÏÂµÄº¯Êı£¬ËµÃ÷Í¬MoveUp
 		}
 		m_PrEle1.SetPos(nPos);
 	}
-	if(num==2)
+	if(num==1)
 	{
 		int nPos=m_PrEle2.GetPos();
 		int nLow,nUp;
@@ -287,7 +285,7 @@ void CDialogmain::MoveDown(int num)//µçÌİÏòÏÂµÄº¯Êı£¬ËµÃ÷Í¬MoveUp
 		}
 		m_PrEle2.SetPos(nPos);
 	}
-	if(num==3)
+	if(num==2)
 	{
 		int nPos=m_PrEle3.GetPos();
 		int nLow,nUp;
@@ -308,11 +306,11 @@ void CDialogmain::MoveDown(int num)//µçÌİÏòÏÂµÄº¯Êı£¬ËµÃ÷Í¬MoveUp
 
 void CDialogmain::Stop(int num)//µçÌİÍ£Ö¹º¯Êı
 {
-	if(num==1)
+	if(num==0)
 		m_EditCondition1.SetWindowText(L"Í£Ö¹");
-	if(num==2)
+	if(num==1)
 		m_EditCondition2.SetWindowText(L"Í£Ö¹");
-	if(num==3)
+	if(num==2)
 		m_EditCondition3.SetWindowText(L"Í£Ö¹");
 }
 
@@ -341,6 +339,7 @@ void CDialogmain::Loading(int num)//ÉÏÏÂ¿ÍµÄº¯Êı£¬Ê¹ÓÃÇ°Ğè¸üĞÂÈËÔ±·Ö²¼
 
 void CDialogmain::SetPeople(void)//ÏÔÊ¾ÈË·Ö²¼µÄº¯Êı
 {
+	int num =0; 
 	m_Flrnum1=n[1];
 	m_Flrnum2=n[2];
 	m_Flrnum3=n[3];
@@ -361,6 +360,12 @@ void CDialogmain::SetPeople(void)//ÏÔÊ¾ÈË·Ö²¼µÄº¯Êı
 	m_Flrnum18=n[18];
 	m_Flrnum19=n[19];
 	m_Flrnum20=n[20];
+	for(int i=1;i<=20;i++)
+	{
+		num+=n[i];
+	}
+	
+	SetTransNum(num);
 	UpdateData(FALSE);
 }
 
@@ -390,11 +395,11 @@ void CDialogmain::Connection(int* ptemp)//½«ÈËÔ±·Ö²¼Êı×éÁªÈëÇ°¶Ë£¬×î¿ªÊ¼½øĞĞ
 
 void CDialogmain::SetTime(int num, int time)//ÏÔÊ¾Ê±¼äº¯Êı
 {
-	if(num==1)
+	if(num==0)
 		m_time1=time;
-	if(num==2)
+	if(num==1)
 		m_time2=time;
-	if(num==3)
+	if(num==2)
 		m_time3=time;
 	UpdateData(FALSE);
 }

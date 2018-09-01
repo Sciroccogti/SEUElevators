@@ -94,7 +94,7 @@ void Refresh(Elevator <People> *e[N])
 {
 	//srand((int)time(0));	//备用方法
 	//int n = rand() % TOP;	//备用方法
-	int n = 3;
+	int n = 1;
 	//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	int i = 0;
@@ -138,6 +138,9 @@ void Ini(Elevator <People> *e[N])//初始化电梯
 
 void Show(int *n)//显示各层等待人数
 {
+	for(int j = 1; j <= L; j++){
+		n[j] = 0;
+	}
 	People *i;
 	for(i = ListUp.pHead; i; i = i->pNext){
 		n[i->Presflr()]++;
