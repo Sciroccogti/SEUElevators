@@ -16,18 +16,18 @@ protected://调试时使用
 	int condition;			//状态
 
 public:
-	People();				//构造
-	void Check(Elevator <People> *e[N]);//轮询电梯
-	void Delete();//从链表中移除
+	People();										//构造
+	void Check(Elevator <People> *e[N], bool isnew);//轮询电梯
+	void Delete();									//从链表中移除
 	int Direction(){return direction;}
 	int Objflr(){return objflr;}
 	int Presflr(){return presflr;}
 	int Weight(){return weight;}
-	void Arrange(){condition = WAITING;}
+	void Arrange(int con){condition = con;}
 	People *pNext;//供ListUp/Down使用
 	People *pFront;//供ListUp/Down使用
-	People *next;//供Board/Drop使用
-	People *prev;//供Board/Drop使用
+	People *next;//供Board/Drop/NotArranged使用
+	People *prev;//供Board/Drop/NotArranged使用
 };
 
 List <People> *Board[N];
@@ -54,7 +54,7 @@ People::People()
 	pFront = pNext = prev = next = NULL;
 }
 
-void People::Check(Elevator <People> *e[N])
+void People::Check(Elevator <People> *e[N], bool isnew)
 {
 	int i, j = -1;//j用于存储准备调用的电梯编号
 
@@ -74,23 +74,37 @@ void People::Check(Elevator <People> *e[N])
 		}
 	}
 
-	if(j >= 0){
-		condition = 1;
+	if(isnew){
+		if(j >= 0){
+			condition = WAITING;
+			Board[j]->push_back(this, MODEBD);
+		}else{
+			condition = NOTARRANGED;
+			NotArranged.push_back(this, MODEBD);
+		}
+	}else if (j >= 0){
+		condition = WAITING;
+		NotArranged.Delete(this, MODEBD);
 		Board[j]->push_back(this, MODEBD);
-	}else{
-		NotArranged.push_back(this, MODEBD);
 	}
+	
 }
 
 void Refresh(Elevator <People> *e[N])
 {
 	//srand((int)time(0));	//备用方法
 	//int n = rand() % TOP;	//备用方法
-	int n = 1;
+	int n = 3;
 	//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	int i = 0;
-	People *p;
+	People *p = NotArranged.pHead;
+
+	while(p){
+		p->Check(e, false);
+		p = p->next;
+	}
+
 	srand((int)time(0));
 	while(i++ < n){
 		p = new People;
@@ -99,9 +113,11 @@ void Refresh(Elevator <People> *e[N])
 		}else{
 			ListDown.push_back(p, MODELIST);
 		}
-		p->Check(e);
+		p->Check(e, true);
 		cout<<p->Presflr()<<"\t"<<p->Objflr()<<"\n";
 	}
+	
+
 }
 
 void Ini(Elevator <People> *e[N])//初始化电梯
