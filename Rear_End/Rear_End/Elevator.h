@@ -17,6 +17,7 @@ public:
 	int objflr;		//目标层
 	double time;	//总运行时间
 	int waiting;	//状态保持时间
+	bool isOK;		//是否不需要维护
 
 public:
 	Elevator <TYPE> (int num1, int presflr1){//构造
@@ -28,6 +29,7 @@ public:
 		objflr = 0;
 		time = 0;
 		waiting = 0;
+		isOK = true;
 	}
 
 	void Change(){			//电梯改变状态
@@ -36,6 +38,12 @@ public:
 			int j = objflr;//存储扫描到的最近待乘乘客所在层
 			for(i = Board[num]->pHead; i; i = i->next){
 				if (i->Presflr() == presflr && condition == STOP && !waiting){//上当前楼层的乘客
+					if(!isOK && IsFull(i->Weight())){
+						i->Arrange(NOTARRANGED);
+						Board[num]->Delete(i, MODEBD);
+						NotArranged.push_back(i, MODEBD);
+						continue;
+					}
 					condition = ON;
 					waiting += T;
 					total += i->Weight();
@@ -44,8 +52,11 @@ public:
 				}else if (!direction && !condition && (abs(i->Presflr() - presflr) > abs(j - presflr) || j == objflr)){//若电梯正无所事事
 					j = i->Presflr();
 				
-				}else if (j != objflr && (i->Presflr() - presflr) * direction < (j - presflr) * direction){//若电梯正在其它情况
+				}else if ((j != objflr && (i->Presflr() - presflr) * direction < (j - presflr) * direction) 
+					|| ((i->Presflr() - presflr) * direction > 0 && (i->Objflr() - objflr) * direction < 0)){//若电梯正在其它情况
 					j = i->Presflr();
+
+				}else if (j ){
 				}
 			}		
 			if (j != objflr){
@@ -83,6 +94,9 @@ public:
 								Board[num]->Delete(i, MODEBD);
 								Drop[num]->push_back(i, MODEBD);
 								i->Arrange(INELE);
+								objflr = i->Objflr();
+								direction = i->Direction();
+								waiting += S;
 								break;
 							}
 						}
@@ -91,19 +105,17 @@ public:
 					waiting --;			
 					if(waiting == 0){//寻找待下乘客
 						condition = STOP;
-						TYPE *i = Drop[num]->pHead, *j;
+						TYPE *i = Drop[num]->pHead;
 						for(i = Drop[num]->pHead; i != NULL; i = i->next){
 							if (i->Objflr() == presflr){
-								j = i;
-								i = j->prev;
-								Drop[num]->Delete(j, MODEBD);
-								if (j->Direction() == UP){
-									ListUp.Delete(j, MODELIST);
+								Drop[num]->Delete(i, MODEBD);
+								if (i->Direction() == UP){
+									ListUp.Delete(i, MODELIST);
 								}else{
-									ListDown.Delete(j, MODELIST);
+									ListDown.Delete(i, MODELIST);
 								}
-								delete j;
-								j = NULL;
+								delete i;
+								i = NULL;
 								break;
 							}
 						}
@@ -132,6 +144,8 @@ public:
 	int Direction(){return direction;}
 	int Objflr(){return objflr;}
 	double Presflr(){return presflr;}
+	bool IsOK(){return isOK;}
+	void Repair(){isOK = true;}
 };
 
 #endif
