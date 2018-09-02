@@ -1,4 +1,4 @@
-// Dialogmain.cpp : ÊµÏÖÎÄ¼ş
+// Dialogmain.cpp : å®ç°æ–‡ä»¶
 //
 
 #include "stdafx.h"
@@ -7,7 +7,7 @@
 #include "afxdialogex.h"
 #include "People.h"
 
-// CDialogmain ¶Ô»°¿ò
+// CDialogmain å¯¹è¯æ¡†
 int n[L + 1];
 IMPLEMENT_DYNAMIC(CDialogmain, CDialogEx)
 
@@ -98,15 +98,15 @@ BEGIN_MESSAGE_MAP(CDialogmain, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CDialogmain ÏûÏ¢´¦Àí³ÌĞò
+// CDialogmain æ¶ˆæ¯å¤„ç†ç¨‹åº
 
 /******************************************************************************************/
 Elevator <People> *e[N];
-void CDialogmain::OnClickedStart()            //³ÌĞòÆô¶¯º¯Êı£»´ËºóËùÓĞÔËËã¶¼ÔÚ´ËºóÔËĞĞ
-	//Ò»Ğ©³õÊ¼»¯¹¤×÷ÔÚ´Ëº¯ÊıÄÚÍê³É
+void CDialogmain::OnClickedStart()            //ç¨‹åºå¯åŠ¨å‡½æ•°ï¼›æ­¤åæ‰€æœ‰è¿ç®—éƒ½åœ¨æ­¤åè¿è¡Œ
+	//ä¸€äº›åˆå§‹åŒ–å·¥ä½œåœ¨æ­¤å‡½æ•°å†…å®Œæˆ
 {
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
-              //¼ÆÊ±Æ÷Éè¶¨£¬Ö´ĞĞ´ËÓï¾äºó£¬ÌøÈëOnTimerº¯ÊıÖĞ
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
+              //è®¡æ—¶å™¨è®¾å®šï¼Œæ‰§è¡Œæ­¤è¯­å¥åï¼Œè·³å…¥OnTimerå‡½æ•°ä¸­
 	Ini(e);
 	int i;
 	for(i = 0; i < L + 1; i++){
@@ -114,9 +114,9 @@ void CDialogmain::OnClickedStart()            //³ÌĞòÆô¶¯º¯Êı£»´ËºóËùÓĞÔËËã¶¼ÔÚ´Ë
 	}
 		Refresh(e);
 	SetTimer(1,1000,NULL);
-	//¼ÆÊ±Æ÷Éè¶¨£¬Ö´ĞĞ´ËÓï¾äºó£¬ÌøÈëOnTimerº¯ÊıÖĞ
+	//è®¡æ—¶å™¨è®¾å®šï¼Œæ‰§è¡Œæ­¤è¯­å¥åï¼Œè·³å…¥OnTimerå‡½æ•°ä¸­
 
-	//ÒÔÏÂÎª²âÊÔ´úÂë
+	//ä»¥ä¸‹ä¸ºæµ‹è¯•ä»£ç 
 	/*MoveUp(1);
 	MoveUp(1);
 	MoveUp(1); 
@@ -143,17 +143,18 @@ void CDialogmain::OnClickedStart()            //³ÌĞòÆô¶¯º¯Êı£»´ËºóËùÓĞÔËËã¶¼ÔÚ´Ë
 }
 
 
-void CDialogmain::OnBnClickedOk()	//µã»÷½áÊø°´Å¥Ê±Ö´ĞĞµÄ²Ù×÷·ÅÈë´Ëº¯ÊıÖĞ
+void CDialogmain::OnBnClickedOk()	//ç‚¹å‡»ç»“æŸæŒ‰é’®æ—¶æ‰§è¡Œçš„æ“ä½œæ”¾å…¥æ­¤å‡½æ•°ä¸­
 {
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 	KillTimer(1);
 	CDialogEx::OnOK();
 }
 
 
-void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //¼ÆÊ±Æ÷º¯Êı£¬Ö÷Òª²¿·Ö¡£¡£¡£
+void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //è®¡æ—¶å™¨å‡½æ•°ï¼Œä¸»è¦éƒ¨åˆ†ã€‚ã€‚ã€‚
 {
-	// TODO: ÔÚ´ËÌí¼ÓÏûÏ¢´¦Àí³ÌĞò´úÂëºÍ/»òµ÷ÓÃÄ¬ÈÏÖµ
+	// TODO: åœ¨æ­¤æ·»åŠ æ¶ˆæ¯å¤„ç†ç¨‹åºä»£ç å’Œ/æˆ–è°ƒç”¨é»˜è®¤å€¼
+	Refresh(e);
 	SetPeople();
 	Show(n);
 	for(int i = 0; i < N; i++){
@@ -163,43 +164,28 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //¼ÆÊ±Æ÷º¯Êı£¬Ö÷Òª²¿·Ö¡£¡£¡£
 			//MoveUp(e[i]->num);
 		//if(int(e[i]->presflr)<int(m_PreFlr[i]))
 			//MoveDown(e[i]->num);
+		CEdit *p;
 		switch(e[i]->num)
 		{
 		case 0:
-			{
-				if(e[i]->condition==UP)
-				m_EditCondition1.SetWindowText(L"ÉÏÉıÖĞ");
-				if(e[i]->condition==DOWN)
-				m_EditCondition1.SetWindowText(L"ÏÂ½µÖĞ");
-				if(e[i]->condition==ON||OFF)
-				m_EditCondition1.SetWindowText(L"ÉÏÏÂ¿ÍÖĞ");
-				if(e[i]->condition==STOP)
-				m_EditCondition1.SetWindowText(L"Í£Ö¹");
-			}
+			p = &m_EditCondition1;
+			break;
 		case 1:
-			{
-				if(e[i]->condition==UP)
-				m_EditCondition2.SetWindowText(L"ÉÏÉıÖĞ");
-				if(e[i]->condition==DOWN)
-				m_EditCondition2.SetWindowText(L"ÏÂ½µÖĞ");
-				if(e[i]->condition==ON||OFF)
-				m_EditCondition2.SetWindowText(L"ÉÏÏÂ¿ÍÖĞ");
-				if(e[i]->condition==STOP)
-				m_EditCondition2.SetWindowText(L"Í£Ö¹");
-			}
+			p = &m_EditCondition2;
+			break;
 		case 2:
-			{
-				if(e[i]->condition==UP)
-				m_EditCondition3.SetWindowText(L"ÉÏÉıÖĞ");
-				if(e[i]->condition==DOWN)
-				m_EditCondition3.SetWindowText(L"ÏÂ½µÖĞ");
-				if(e[i]->condition==ON||OFF)
-				m_EditCondition3.SetWindowText(L"ÉÏÏÂ¿ÍÖĞ");
-				if(e[i]->condition==STOP)
-				m_EditCondition3.SetWindowText(L"Í£Ö¹");
-			}
+			p = &m_EditCondition3;
+			break;
 		}
-
+		if(e[i]->Direction() == UP){
+			p->SetWindowText(L"ä¸Šå‡ä¸­");
+		}else if(e[i]->Direction() == DOWN){
+			p->SetWindowText(L"ä¸‹é™ä¸­");
+		}else if(e[i]->condition){
+			p->SetWindowText(L"ä¸Šä¸‹å®¢ä¸­");
+		}else {
+			p->SetWindowText(L"åœæ­¢");
+		}
 		if(e[i]->presflr!=m_PreFlr[i])
 		{
 			//ResetConditionUp(e[i]->num);
@@ -256,8 +242,8 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //¼ÆÊ±Æ÷º¯Êı£¬Ö÷Òª²¿·Ö¡£¡£¡£
 }
 
 
-//void CDialogmain::MoveUp(int num)//ÏòÉÏÒ»²ãµÄº¯Êı£¬µçÌİºó¶Ë×´Ì¬ÎªÉÏÉıÊ±£¬Ã¿ÈıÃëÖ´ĞĞÒ»´Î¸Ãº¯Êı
-//	//¸Ãº¯Êı¿É×Ô¶¯Í¬²½µçÌİÇ°¶ËÏÔÊ¾×´Ì¬£¬²ÎÊınumÊÇµçÌİµÄ±àºÅ£¨ºóÃæµÄnum¶¼Ö¸µçÌİ±àºÅ£©
+//void CDialogmain::MoveUp(int num)//å‘ä¸Šä¸€å±‚çš„å‡½æ•°ï¼Œç”µæ¢¯åç«¯çŠ¶æ€ä¸ºä¸Šå‡æ—¶ï¼Œæ¯ä¸‰ç§’æ‰§è¡Œä¸€æ¬¡è¯¥å‡½æ•°
+//	//è¯¥å‡½æ•°å¯è‡ªåŠ¨åŒæ­¥ç”µæ¢¯å‰ç«¯æ˜¾ç¤ºçŠ¶æ€ï¼Œå‚æ•°numæ˜¯ç”µæ¢¯çš„ç¼–å·ï¼ˆåé¢çš„numéƒ½æŒ‡ç”µæ¢¯ç¼–å·ï¼‰
 //{
 //	if(num==0)
 //	{
@@ -268,9 +254,9 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //¼ÆÊ±Æ÷º¯Êı£¬Ö÷Òª²¿·Ö¡£¡£¡£
 //		if(nPos>nUp)
 //		{	
 //			nPos=nUp;
-//			m_EditCondition1.SetWindowText(L"Í£Ö¹");
+//			m_EditCondition1.SetWindowText(L"åœæ­¢");
 //		}else{
-//		m_EditCondition1.SetWindowText(L"ÉÏÉıÖĞ");
+//		m_EditCondition1.SetWindowText(L"ä¸Šå‡ä¸­");
 //		}
 //		m_PrEle1.SetPos(nPos);
 //	}
@@ -283,9 +269,9 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //¼ÆÊ±Æ÷º¯Êı£¬Ö÷Òª²¿·Ö¡£¡£¡£
 //		if(nPos>nUp)
 //		{	
 //			nPos=nUp;
-//			m_EditCondition2.SetWindowText(L"Í£Ö¹");
+//			m_EditCondition2.SetWindowText(L"åœæ­¢");
 //		}else{
-//		m_EditCondition2.SetWindowText(L"ÉÏÉıÖĞ");
+//		m_EditCondition2.SetWindowText(L"ä¸Šå‡ä¸­");
 //		}
 //		m_PrEle2.SetPos(nPos);
 //
@@ -299,9 +285,9 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //¼ÆÊ±Æ÷º¯Êı£¬Ö÷Òª²¿·Ö¡£¡£¡£
 //		if(nPos>nUp)
 //		{	
 //			nPos=nUp;
-//			m_EditCondition3.SetWindowText(L"Í£Ö¹");
+//			m_EditCondition3.SetWindowText(L"åœæ­¢");
 //		}else{
-//		m_EditCondition3.SetWindowText(L"ÉÏÉıÖĞ");
+//		m_EditCondition3.SetWindowText(L"ä¸Šå‡ä¸­");
 //		}
 //		m_PrEle3.SetPos(nPos);
 //	}
@@ -312,7 +298,7 @@ BOOL CDialogmain::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// TODO:  ÔÚ´ËÌí¼Ó¶îÍâµÄ³õÊ¼»¯
+	// TODO:  åœ¨æ­¤æ·»åŠ é¢å¤–çš„åˆå§‹åŒ–
 	m_PrEle1.SetRange(0,20);
 	m_PrEle2.SetRange(0,20);
 	m_PrEle3.SetRange(0,20);
@@ -321,14 +307,14 @@ BOOL CDialogmain::OnInitDialog()
 	m_PrEle3.SetStep(1);
 	m_PrEle1.SetPos(1);
 	m_PrEle2.SetPos(10);
-	m_PrEle3.SetPos(20);			//³õÊ¼»¯µçÌİ½ø¶ÈÌõµÄ×´Ì¬£¬Ò»ºÅµçÌİ×îµ×¶Ë£¬¶şºÅÖĞ¶Ë£¬ÈıºÅ¶¥¶Ë
+	m_PrEle3.SetPos(20);			//åˆå§‹åŒ–ç”µæ¢¯è¿›åº¦æ¡çš„çŠ¶æ€ï¼Œä¸€å·ç”µæ¢¯æœ€åº•ç«¯ï¼ŒäºŒå·ä¸­ç«¯ï¼Œä¸‰å·é¡¶ç«¯
 
 	return TRUE;  // return TRUE unless you set the focus to a control
-	// Òì³£: OCX ÊôĞÔÒ³Ó¦·µ»Ø FALSE
+	// å¼‚å¸¸: OCX å±æ€§é¡µåº”è¿”å› FALSE
 }
 
 
-//void CDialogmain::MoveDown(int num)//µçÌİÏòÏÂµÄº¯Êı£¬ËµÃ÷Í¬MoveUp
+//void CDialogmain::MoveDown(int num)//ç”µæ¢¯å‘ä¸‹çš„å‡½æ•°ï¼Œè¯´æ˜åŒMoveUp
 //{
 //	if(num==0)
 //	{
@@ -339,10 +325,10 @@ BOOL CDialogmain::OnInitDialog()
 //		if(nPos<=nLow)
 //		{
 //			nPos=nLow+1;
-//			m_EditCondition1.SetWindowText(L"Í£Ö¹");
+//			m_EditCondition1.SetWindowText(L"åœæ­¢");
 //		}
 //		else{
-//		m_EditCondition1.SetWindowText(L"ÏÂ½µÖĞ");
+//		m_EditCondition1.SetWindowText(L"ä¸‹é™ä¸­");
 //		}
 //		m_PrEle1.SetPos(nPos);
 //	}
@@ -355,10 +341,10 @@ BOOL CDialogmain::OnInitDialog()
 //		if(nPos<=nLow)
 //		{
 //			nPos=nLow+1;
-//			m_EditCondition2.SetWindowText(L"Í£Ö¹");
+//			m_EditCondition2.SetWindowText(L"åœæ­¢");
 //		}
 //		else{
-//		m_EditCondition2.SetWindowText(L"ÏÂ½µÖĞ");
+//		m_EditCondition2.SetWindowText(L"ä¸‹é™ä¸­");
 //		}
 //		m_PrEle2.SetPos(nPos);
 //	}
@@ -371,50 +357,50 @@ BOOL CDialogmain::OnInitDialog()
 //		if(nPos<=nLow)
 //		{
 //			nPos=nLow+1;
-//			m_EditCondition3.SetWindowText(L"Í£Ö¹");
+//			m_EditCondition3.SetWindowText(L"åœæ­¢");
 //		}
 //		else{
-//		m_EditCondition3.SetWindowText(L"ÏÂ½µÖĞ");
+//		m_EditCondition3.SetWindowText(L"ä¸‹é™ä¸­");
 //		}
 //		m_PrEle3.SetPos(nPos);
 //	}
 //}
 
 
-//void CDialogmain::Stop(int num)//µçÌİÍ£Ö¹º¯Êı
+//void CDialogmain::Stop(int num)//ç”µæ¢¯åœæ­¢å‡½æ•°
 //{
 //	if(num==0)
-//		m_EditCondition1.SetWindowText(L"Í£Ö¹");
+//		m_EditCondition1.SetWindowText(L"åœæ­¢");
 //	if(num==1)
-//		m_EditCondition2.SetWindowText(L"Í£Ö¹");
+//		m_EditCondition2.SetWindowText(L"åœæ­¢");
 //	if(num==2)
-//		m_EditCondition3.SetWindowText(L"Í£Ö¹");
+//		m_EditCondition3.SetWindowText(L"åœæ­¢");
 //}
 
 
 
 
-//void CDialogmain::Loading(int num)//ÉÏÏÂ¿ÍµÄº¯Êı£¬Ê¹ÓÃÇ°Ğè¸üĞÂÈËÔ±·Ö²¼
+//void CDialogmain::Loading(int num)//ä¸Šä¸‹å®¢çš„å‡½æ•°ï¼Œä½¿ç”¨å‰éœ€æ›´æ–°äººå‘˜åˆ†å¸ƒ
 //{
 //	if(num==0)
 //		{
-//			m_EditCondition1.SetWindowText(L"ÉÏÏÂ¿ÍÖĞ");
+//			m_EditCondition1.SetWindowText(L"ä¸Šä¸‹å®¢ä¸­");
 //			SetPeople();
 //		}
 //	if(num==1)
 //		{
-//			m_EditCondition2.SetWindowText(L"ÉÏÏÂ¿ÍÖĞ");
+//			m_EditCondition2.SetWindowText(L"ä¸Šä¸‹å®¢ä¸­");
 //			SetPeople();
 //		}
 //	if(num==2)
 //		{
-//			m_EditCondition3.SetWindowText(L"ÉÏÏÂ¿ÍÖĞ");
+//			m_EditCondition3.SetWindowText(L"ä¸Šä¸‹å®¢ä¸­");
 //			SetPeople();
 //		}
 //}
 
 
-void CDialogmain::SetPeople(void)//ÏÔÊ¾ÈË·Ö²¼µÄº¯Êı
+void CDialogmain::SetPeople(void)//æ˜¾ç¤ºäººåˆ†å¸ƒçš„å‡½æ•°
 {
 	int num =0; 
 	m_Flrnum1=n[1];
@@ -447,7 +433,7 @@ void CDialogmain::SetPeople(void)//ÏÔÊ¾ÈË·Ö²¼µÄº¯Êı
 }
 
 /*
-void CDialogmain::Connection(int* ptemp)//½«ÈËÔ±·Ö²¼Êı×éÁªÈëÇ°¶Ë£¬×î¿ªÊ¼½øĞĞ
+void CDialogmain::Connection(int* ptemp)//å°†äººå‘˜åˆ†å¸ƒæ•°ç»„è”å…¥å‰ç«¯ï¼Œæœ€å¼€å§‹è¿›è¡Œ
 {
 	p=ptemp;
 }
@@ -455,12 +441,12 @@ void CDialogmain::Connection(int* ptemp)//½«ÈËÔ±·Ö²¼Êı×éÁªÈëÇ°¶Ë£¬×î¿ªÊ¼½øĞĞ
 
 //void CDialogmain::OnEnChangeEdit2()
 //{
-//	// TODO:  Èç¹û¸Ã¿Ø¼şÊÇ RICHEDIT ¿Ø¼ş£¬Ëü½«²»
-//	// ·¢ËÍ´ËÍ¨Öª£¬³ı·ÇÖØĞ´ CDialogEx::OnInitDialog()
-//	// º¯Êı²¢µ÷ÓÃ CRichEditCtrl().SetEventMask()£¬
-//	// Í¬Ê±½« ENM_CHANGE ±êÖ¾¡°»ò¡±ÔËËãµ½ÑÚÂëÖĞ¡£
+//	// TODO:  å¦‚æœè¯¥æ§ä»¶æ˜¯ RICHEDIT æ§ä»¶ï¼Œå®ƒå°†ä¸
+//	// å‘é€æ­¤é€šçŸ¥ï¼Œé™¤éé‡å†™ CDialogEx::OnInitDialog()
+//	// å‡½æ•°å¹¶è°ƒç”¨ CRichEditCtrl().SetEventMask()ï¼Œ
+//	// åŒæ—¶å°† ENM_CHANGE æ ‡å¿—â€œæˆ–â€è¿ç®—åˆ°æ©ç ä¸­ã€‚
 //
-//	// TODO:  ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+//	// TODO:  åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 //}
 
 
@@ -470,7 +456,7 @@ void CDialogmain::Connection(int* ptemp)//½«ÈËÔ±·Ö²¼Êı×éÁªÈëÇ°¶Ë£¬×î¿ªÊ¼½øĞĞ
 //}
 
 
-void CDialogmain::SetTime(int num, int time)//ÏÔÊ¾Ê±¼äº¯Êı
+void CDialogmain::SetTime(int num, int time)//æ˜¾ç¤ºæ—¶é—´å‡½æ•°
 {
 	if(num==0)
 		m_time1=time;
@@ -482,8 +468,8 @@ void CDialogmain::SetTime(int num, int time)//ÏÔÊ¾Ê±¼äº¯Êı
 }
 
 
-//int CDialogmain::GetRefreshNum(void)//µÃµ½Ë¢ĞÂÈËÊıµÄº¯Êı£¬ÈËÊıÊÇÎ¨Ò»µÄÊäÈëĞÍ±äÁ¿
-//									//ĞèÔÚ¿ªÊ¼½øĞĞ
+//int CDialogmain::GetRefreshNum(void)//å¾—åˆ°åˆ·æ–°äººæ•°çš„å‡½æ•°ï¼Œäººæ•°æ˜¯å”¯ä¸€çš„è¾“å…¥å‹å˜é‡
+//									//éœ€åœ¨å¼€å§‹è¿›è¡Œ
 //{
 //	UpdateData(TRUE);
 //	return m_Refreshnum;
@@ -491,7 +477,7 @@ void CDialogmain::SetTime(int num, int time)//ÏÔÊ¾Ê±¼äº¯Êı
 
 
 
-int CDialogmain::SetTransNum(int transportnum)//ÒÑÔËÈËÊıº¯Êı
+int CDialogmain::SetTransNum(int transportnum)//å·²è¿äººæ•°å‡½æ•°
 {
 	m_Transnum=transportnum;
 	UpdateData(FALSE);
@@ -508,20 +494,20 @@ int CDialogmain::SetTransNum(int transportnum)//ÒÑÔËÈËÊıº¯Êı
 //void CDialogmain::ResetConditionDown(int num)
 //{
 //	if(num==0)
-//		m_EditCondition1.SetWindowText(L"ÏÂ½µÖĞ");
+//		m_EditCondition1.SetWindowText(L"ä¸‹é™ä¸­");
 //	if(num==1)
-//		m_EditCondition2.SetWindowText(L"ÏÂ½µÖĞ");
+//		m_EditCondition2.SetWindowText(L"ä¸‹é™ä¸­");
 //	if(num==2)
-//		m_EditCondition3.SetWindowText(L"ÏÂ½µÖĞ");
+//		m_EditCondition3.SetWindowText(L"ä¸‹é™ä¸­");
 //}
 
 
 //void CDialogmain::ResetConditionUp(int num)
 //{
 //	if(num==0)
-//		m_EditCondition1.SetWindowText(L"ÉÏÉıÖĞ");
+//		m_EditCondition1.SetWindowText(L"ä¸Šå‡ä¸­");
 //	if(num==1)
-//		m_EditCondition2.SetWindowText(L"ÉÏÉıÖĞ");
+//		m_EditCondition2.SetWindowText(L"ä¸Šå‡ä¸­");
 //	if(num==2)
-//		m_EditCondition3.SetWindowText(L"ÉÏÉıÖĞ");
+//		m_EditCondition3.SetWindowText(L"ä¸Šå‡ä¸­");
 //}

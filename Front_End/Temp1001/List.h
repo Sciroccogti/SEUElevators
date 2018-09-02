@@ -6,7 +6,6 @@ class List
 public:
 	TYPE* pHead;
 	TYPE* pRear;
-	int num;
 public:
 	List <TYPE>(){
 		pHead = pRear = NULL;
@@ -19,7 +18,6 @@ public:
 			pHead=pHead->pNext;
 		}
 		pRear=NULL;
-		num=0;
 	}
 	/*
 	void push_front(TYPE *p){
@@ -95,7 +93,11 @@ public:
 		{
 			if(p && pHead && pRear)
 			{
-				if(p == pHead)
+				if (pHead == pRear)
+				{
+					pHead = pRear = NULL;
+				} 
+				else if(p == pHead)
 				{
 					pHead = pHead->pNext;
 				}
@@ -106,13 +108,20 @@ public:
 				else
 				{
 					p->pFront->pNext = p->pNext;
+					p->pNext->pFront = p->pFront;
 				}
+				p->pFront = NULL;
+				p->pNext = NULL;
 			}
 		}else if (mode ==MODEBD)
 		{
 			if(p && pHead && pRear)
 			{
-				if(p == pHead)
+				if (pHead == pRear)
+				{
+					pHead = pRear = NULL;
+				}
+				else if(p == pHead)
 				{
 					pHead = pHead->next;
 				}
@@ -123,7 +132,10 @@ public:
 				else
 				{
 					p->prev->next = p->next;
+					p->next->prev = p->prev;
 				}
+				p->prev = NULL;
+				p->next = NULL;
 			}
 		}
 		
