@@ -14,12 +14,6 @@ IMPLEMENT_DYNAMIC(CDialogmain, CDialogEx)
 CDialogmain::CDialogmain(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CDialogmain::IDD, pParent)
 	, Vtime(0)
-	, PrevCondition1(0)
-	, PrevCondition2(0)
-	, PrevCondition3(0)
-	, PrevFrontCondition1(0)
-	, PrevFrontCondition2(0)
-	, PrevFrontCondition3(0)
 {
 
 	m_Flrnum1 = 0;
@@ -49,8 +43,8 @@ CDialogmain::CDialogmain(CWnd* pParent /*=NULL*/)
 	m_time2 = 0;
 	for(int i=0;i<3;i++)
 	{
-		PrevCondition[i]=0;
-		PrevFrontCondition[i]=0;
+		m_PreFlr[i]=0;
+		m_PreFrontFlr[i]=0;
 	}
 }
 
@@ -113,15 +107,15 @@ void CDialogmain::OnClickedStart()            //程序启动函数；此后所有运算都在此
 {
 	// TODO: 在此添加控件通知处理程序代码
               //计时器设定，执行此语句后，跳入OnTimer函数中
-	//Elevator <People> *e[N];
 	Ini(e);
 	int i;
 	for(i = 0; i < L + 1; i++){
 		n[i] = 0;
 	}
+		Refresh(e);
+	SetTimer(1,1000,NULL);
+	//计时器设定，执行此语句后，跳入OnTimer函数中
 
-	SetTimer(1,1000,NULL);//计时器设定，执行此语句后，跳入OnTimer函数中
-		
 	//以下为测试代码
 	/*MoveUp(1);
 	MoveUp(1);
@@ -141,6 +135,11 @@ void CDialogmain::OnClickedStart()            //程序启动函数；此后所有运算都在此
 	SetTime(3,43);*/
 	//int i=GetRefreshNum();
 	//SetTransNum(43);
+	/*m_PrEle1.SetPos(4);
+	m_PrEle2.SetPos(6);
+	m_PrEle3.SetPos(15);*/
+
+
 }
 
 
@@ -155,23 +154,101 @@ void CDialogmain::OnBnClickedOk()	//点击结束按钮时执行的操作放入此函数中
 void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //计时器函数，主要部分。。。
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	Refresh(e);
+	SetPeople();
 	Show(n);
-	//Vtime++;
 	for(int i = 0; i < N; i++){
 		e[i]->Change();
 		e[i]->Continue();
-
-		//if(e[i]->condition==UP&&PrevCondition[i]==UP&&PrevFrontCondition[i]==UP)
+		//if(int(e[i]->presflr)>int(m_PreFlr[i]))
 			//MoveUp(e[i]->num);
-		//if(e[i]->condition==DOWN&&PrevCondition[i]==DOWN&&PrevFrontCondition[i]==DOWN)
+		//if(int(e[i]->presflr)<int(m_PreFlr[i]))
 			//MoveDown(e[i]->num);
-		if(e[i]->condition==STOP)
-			Stop(e[i]->num);
-		if(e[i]->condition==ON||OFF)
-			Loading(e[i]->num);
-		PrevFrontCondition[i]=PrevCondition[i];
-		PrevCondition[i]=e[i]->condition;
+		switch(e[i]->num)
+		{
+		case 0:
+			{
+				if(e[i]->condition==UP)
+				m_EditCondition1.SetWindowText(L"上升中");
+				if(e[i]->condition==DOWN)
+				m_EditCondition1.SetWindowText(L"下降中");
+				if(e[i]->condition==ON||OFF)
+				m_EditCondition1.SetWindowText(L"上下客中");
+				if(e[i]->condition==STOP)
+				m_EditCondition1.SetWindowText(L"停止");
+			}
+		case 1:
+			{
+				if(e[i]->condition==UP)
+				m_EditCondition2.SetWindowText(L"上升中");
+				if(e[i]->condition==DOWN)
+				m_EditCondition2.SetWindowText(L"下降中");
+				if(e[i]->condition==ON||OFF)
+				m_EditCondition2.SetWindowText(L"上下客中");
+				if(e[i]->condition==STOP)
+				m_EditCondition2.SetWindowText(L"停止");
+			}
+		case 2:
+			{
+				if(e[i]->condition==UP)
+				m_EditCondition3.SetWindowText(L"上升中");
+				if(e[i]->condition==DOWN)
+				m_EditCondition3.SetWindowText(L"下降中");
+				if(e[i]->condition==ON||OFF)
+				m_EditCondition3.SetWindowText(L"上下客中");
+				if(e[i]->condition==STOP)
+				m_EditCondition3.SetWindowText(L"停止");
+			}
+		}
+
+		if(e[i]->presflr!=m_PreFlr[i])
+		{
+			//ResetConditionUp(e[i]->num);
+			switch(e[i]->num)
+			{
+			case 0:
+				{
+					m_PrEle1.SetPos(int(e[i]->presflr));
+					break;
+				}
+			case 1:
+				{
+					m_PrEle2.SetPos(int(e[i]->presflr));
+					break;
+				}
+			case 2:
+				{
+					m_PrEle3.SetPos(int(e[i]->presflr));
+					break;
+				}
+			}
+		}
+		/*if(e[i]->presflr<m_PreFlr[i])
+		{
+			ResetConditionDown(e[i]->num);
+			switch(e[i]->num)
+			{
+			case 0:
+				{
+					m_PrEle1.SetPos(int(e[i]->presflr));
+					break;
+				}
+			case 1:
+				{
+					m_PrEle2.SetPos(int(e[i]->presflr));
+					break;
+				}
+			case 2:
+				{
+					m_PrEle3.SetPos(int(e[i]->presflr));
+					break;
+				}
+			}
+		}*/
+		//if(e[i]->condition==STOP)
+		//	Stop(e[i]->num);
+		//if(e[i]->presflr==m_PreFlr[i])
+		//	Loading(e[i]->num);
+		m_PreFlr[i]=e[i]->presflr;
 		SetTime(e[i]->num,e[i]->time);
 	}
 	
@@ -179,56 +256,56 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //计时器函数，主要部分。。。
 }
 
 
-void CDialogmain::MoveUp(int num)//向上一层的函数，电梯后端状态为上升时，每三秒执行一次该函数
-	//该函数可自动同步电梯前端显示状态，参数num是电梯的编号（后面的num都指电梯编号）
-{
-	if(num==0)
-	{
-		int nPos=m_PrEle1.GetPos();
-		int nLow,nUp;
-		m_PrEle1.GetRange(nLow,nUp);
-		nPos++;
-		if(nPos>nUp)
-		{	
-			nPos=nUp;
-			m_EditCondition1.SetWindowText(L"停止");
-		}else{
-		m_EditCondition1.SetWindowText(L"上升中");
-		}
-		m_PrEle1.SetPos(nPos);
-	}
-	if(num==1)
-	{
-		int nPos=m_PrEle2.GetPos();
-		int nLow,nUp;
-		m_PrEle2.GetRange(nLow,nUp);
-		nPos++;
-		if(nPos>nUp)
-		{	
-			nPos=nUp;
-			m_EditCondition2.SetWindowText(L"停止");
-		}else{
-		m_EditCondition2.SetWindowText(L"上升中");
-		}
-		m_PrEle2.SetPos(nPos);
-
-	}
-	if(num==2)
-	{
-		int nPos=m_PrEle3.GetPos();
-		int nLow,nUp;
-		m_PrEle3.GetRange(nLow,nUp);
-		nPos++;
-		if(nPos>nUp)
-		{	
-			nPos=nUp;
-			m_EditCondition3.SetWindowText(L"停止");
-		}else{
-		m_EditCondition3.SetWindowText(L"上升中");
-		}
-		m_PrEle3.SetPos(nPos);
-	}
-}
+//void CDialogmain::MoveUp(int num)//向上一层的函数，电梯后端状态为上升时，每三秒执行一次该函数
+//	//该函数可自动同步电梯前端显示状态，参数num是电梯的编号（后面的num都指电梯编号）
+//{
+//	if(num==0)
+//	{
+//		int nPos=m_PrEle1.GetPos();
+//		int nLow,nUp;
+//		m_PrEle1.GetRange(nLow,nUp);
+//		nPos++;
+//		if(nPos>nUp)
+//		{	
+//			nPos=nUp;
+//			m_EditCondition1.SetWindowText(L"停止");
+//		}else{
+//		m_EditCondition1.SetWindowText(L"上升中");
+//		}
+//		m_PrEle1.SetPos(nPos);
+//	}
+//	if(num==1)
+//	{
+//		int nPos=m_PrEle2.GetPos();
+//		int nLow,nUp;
+//		m_PrEle2.GetRange(nLow,nUp);
+//		nPos++;
+//		if(nPos>nUp)
+//		{	
+//			nPos=nUp;
+//			m_EditCondition2.SetWindowText(L"停止");
+//		}else{
+//		m_EditCondition2.SetWindowText(L"上升中");
+//		}
+//		m_PrEle2.SetPos(nPos);
+//
+//	}
+//	if(num==2)
+//	{
+//		int nPos=m_PrEle3.GetPos();
+//		int nLow,nUp;
+//		m_PrEle3.GetRange(nLow,nUp);
+//		nPos++;
+//		if(nPos>nUp)
+//		{	
+//			nPos=nUp;
+//			m_EditCondition3.SetWindowText(L"停止");
+//		}else{
+//		m_EditCondition3.SetWindowText(L"上升中");
+//		}
+//		m_PrEle3.SetPos(nPos);
+//	}
+//}
 
 
 BOOL CDialogmain::OnInitDialog()
@@ -251,90 +328,90 @@ BOOL CDialogmain::OnInitDialog()
 }
 
 
-void CDialogmain::MoveDown(int num)//电梯向下的函数，说明同MoveUp
-{
-	if(num==0)
-	{
-		int nPos=m_PrEle1.GetPos();
-		int nLow,nUp;
-		m_PrEle1.GetRange(nLow,nUp);
-		nPos--;
-		if(nPos<=nLow)
-		{
-			nPos=nLow+1;
-			m_EditCondition1.SetWindowText(L"停止");
-		}
-		else{
-		m_EditCondition1.SetWindowText(L"下降中");
-		}
-		m_PrEle1.SetPos(nPos);
-	}
-	if(num==1)
-	{
-		int nPos=m_PrEle2.GetPos();
-		int nLow,nUp;
-		m_PrEle2.GetRange(nLow,nUp);
-		nPos--;
-		if(nPos<=nLow)
-		{
-			nPos=nLow+1;
-			m_EditCondition2.SetWindowText(L"停止");
-		}
-		else{
-		m_EditCondition2.SetWindowText(L"下降中");
-		}
-		m_PrEle2.SetPos(nPos);
-	}
-	if(num==2)
-	{
-		int nPos=m_PrEle3.GetPos();
-		int nLow,nUp;
-		m_PrEle3.GetRange(nLow,nUp);
-		nPos--;
-		if(nPos<=nLow)
-		{
-			nPos=nLow+1;
-			m_EditCondition3.SetWindowText(L"停止");
-		}
-		else{
-		m_EditCondition3.SetWindowText(L"下降中");
-		}
-		m_PrEle3.SetPos(nPos);
-	}
-}
+//void CDialogmain::MoveDown(int num)//电梯向下的函数，说明同MoveUp
+//{
+//	if(num==0)
+//	{
+//		int nPos=m_PrEle1.GetPos();
+//		int nLow,nUp;
+//		m_PrEle1.GetRange(nLow,nUp);
+//		nPos--;
+//		if(nPos<=nLow)
+//		{
+//			nPos=nLow+1;
+//			m_EditCondition1.SetWindowText(L"停止");
+//		}
+//		else{
+//		m_EditCondition1.SetWindowText(L"下降中");
+//		}
+//		m_PrEle1.SetPos(nPos);
+//	}
+//	if(num==1)
+//	{
+//		int nPos=m_PrEle2.GetPos();
+//		int nLow,nUp;
+//		m_PrEle2.GetRange(nLow,nUp);
+//		nPos--;
+//		if(nPos<=nLow)
+//		{
+//			nPos=nLow+1;
+//			m_EditCondition2.SetWindowText(L"停止");
+//		}
+//		else{
+//		m_EditCondition2.SetWindowText(L"下降中");
+//		}
+//		m_PrEle2.SetPos(nPos);
+//	}
+//	if(num==2)
+//	{
+//		int nPos=m_PrEle3.GetPos();
+//		int nLow,nUp;
+//		m_PrEle3.GetRange(nLow,nUp);
+//		nPos--;
+//		if(nPos<=nLow)
+//		{
+//			nPos=nLow+1;
+//			m_EditCondition3.SetWindowText(L"停止");
+//		}
+//		else{
+//		m_EditCondition3.SetWindowText(L"下降中");
+//		}
+//		m_PrEle3.SetPos(nPos);
+//	}
+//}
 
 
-void CDialogmain::Stop(int num)//电梯停止函数
-{
-	if(num==0)
-		m_EditCondition1.SetWindowText(L"停止");
-	if(num==1)
-		m_EditCondition2.SetWindowText(L"停止");
-	if(num==2)
-		m_EditCondition3.SetWindowText(L"停止");
-}
+//void CDialogmain::Stop(int num)//电梯停止函数
+//{
+//	if(num==0)
+//		m_EditCondition1.SetWindowText(L"停止");
+//	if(num==1)
+//		m_EditCondition2.SetWindowText(L"停止");
+//	if(num==2)
+//		m_EditCondition3.SetWindowText(L"停止");
+//}
 
 
 
 
-void CDialogmain::Loading(int num)//上下客的函数，使用前需更新人员分布
-{
-	if(num==0)
-		{
-			m_EditCondition1.SetWindowText(L"上下客中");
-			SetPeople();
-		}
-	if(num==1)
-		{
-			m_EditCondition2.SetWindowText(L"上下客中");
-			SetPeople();
-		}
-	if(num==2)
-		{
-			m_EditCondition3.SetWindowText(L"上下客中");
-			SetPeople();
-		}
-}
+//void CDialogmain::Loading(int num)//上下客的函数，使用前需更新人员分布
+//{
+//	if(num==0)
+//		{
+//			m_EditCondition1.SetWindowText(L"上下客中");
+//			SetPeople();
+//		}
+//	if(num==1)
+//		{
+//			m_EditCondition2.SetWindowText(L"上下客中");
+//			SetPeople();
+//		}
+//	if(num==2)
+//		{
+//			m_EditCondition3.SetWindowText(L"上下客中");
+//			SetPeople();
+//		}
+//}
 
 
 void CDialogmain::SetPeople(void)//显示人分布的函数
@@ -405,12 +482,12 @@ void CDialogmain::SetTime(int num, int time)//显示时间函数
 }
 
 
-int CDialogmain::GetRefreshNum(void)//得到刷新人数的函数，人数是唯一的输入型变量
-									//需在开始进行
-{
-	UpdateData(TRUE);
-	return m_Refreshnum;
-}
+//int CDialogmain::GetRefreshNum(void)//得到刷新人数的函数，人数是唯一的输入型变量
+//									//需在开始进行
+//{
+//	UpdateData(TRUE);
+//	return m_Refreshnum;
+//}
 
 
 
@@ -420,3 +497,31 @@ int CDialogmain::SetTransNum(int transportnum)//已运人数函数
 	UpdateData(FALSE);
 	return 0;
 }
+
+
+//void CDialogmain::ResetCondition(int num)
+//{
+//
+//}
+
+
+//void CDialogmain::ResetConditionDown(int num)
+//{
+//	if(num==0)
+//		m_EditCondition1.SetWindowText(L"下降中");
+//	if(num==1)
+//		m_EditCondition2.SetWindowText(L"下降中");
+//	if(num==2)
+//		m_EditCondition3.SetWindowText(L"下降中");
+//}
+
+
+//void CDialogmain::ResetConditionUp(int num)
+//{
+//	if(num==0)
+//		m_EditCondition1.SetWindowText(L"上升中");
+//	if(num==1)
+//		m_EditCondition2.SetWindowText(L"上升中");
+//	if(num==2)
+//		m_EditCondition3.SetWindowText(L"上升中");
+//}
