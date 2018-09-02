@@ -59,7 +59,7 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 	int i, j = -1;//j用于存储准备调用的电梯编号
 
 	for(i = 0; i < N; i++){
-		if(!e[i]->IsFull(weight)){
+		if(!e[i]->IsFull(weight) && e[i]->isOK){
 			if(e[i]->Direction() == direction){
 				if((presflr - e[i]->Presflr()) * direction > 0){
 					if(j < 0 || (e[i]->Presflr() - e[j]->Presflr()) * direction > 0){
@@ -93,8 +93,9 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 void Refresh(Elevator <People> *e[N])
 {
 	//srand((int)time(0));	//备用方法
-	//int n = rand() % TOP;	//备用方法
-	int n = 1;
+	int n = (int)floor(rand() % 10 / 10.0+ 0.2);	//备用方法
+
+	//int n = 1;
 	//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	int i = 0;
@@ -105,7 +106,6 @@ void Refresh(Elevator <People> *e[N])
 		p = p->next;
 	}
 
-	srand((int)time(0));
 	while(i++ < n){
 		p = new People;
 		if(p->Direction() == UP){
@@ -114,7 +114,7 @@ void Refresh(Elevator <People> *e[N])
 			ListDown.push_back(p, MODELIST);
 		}
 		p->Check(e, true);
-		cout<<p->Presflr()<<"\t"<<p->Objflr()<<"\n";
+		cout<<p->Presflr()<<"\t"<<p->Objflr()<<"\t"<<p->Weight()<<endl;
 	}
 	
 
