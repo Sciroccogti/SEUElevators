@@ -61,13 +61,13 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 
 	for(i = 0; i < N; i++){
 		if(!e[i]->IsFull(weight) && e[i]->isOK){
-			if(e[i]->Direction() == direction){
-				if((presflr - e[i]->Presflr()) * direction > 0){
-					if(j < 0 || (e[i]->Presflr() - e[j]->Presflr()) * direction > 0){
+			if(e[i]->Direction() == direction){//同向电梯
+				if((presflr - e[i]->Presflr()) * direction >= 0){//乘客的所在层不低于电梯的所在层
+					if(j < 0 || abs(e[i]->Presflr() - presflr) < abs(e[j]->Presflr() - presflr)){
 						j = i;
 					}
 				}
-			}else if (!e[i]->Direction() && !e[i]->Objflr()){
+			}else if (!e[i]->Direction() && !e[i]->Objflr()){//电梯正无所事事
 				if(j < 0 || abs(e[i]->Presflr() - presflr) < abs(e[j]->Presflr() - presflr)){
 					j = i;
 				}

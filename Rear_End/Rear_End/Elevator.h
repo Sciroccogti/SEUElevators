@@ -37,8 +37,8 @@ public:
 		if(Board[num]->pHead){
 			int j = objflr;//存储扫描到的最近待乘乘客所在层
 			for(i = Board[num]->pHead; i; i = i->next){
-				if (i->Presflr() == presflr && condition == STOP && !waiting){//上当前楼层的乘客
-					if(!isOK && IsFull(i->Weight())){
+				if (i->Presflr() == presflr && condition == STOP && direction == STOP && !waiting){//上当前楼层的乘客
+					if(!isOK || IsFull(i->Weight())){
 						i->Arrange(NOTARRANGED);
 						Board[num]->Delete(i, MODEBD);
 						NotArranged.push_back(i, MODEBD);
@@ -49,11 +49,13 @@ public:
 					total += i->Weight();
 					break;
 
-				}else if (!direction && !condition && (abs(i->Presflr() - presflr) > abs(j - presflr) || j == objflr)){//若电梯正无所事事
+				}else if (!direction && !condition && !Drop[num]->pHead && !objflr){//若电梯正无所事事
 					j = i->Presflr();
 				
-				}else if ((j != objflr && (i->Presflr() - presflr) * direction < (j - presflr) * direction) 
-					|| ((i->Presflr() - presflr) * direction > 0 && (i->Objflr() - objflr) * direction < 0)){//若电梯正在其它情况
+				}else if ((j != objflr && (i->Presflr() - presflr) * direction < (j - presflr) * direction)){//若扫到的人比上一个扫到的乘客更近
+					j = i->Presflr();
+
+				}else if((i->Presflr() - presflr) * direction > 0 && (i->Objflr() - objflr) * direction < 0){//若电梯正在其它情况
 					j = i->Presflr();
 
 				}else if (j ){
@@ -125,7 +127,7 @@ public:
 			{
 				waiting--;
 				time++;
-				presflr += (1 / (double)S)* direction;
+				presflr += (1 / (double)S) * direction;
 				if(abs(floor(presflr + 0.5) - presflr) < 0.1){
 					presflr = floor(presflr + 0.5);
 				}
