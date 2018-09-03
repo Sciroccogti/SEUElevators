@@ -14,6 +14,7 @@ IMPLEMENT_DYNAMIC(CDialogmain, CDialogEx)
 CDialogmain::CDialogmain(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CDialogmain::IDD, pParent)
 	, Vtime(0)
+	, v(1)
 {
 
 	m_Flrnum1 = 0;
@@ -46,6 +47,15 @@ CDialogmain::CDialogmain(CWnd* pParent /*=NULL*/)
 		m_PreFlr[i]=0;
 		m_PreFrontFlr[i]=0;
 	}
+	m_objflr1 = 0;
+	m_objflr2 = 0;
+	m_objflr3 = 0;
+	//  m_preflr1 = 0;
+	//  m_preflr2 = 0;
+	//  m_preflr3 = 0;
+	m_preflr1 = 0.0;
+	m_preflr2 = 0.0;
+	m_preflr3 = 0.0;
 }
 
 CDialogmain::~CDialogmain()
@@ -87,6 +97,15 @@ void CDialogmain::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_TIME1, m_time1);
 	DDX_Text(pDX, IDC_TIME3, m_time3);
 	DDX_Text(pDX, IDC_EDIT2, m_time2);
+	DDX_Text(pDX, IDC_OBJFLR1, m_objflr1);
+	DDX_Text(pDX, IDC_OBJFLR2, m_objflr2);
+	DDX_Text(pDX, IDC_OBJFLR3, m_objflr3);
+	//  DDX_Text(pDX, IDC_PREFLR1, m_preflr1);
+	//  DDX_Text(pDX, IDC_PREFLR2, m_preflr2);
+	//  DDX_Text(pDX, IDC_PREFLR3, m_preflr3);
+	DDX_Text(pDX, IDC_PREFLR1, m_preflr1);
+	DDX_Text(pDX, IDC_PREFLR2, m_preflr2);
+	DDX_Text(pDX, IDC_PREFLR3, m_preflr3);
 }
 
 
@@ -95,6 +114,12 @@ BEGIN_MESSAGE_MAP(CDialogmain, CDialogEx)
 	ON_BN_CLICKED(IDOK, &CDialogmain::OnBnClickedOk)
 	ON_WM_TIMER()
 //	ON_EN_CHANGE(IDC_EDIT2, &CDialogmain::OnEnChangeEdit2)
+ON_BN_CLICKED(IDC_ACC2, &CDialogmain::OnBnClickedAcc2)
+ON_BN_CLICKED(IDC_ACC10, &CDialogmain::OnBnClickedAcc10)
+ON_BN_CLICKED(IDC_ACC20, &CDialogmain::OnBnClickedAcc20)
+ON_BN_CLICKED(IDC_ACC50, &CDialogmain::OnBnClickedAcc50)
+ON_BN_CLICKED(IDC_BUTTONPAUSE, &CDialogmain::OnBnClickedButtonpause)
+ON_BN_CLICKED(IDC_BUTTONCONTINUE, &CDialogmain::OnBnClickedButtoncontinue)
 END_MESSAGE_MAP()
 
 
@@ -109,8 +134,11 @@ void CDialogmain::OnClickedStart()            //程序启动函数；此后所�
               //计时器设定，执行此语句后，跳入OnTimer函数中
 	Ini(e);
 	int i;
-	Refresh(e);
-	SetTimer(1,1000,NULL);
+	for(i = 0; i < L + 1; i++){
+		n[i] = 0;
+	}
+		Refresh(e);
+	SetTimer(1,1000/v,NULL);
 	//计时器设定，执行此语句后，跳入OnTimer函数中
 
 	//以下为测试代码
@@ -143,19 +171,18 @@ void CDialogmain::OnClickedStart()            //程序启动函数；此后所�
 void CDialogmain::OnBnClickedOk()	//点击结束按钮时执行的操作放入此函数中
 {
 	// TODO: 在此添加控件通知处理程序代码
-	KillTimer(1);
-	//CDialogEx::OnOK();
+	//KillTimer(1);
+	CDialogEx::OnOK();
 }
 
 
 void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //计时器函数，主要部分。。。
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	int i;
-	//Refresh(e);
+	Refresh(e);
 	SetPeople();
 	Show(n);
-	for(i = 0; i < N; i++){
+	for(int i = 0; i < N; i++){
 		e[i]->Change();
 		e[i]->Continue();
 		//if(int(e[i]->presflr)>int(m_PreFlr[i]))
@@ -186,7 +213,6 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //计时器函数，主要部分�
 		}
 		if(e[i]->presflr!=m_PreFlr[i])
 		{
-			//ResetConditionUp(e[i]->num);
 			switch(e[i]->num)
 			{
 			case 0:
@@ -206,34 +232,11 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //计时器函数，主要部分�
 				}
 			}
 		}
-		/*if(e[i]->presflr<m_PreFlr[i])
-		{
-			ResetConditionDown(e[i]->num);
-			switch(e[i]->num)
-			{
-			case 0:
-				{
-					m_PrEle1.SetPos(int(e[i]->presflr));
-					break;
-				}
-			case 1:
-				{
-					m_PrEle2.SetPos(int(e[i]->presflr));
-					break;
-				}
-			case 2:
-				{
-					m_PrEle3.SetPos(int(e[i]->presflr));
-					break;
-				}
-			}
-		}*/
-		//if(e[i]->condition==STOP)
-		//	Stop(e[i]->num);
-		//if(e[i]->presflr==m_PreFlr[i])
-		//	Loading(e[i]->num);
+		
 		m_PreFlr[i]=e[i]->presflr;
 		SetTime(e[i]->num,e[i]->time);
+		SetPreflr(e[i]->num,e[i]->presflr);
+		SetObjflr(e[i]->num,e[i]->objflr);
 	}
 	
 	CDialogEx::OnTimer(nIDEvent);
@@ -509,3 +512,118 @@ int CDialogmain::SetTransNum(int transportnum)//已运人数函数
 //	if(num==2)
 //		m_EditCondition3.SetWindowText(L"上升中");
 //}
+
+
+void CDialogmain::OnBnClickedAcc2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	v=2;
+}
+
+
+void CDialogmain::OnBnClickedAcc10()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	v=10;
+}
+
+
+void CDialogmain::OnBnClickedAcc20()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	v=20;
+}
+
+
+void CDialogmain::OnBnClickedAcc50()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	v=50;
+}
+
+
+void CDialogmain::OnBnClickedButtonpause()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	KillTimer(1);
+}
+
+
+void CDialogmain::OnBnClickedButtoncontinue()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	SetTimer(1,1000/v,NULL);
+}
+
+
+void CDialogmain::SetObjflr(int num, int objflr)
+{
+	switch(num)
+	{
+	case 0:
+		{
+			m_objflr1=objflr;
+			break;
+		}
+	case 1:
+		{
+			m_objflr2=objflr;
+			break;
+		}
+	case 2:
+		{
+			m_objflr3=objflr;
+			break;
+		}
+	}
+	UpdateData(FALSE);
+}
+
+
+//void CDialogmain::SetPreflr(int num, int preflr)
+//{
+//	
+//	switch(num)
+//	{
+//	case 0:
+//		{
+//			m_preflr1=preflr;
+//			break;
+//		}
+//	case 1:
+//		{
+//			m_preflr2=preflr;
+//			break;
+//		}
+//	case 2:
+//		{
+//			m_preflr3=preflr;
+//			break;
+//		}
+//	}
+//	UpdateData(FALSE);
+//}
+
+
+void CDialogmain::SetPreflr(int num, double preflr)
+{
+	switch(num)
+	{
+	case 0:
+		{
+			m_preflr1=preflr;
+			break;
+		}
+	case 1:
+		{
+			m_preflr2=preflr;
+			break;
+		}
+	case 2:
+		{
+			m_preflr3=preflr;
+			break;
+		}
+	}
+	UpdateData(FALSE);
+}

@@ -24,7 +24,6 @@ public:
 	int Presflr(){return presflr;}
 	int Weight(){return weight;}
 	void Arrange(int con){condition = con;}
-	int Condition(){return condition;}
 	People *pNext;//供ListUp/Down使用
 	People *pFront;//供ListUp/Down使用
 	People *next;//供Board/Drop/NotArranged使用
@@ -61,13 +60,13 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 
 	for(i = 0; i < N; i++){
 		if(!e[i]->IsFull(weight) && e[i]->isOK){
-			if(e[i]->Direction() == direction){//同向电梯
-				if((presflr - e[i]->Presflr()) * direction >= 0){//乘客的所在层不低于电梯的所在层
-					if(j < 0 || abs(e[i]->Presflr() - presflr) < abs(e[j]->Presflr() - presflr)){
+			if(e[i]->Direction() == direction){
+				if((presflr - e[i]->Presflr()) * direction > 0){
+					if(j < 0 || (e[i]->Presflr() - e[j]->Presflr()) * direction > 0){
 						j = i;
 					}
 				}
-			}else if (!e[i]->Direction() && !e[i]->Objflr()){//电梯正无所事事
+			}else if (!e[i]->Direction() && !e[i]->Objflr()){
 				if(j < 0 || abs(e[i]->Presflr() - presflr) < abs(e[j]->Presflr() - presflr)){
 					j = i;
 				}
@@ -94,9 +93,9 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 void Refresh(Elevator <People> *e[N])
 {
 	//srand((int)time(0));	//备用方法
-	//int n = (int)floor(rand() % 10 / 10.0+ 0.2);	//备用方法
+	int n = (int)floor(rand() % 10 / 10.0+ 0.2);	//备用方法
 
-	int n = 1;
+	//int n = 1;
 	//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	int i = 0;
@@ -144,16 +143,10 @@ void Show(int *n)//显示各层等待人数
 	}
 	People *i;
 	for(i = ListUp.pHead; i; i = i->pNext){
-		if (i->Condition() != INELE)
-		{
-			n[i->Presflr()]++;
-		}
+		n[i->Presflr()]++;
 	}
 	for(i = ListDown.pHead; i; i = i->pNext){
-		if (i->Condition() != INELE)
-		{
-			n[i->Presflr()]++;
-		}
+		n[i->Presflr()]++;
 	}
 }
 #endif
