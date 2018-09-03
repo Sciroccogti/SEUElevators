@@ -7,23 +7,60 @@ int main(){
 	srand((int)time(0));
 	Elevator <People> *e[N];
 	Ini(e);
-	int n[L + 1] = {0}, i, j;/*
+	int n[L + 1] = {0}, i = 0, j;/*
 	Show(n);
 	for (i = 1; i <= L; i++){
 		cout<<i<<"\t"<<n[i]<<"\n" ;
 	}
 
 	cout<<"\n";*/
+
+		_sleep(200);
+		//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+		People *p;
+
+		p = new People(1,2);
+		if(p->Direction() == UP){
+			ListUp.push_back(p, MODELIST);
+		}else{
+			ListDown.push_back(p, MODELIST);
+		}
+		p->Check(e, true);
+		cout<<p->Presflr()<<"\t"<<p->Objflr()<<"\t"<<p->Weight()<<endl;
+		e[i]->Change();
+		e[i]->Continue();
+		cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+		cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+	cout<<endl;	
+
+	_sleep(200);
+	//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+	p = new People(3,4);
+	if(p->Direction() == UP){
+		ListUp.push_back(p, MODELIST);
+	}else{
+		ListDown.push_back(p, MODELIST);
+	}
+	p->Check(e, true);
+	cout<<p->Presflr()<<"\t"<<p->Objflr()<<"\t"<<p->Weight()<<endl;
+	e[i]->Change();
+	e[i]->Continue();
+	cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+	cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+	cout<<endl;	
+
 	for (j = 0; j < 20; j++)
 	{
 		_sleep(200);
-		Refresh(e);
-		for(i = 0; i < N; i++){
-			e[i]->Change();
-			e[i]->Continue();
-			cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
-			cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
-		}cout<<endl;	
+			e[0]->Change();
+			e[0]->Continue();
+			cout<<0<<"\t"<<setw(10)<<e[0]->Presflr()<<"\t";
+			cout<<e[0]->Objflr()<<"\t"<<e[0]->waiting<<endl;
+		cout<<endl;	
 	}
+
 	return 0;
 }

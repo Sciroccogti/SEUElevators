@@ -17,6 +17,7 @@ protected://调试时使用
 
 public:
 	People();										//构造
+	People(int pre, int obj);
 	void Check(Elevator <People> *e[N], bool isnew);//轮询电梯
 	void Delete();									//从链表中移除
 	int Direction(){return direction;}
@@ -43,6 +44,23 @@ People::People()
 	do{
 		objflr = rand() % L +1;
 	}while(presflr == objflr);
+	//生成方向
+	direction = presflr < objflr ? UP : DOWN;
+
+	//随机生成体重
+	weight = 50 + rand() % 50;
+	//TODO：改为正态分布+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//cout<<presflr<<endl<<objflr<<endl<<direction<<endl<<weight<<endl;//测试用代码
+
+	condition = NOTARRANGED;
+	pFront = pNext = prev = next = NULL;
+}
+
+People::People(int pre, int obj)
+{
+	//随机生成所在层与目标层
+	presflr = pre;
+	objflr = obj;
 	//生成方向
 	direction = presflr < objflr ? UP : DOWN;
 

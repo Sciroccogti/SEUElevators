@@ -52,10 +52,10 @@ public:
 				}else if (!direction && !condition && !Drop[num]->pHead && !objflr){//若电梯正无所事事
 					j = i->Presflr();
 				
-				}else if ((j != objflr && (i->Presflr() - presflr) * direction < (j - presflr) * direction)){//若扫到的人比上一个扫到的乘客更近
+				}else if ((i->Presflr() - presflr) * direction < (j - presflr) * direction){//若扫到的人比上一个扫到的乘客更近
 					j = i->Presflr();
 
-				}else if((i->Presflr() - presflr) * direction > 0 && (i->Objflr() - objflr) * direction < 0){//若电梯正在其它情况
+				}else if(i->Presflr() != objflr && ((i->Presflr() - presflr) * direction > 0 && (i->Objflr() - objflr) * direction < 0)){//若电梯正在其它情况
 					j = i->Presflr();
 
 				}else if (j ){
