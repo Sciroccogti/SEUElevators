@@ -24,6 +24,7 @@ public:
 	int Presflr(){return presflr;}
 	int Weight(){return weight;}
 	void Arrange(int con){condition = con;}
+	int Condition(){return condition;}
 	People *pNext;//供ListUp/Down使用
 	People *pFront;//供ListUp/Down使用
 	People *next;//供Board/Drop/NotArranged使用
@@ -93,9 +94,9 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 void Refresh(Elevator <People> *e[N])
 {
 	//srand((int)time(0));	//备用方法
-	int n = (int)floor(rand() % 10 / 10.0+ 0.2);	//备用方法
+	//int n = (int)floor(rand() % 10 / 10.0+ 0.2);	//备用方法
 
-	//int n = 1;
+	int n = 1;
 	//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	int i = 0;
@@ -143,10 +144,16 @@ void Show(int *n)//显示各层等待人数
 	}
 	People *i;
 	for(i = ListUp.pHead; i; i = i->pNext){
-		n[i->Presflr()]++;
+		if (i->Condition() != INELE)
+		{
+			n[i->Presflr()]++;
+		}
 	}
 	for(i = ListDown.pHead; i; i = i->pNext){
-		n[i->Presflr()]++;
+		if (i->Condition() != INELE)
+		{
+			n[i->Presflr()]++;
+		}
 	}
 }
 #endif

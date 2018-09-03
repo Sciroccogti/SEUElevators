@@ -1,4 +1,4 @@
-// Dialogmain.cpp : 实现文件
+﻿// Dialogmain.cpp : 实现文件
 //
 
 #include "stdafx.h"
@@ -109,10 +109,7 @@ void CDialogmain::OnClickedStart()            //程序启动函数；此后所�
               //计时器设定，执行此语句后，跳入OnTimer函数中
 	Ini(e);
 	int i;
-	for(i = 0; i < L + 1; i++){
-		n[i] = 0;
-	}
-		Refresh(e);
+	Refresh(e);
 	SetTimer(1,1000,NULL);
 	//计时器设定，执行此语句后，跳入OnTimer函数中
 
@@ -154,10 +151,11 @@ void CDialogmain::OnBnClickedOk()	//点击结束按钮时执行的操作放入�
 void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //计时器函数，主要部分。。。
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	Refresh(e);
+	int i;
+	//Refresh(e);
 	SetPeople();
 	Show(n);
-	for(int i = 0; i < N; i++){
+	for(i = 0; i < N; i++){
 		e[i]->Change();
 		e[i]->Continue();
 		//if(int(e[i]->presflr)>int(m_PreFlr[i]))
