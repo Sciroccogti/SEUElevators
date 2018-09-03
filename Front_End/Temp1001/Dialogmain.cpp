@@ -1,4 +1,4 @@
-// Dialogmain.cpp : 实现文件
+﻿// Dialogmain.cpp : 实现文件
 //
 
 #include "stdafx.h"
@@ -147,7 +147,7 @@ void CDialogmain::OnBnClickedOk()	//点击结束按钮时执行的操作放入�
 {
 	// TODO: 在此添加控件通知处理程序代码
 	KillTimer(1);
-	CDialogEx::OnOK();
+	//CDialogEx::OnOK();
 }
 
 
