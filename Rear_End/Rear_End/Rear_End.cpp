@@ -7,9 +7,7 @@ int main(){
 	srand((int)time(0));
 	Elevator <People> *e[N];
 	Ini(e);
-	int n[L + 1] = {0}, i, j;
-	Refresh(e);	
-	cout<<endl;/*
+	int n[L + 1] = {0}, i, j;/*
 	Show(n);
 	for (i = 1; i <= L; i++){
 		cout<<i<<"\t"<<n[i]<<"\n" ;
