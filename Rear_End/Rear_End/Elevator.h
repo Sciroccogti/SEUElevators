@@ -18,6 +18,7 @@ public:
 	double time;	//总运行时间
 	int waiting;	//状态保持时间
 	bool isOK;		//是否不需要维护
+	int inside;		//电梯内人数
 
 public:
 	Elevator <TYPE> (int num1, int presflr1){//构造
@@ -30,6 +31,7 @@ public:
 		time = 0;
 		waiting = 0;
 		isOK = true;
+		inside = 0;
 	}
 
 	void Change(){			//电梯改变状态
@@ -47,6 +49,7 @@ public:
 					condition = ON;
 					waiting += T;
 					total += i->Weight();
+					j = objflr;
 					break;
 
 				}else if (!direction && !condition && !Drop[num]->pHead && !objflr){//若电梯正无所事事
@@ -55,7 +58,7 @@ public:
 				}else if ((i->Presflr() - presflr) * direction < (j - presflr) * direction){//若扫到的人比上一个扫到的乘客更近
 					j = i->Presflr();
 
-				}else if(i->Presflr() != objflr && ((i->Presflr() - presflr) * direction > 0 && (i->Objflr() - objflr) * direction < 0)){//若电梯正在其它情况
+				}else if(i->Presflr() != objflr && ((i->Presflr() - presflr) * direction > 0 && (i->Objflr() - objflr) * direction < 0)){//若乘客路径在电梯路径中
 					j = i->Presflr();
 
 				}else if (j ){
@@ -91,7 +94,7 @@ public:
 					if(waiting == 0){//寻找待上乘客
 						condition = STOP;
 						TYPE *i;
-						for(i = Board[num]->pHead; i; i = i->pNext){
+						for(i = Board[num]->pHead; i; i = i->next){
 							if (i->Presflr() == presflr){
 								Board[num]->Delete(i, MODEBD);
 								Drop[num]->push_back(i, MODEBD);
@@ -99,6 +102,7 @@ public:
 								objflr = i->Objflr();
 								direction = i->Direction();
 								waiting += S;
+								inside ++;
 								break;
 							}
 						}
@@ -108,7 +112,7 @@ public:
 					if(waiting == 0){//寻找待下乘客
 						condition = STOP;
 						TYPE *i = Drop[num]->pHead;
-						for(i = Drop[num]->pHead; i != NULL; i = i->next){
+						for(i = Drop[num]->pHead; i; i = i->next){
 							if (i->Objflr() == presflr){
 								Drop[num]->Delete(i, MODEBD);
 								if (i->Direction() == UP){
@@ -118,6 +122,7 @@ public:
 								}
 								delete i;
 								i = NULL;
+								inside --;
 								break;
 							}
 						}
@@ -146,6 +151,8 @@ public:
 	int Direction(){return direction;}
 	int Objflr(){return objflr;}
 	double Presflr(){return presflr;}
+	int Condition(){return condition;}
+	int Inside(){return inside;}//返回电梯内人数
 	bool IsOK(){return isOK;}
 	void Repair(){isOK = true;}
 };

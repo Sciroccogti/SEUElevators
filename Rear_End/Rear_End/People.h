@@ -85,7 +85,7 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 						j = i;
 					}
 				}
-			}else if (!e[i]->Direction() && !e[i]->Objflr()){//电梯正无所事事
+			}else if (!e[i]->Direction() && !e[i]->Objflr() && !e[i]->Inside() && !Board[i]->pHead){//电梯正无所事事
 				if(j < 0 || abs(e[i]->Presflr() - presflr) < abs(e[j]->Presflr() - presflr)){
 					j = i;
 				}

@@ -16,11 +16,11 @@ int main(){
 	cout<<"\n";*/
 
 		_sleep(200);
-		//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
 		People *p;
 
-		p = new People(1,2);
+		p = new People(2,1);
 		if(p->Direction() == UP){
 			ListUp.push_back(p, MODELIST);
 		}else{
@@ -52,13 +52,20 @@ int main(){
 	cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
 	cout<<endl;	
 
-	for (j = 0; j < 20; j++)
+	for (j = 0; j < 30; j++)
 	{
 		_sleep(200);
+
 			e[0]->Change();
 			e[0]->Continue();
 			cout<<0<<"\t"<<setw(10)<<e[0]->Presflr()<<"\t";
 			cout<<e[0]->Objflr()<<"\t"<<e[0]->waiting<<endl;
+			p = NotArranged.pHead;
+
+			while(p){
+				p->Check(e, false);
+				p = p->next;
+			}
 		cout<<endl;	
 	}
 
