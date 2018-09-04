@@ -13,14 +13,14 @@ int main(){
 		cout<<i<<"\t"<<n[i]<<"\n" ;
 	}
 
-	cout<<"\n";*/
+	cout<<"\n";
 
 		_sleep(200);
 
 
 		People *p;
 
-		p = new People(1,4);
+		p = new People(4,2);
 		if(p->Direction() == UP){
 			ListUp.push_back(p, MODELIST);
 		}else{
@@ -38,7 +38,7 @@ int main(){
 	//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-	p = new People(2,3);
+	p = new People(1,3);
 	if(p->Direction() == UP){
 		ListUp.push_back(p, MODELIST);
 	}else{
@@ -51,21 +51,23 @@ int main(){
 	cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
 	cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
 	cout<<endl;	
-
-	for (j = 0; j < 30; j++)
+	*/
+	for (j = 0; j < 50; j++)
 	{
 		_sleep(100);
-
-			e[0]->Change();
-			e[0]->Continue();
-			cout<<0<<"\t"<<setw(10)<<e[0]->Presflr()<<"\t";
-			cout<<e[0]->Objflr()<<"\t"<<e[0]->waiting<<endl;
+		Refresh(e);
+		for (i = 0; i < N; i++){
+			e[i]->Change();
+			e[i]->Continue();
+			cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
+			cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
+			/*
 			p = NotArranged.pHead;
-
 			while(p){
 				p->Check(e, false);
 				p = p->next;
-			}
+			}*/
+		}
 		cout<<endl;	
 	}
 

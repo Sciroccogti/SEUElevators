@@ -80,7 +80,7 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 	for(i = 0; i < N; i++){
 		if(!e[i]->IsFull(weight) && e[i]->isOK){
 			if(e[i]->Direction() == direction){//同向电梯
-				if((presflr - e[i]->Presflr()) * direction >= 0){//乘客的所在层不低于电梯的所在层
+				if((presflr - e[i]->Presflr()) * direction > 0){//乘客的所在层不低于电梯的所在层
 					if(j < 0 || abs(e[i]->Presflr() - presflr) < abs(e[j]->Presflr() - presflr)){
 						j = i;
 					}
@@ -97,6 +97,7 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 		if(j >= 0){
 			condition = WAITING;
 			Board[j]->push_back(this, MODEBD);
+			cout<<presflr<<"\t"<<objflr<<"\t"<<j<<endl;//测试用！！！！！！！！！！
 		}else{
 			condition = NOTARRANGED;
 			NotArranged.push_back(this, MODEBD);
@@ -105,6 +106,7 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 		condition = WAITING;
 		NotArranged.Delete(this, MODEBD);
 		Board[j]->push_back(this, MODEBD);
+		cout<<presflr<<"\t"<<objflr<<"\t"<<j<<endl;//测试用！！！！！！！！！！！！!
 	}
 	
 }
@@ -133,7 +135,7 @@ void Refresh(Elevator <People> *e[N])
 			ListDown.push_back(p, MODELIST);
 		}
 		p->Check(e, true);
-		cout<<p->Presflr()<<"\t"<<p->Objflr()<<"\t"<<p->Weight()<<endl;
+		//cout<<p->Presflr()<<"\t"<<p->Objflr()<<"\t"<<p->Weight()<<endl;
 	}
 	
 

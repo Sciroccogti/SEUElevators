@@ -55,7 +55,7 @@ public:
 				}else if (!direction && !condition && !Drop[num]->pHead && !objflr){//若电梯正无所事事
 					j = i->Presflr();
 				
-				}else if ((i->Presflr() - presflr) * direction < (j - presflr) * direction && direction == i->Direction()){//若扫到的人比上一个扫到的乘客或当前目标层更近
+				}else if ((i->Presflr() - presflr) * direction < (j - presflr) * direction && direction == i->Direction() && i->Presflr() != presflr){//若扫到的人比上一个扫到的乘客或当前目标层更近
 					j = i->Presflr();
 
 				}else if((i->Presflr() - presflr) * direction > 0 && (i->Objflr() - objflr) * direction < 0 && direction == i->Direction()){//若乘客路径在电梯路径中
