@@ -55,7 +55,7 @@ public:
 				}else if (!direction && !condition && !Drop[num]->pHead && !objflr){//若电梯正无所事事
 					j = i->Presflr();
 				
-				}else if ((i->Presflr() - presflr) * direction < (j - presflr) * direction){//若扫到的人比上一个扫到的乘客更近
+				}else if ((i->Presflr() - presflr) * direction < (j - presflr) * direction){//若扫到的人比上一个扫到的乘客或当前目标层更近
 					j = i->Presflr();
 
 				}else if(i->Presflr() != objflr && ((i->Presflr() - presflr) * direction > 0 && (i->Objflr() - objflr) * direction < 0)){//若乘客路径在电梯路径中
@@ -72,16 +72,20 @@ public:
 		}
 		
 		if(Drop[num]->pHead){
+			int j = objflr;//存储扫到的乘客目标层
 			for(i = Drop[num]->pHead; i; i = i->next) {
 				if (i->Objflr() == presflr && !condition){//下客
 					condition = OFF;
 					waiting += T;
 					total -= i->Weight();
-				}else if (!waiting && (i->Objflr() - objflr) * direction >= 0){//到下一个目标楼层
-					objflr = i->Objflr();
-					direction = objflr - presflr > 0 ? UP : DOWN;
-					waiting += S;
+				}else if (!waiting && ((i->Objflr() - j) * direction < 0 || !j)){//到下一个目标楼层
+					j = i->Objflr();
 				}
+			}
+			if (j != objflr) {
+				objflr = j;
+				direction = objflr - presflr > 0 ? UP : DOWN;
+				waiting += S;
 			}
 		}
 	}
@@ -94,19 +98,27 @@ public:
 					if(waiting == 0){//寻找待上乘客
 						condition = STOP;
 						TYPE *i;
+						
 						for(i = Board[num]->pHead; i; i = i->next){
 							if (i->Presflr() == presflr){
 								Board[num]->Delete(i, MODEBD);
 								Drop[num]->push_back(i, MODEBD);
 								i->Arrange(INELE);
-								objflr = i->Objflr();
-								direction = i->Direction();
-								waiting += S;
 								inside ++;
 								break;
 							}
 						}
+						int j = objflr;//存储扫描到的乘客目标层
+						for (i = Drop[num]->pHead; i; i = i->next) {
+							if ((i->Objflr() - j) * direction < 0 || !j) {
+								j = i->Objflr();
+							}
+						}
+						objflr = j;
+						direction = objflr - presflr > 0 ? UP : DOWN;
+						waiting += S;
 					}
+
 				}else if(condition == OFF){//下客
 					waiting --;			
 					if(waiting == 0){//寻找待下乘客
