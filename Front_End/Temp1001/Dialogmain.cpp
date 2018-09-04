@@ -142,27 +142,6 @@ void CDialogmain::OnClickedStart()            //程序启动函数；此后所�
 	//计时器设定，执行此语句后，跳入OnTimer函数中
 
 	//以下为测试代码
-	/*MoveUp(1);
-	MoveUp(1);
-	MoveUp(1); 
-	MoveDown(2);
-	MoveDown(2);
-	MoveDown(2);
-	MoveDown(2);*/
-
-	/*int a[20];
-	for(int i=0;i<20;i++)
-		a[i]=1;
-	Connection(a);
-	Loading(1);*/
-	/*SetTime(1,35);
-	SetTime(2,45);
-	SetTime(3,43);*/
-	//int i=GetRefreshNum();
-	//SetTransNum(43);
-	/*m_PrEle1.SetPos(4);
-	m_PrEle2.SetPos(6);
-	m_PrEle3.SetPos(15);*/
 
 
 }
@@ -580,29 +559,6 @@ void CDialogmain::SetObjflr(int num, int objflr)
 }
 
 
-//void CDialogmain::SetPreflr(int num, int preflr)
-//{
-//	
-//	switch(num)
-//	{
-//	case 0:
-//		{
-//			m_preflr1=preflr;
-//			break;
-//		}
-//	case 1:
-//		{
-//			m_preflr2=preflr;
-//			break;
-//		}
-//	case 2:
-//		{
-//			m_preflr3=preflr;
-//			break;
-//		}
-//	}
-//	UpdateData(FALSE);
-//}
 
 
 void CDialogmain::SetPreflr(int num, double preflr)

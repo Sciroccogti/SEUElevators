@@ -52,7 +52,7 @@ BOOL CTemp1001View::PreCreateWindow(CREATESTRUCT& cs)
 
 // CTemp1001View 绘制
 
-void CTemp1001View::OnDraw(CDC* /*pDC*/)
+void CTemp1001View::OnDraw(CDC* pDC)
 {
 	CTemp1001Doc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -60,6 +60,16 @@ void CTemp1001View::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: 在此处为本机数据添加绘制代码
+	CBitmap m_bmp;
+	m_bmp.LoadBitmapW(IDB_BITMAP1);
+	BITMAP bm;
+	m_bmp.GetObject(sizeof(BITMAP),&bm);
+	CDC dcMem;
+	dcMem.CreateCompatibleDC(pDC);
+	CBitmap* pOldbmp = dcMem.SelectObject(&m_bmp);
+	pDC->BitBlt(0,0,bm.bmWidth,bm.bmHeight,&dcMem,0,0,SRCCOPY);
+
+	dcMem.SelectObject(pOldbmp);
 }
 
 
