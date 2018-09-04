@@ -78,6 +78,8 @@ public:
 					condition = OFF;
 					waiting += T;
 					total -= i->Weight();
+					j = objflr;
+					break;
 				}else if (!waiting && ((i->Objflr() - j) * direction < 0 || !j)){//到下一个目标楼层
 					j = i->Objflr();
 				}
@@ -104,18 +106,19 @@ public:
 								Board[num]->Delete(i, MODEBD);
 								Drop[num]->push_back(i, MODEBD);
 								i->Arrange(INELE);
+								direction = i->Objflr() - presflr > 0 ? UP : DOWN;
 								inside ++;
 								break;
 							}
 						}
+
 						int j = objflr;//存储扫描到的乘客目标层
 						for (i = Drop[num]->pHead; i; i = i->next) {
-							if ((i->Objflr() - j) * direction < 0 || !j) {
+							if ((i->Objflr() - presflr) * direction < (j - presflr) * direction || !j) {
 								j = i->Objflr();
 							}
 						}
 						objflr = j;
-						direction = objflr - presflr > 0 ? UP : DOWN;
 						waiting += S;
 					}
 

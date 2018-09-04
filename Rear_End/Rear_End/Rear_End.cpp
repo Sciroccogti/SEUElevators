@@ -20,7 +20,7 @@ int main(){
 
 		People *p;
 
-		p = new People(1,3);
+		p = new People(1,4);
 		if(p->Direction() == UP){
 			ListUp.push_back(p, MODELIST);
 		}else{
@@ -38,7 +38,7 @@ int main(){
 	//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-	p = new People(4,2);
+	p = new People(2,3);
 	if(p->Direction() == UP){
 		ListUp.push_back(p, MODELIST);
 	}else{
