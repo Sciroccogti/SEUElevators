@@ -78,7 +78,7 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 	int i, j = -1;//j用于存储准备调用的电梯编号
 
 	for(i = 0; i < N; i++){
-		if(!e[i]->IsFull(weight) && e[i]->isOK){
+		if(!e[i]->IsFull(weight) && e[i]->IsOK()){
 			if(e[i]->Direction() == direction){//同向电梯
 				if((presflr - e[i]->Presflr()) * direction > 0){//乘客的所在层不低于电梯的所在层
 					if(j < 0 || abs(e[i]->Presflr() - presflr) < abs(e[j]->Presflr() - presflr)){
@@ -114,9 +114,9 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 void Refresh(Elevator <People> *e[N])
 {
 	//srand((int)time(0));	//备用方法
-	//int n = (int)floor(rand() % 10 / 10.0+ 0.2);	//备用方法
+	int n = (int)floor(rand() % 10 / 10.0+ 0.1);	//备用方法
 
-	int n = 1;
+	//int n = 1;
 	//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	int i = 0;

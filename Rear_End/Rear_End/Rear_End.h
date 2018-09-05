@@ -19,8 +19,8 @@
 #define MODEBD 1		//供Board/Drop/NotArranged使用
 #define MODELIST 2		//供ListUp/Down使用
 
-#define N 3				//电梯数量
-#define L 20			//最高楼层
+#define N 1				//电梯数量
+#define L 10			//最高楼层
 #define MAX 1600		//最大载重量
 #define S 3				//电梯运行速度S秒/层
 #define T 2				//乘客上下时间

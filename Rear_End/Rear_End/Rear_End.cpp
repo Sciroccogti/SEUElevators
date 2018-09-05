@@ -18,7 +18,7 @@ int main(){
 	/*
 		_sleep(200);
 		People *p;
-		p = new People(2,5);
+		p = new People(1,3);
 		if(p->Direction() == UP){
 			ListUp.push_back(p, MODELIST);
 		}else{
@@ -34,7 +34,7 @@ int main(){
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	_sleep(200);
-	p = new People(4,1);
+	p = new People(2,3);
 	if(p->Direction() == UP){
 		ListUp.push_back(p, MODELIST);
 	}else{
@@ -51,7 +51,7 @@ int main(){
 
 
 	_sleep(200);
-	p = new People(3,2);
+	p = new People(3,1);
 	if(p->Direction() == UP){
 		ListUp.push_back(p, MODELIST);
 	}else{
@@ -65,9 +65,9 @@ int main(){
 	cout<<endl;	
 	*/
 	
-	for (j = 0; j < 200; j++)
+	for (j = 0; j < 500; j++)
 	{
-		_sleep(50);
+		_sleep(1);
 		Refresh(e);
 		/*
 		p = NotArranged.pHead;

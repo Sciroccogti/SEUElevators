@@ -17,7 +17,6 @@ public:
 	int objflr;		//目标层
 	double time;	//总运行时间
 	int waiting;	//状态保持时间
-	bool isOK;		//是否不需要维护
 	int inside;		//电梯内人数
 
 public:
@@ -30,7 +29,6 @@ public:
 		objflr = 0;
 		time = 0;
 		waiting = 0;
-		isOK = true;
 		inside = 0;
 	}
 
@@ -40,7 +38,7 @@ public:
 			int j = objflr;//存储扫描到的最近待乘乘客所在层
 			for(i = Board[num]->pHead; i; i = i->next){
 				if (i->Presflr() == presflr && condition == STOP && direction == STOP && !waiting){//上当前楼层的乘客
-					if(!isOK || IsFull(i->Weight())){
+					if(!IsOK() || IsFull(i->Weight())){
 						i->Arrange(NOTARRANGED);
 						Board[num]->Delete(i, MODEBD);
 						NotArranged.push_back(i, MODEBD);
@@ -55,13 +53,12 @@ public:
 				}else if (!direction && !condition && !Drop[num]->pHead && !objflr){//若电梯正无所事事
 					j = i->Presflr();
 				
-				}else if ((i->Presflr() - presflr) * direction < (j - presflr) * direction && direction == i->Direction() && i->Presflr() != presflr){//若扫到的人比上一个扫到的乘客或当前目标层更近
+				}else if ((i->Presflr() - presflr) * direction < (j - presflr) * direction && direction == i->Direction() && i->Presflr() != presflr && !waiting){//若扫到的人比上一个扫到的乘客或当前目标层更近
 					j = i->Presflr();
 
-				}else if((i->Presflr() - presflr) * direction > 0 && (i->Objflr() - objflr) * direction < 0 && direction == i->Direction()){//若乘客路径在电梯路径中
+				}else if((i->Presflr() - presflr) * direction > 0 && (i->Objflr() - objflr) * direction < 0 && direction == i->Direction() && !waiting){//若乘客路径在电梯路径中
 					j = i->Presflr();
 
-				}else if (j ){
 				}
 			}		
 			if (j != objflr){
@@ -74,7 +71,7 @@ public:
 		if(Drop[num]->pHead){
 			int j = objflr;//存储扫到的乘客目标层
 			for(i = Drop[num]->pHead; i; i = i->next) {
-				if (i->Objflr() == presflr && !condition){//下客
+				if (i->Objflr() == presflr && !condition && !waiting){//下客
 					condition = OFF;
 					waiting += T;
 					total -= i->Weight();
@@ -208,8 +205,8 @@ public:
 	double Presflr(){return presflr;}
 	int Condition(){return condition;}
 	int Inside(){return inside;}//返回电梯内人数
-	bool IsOK(){return isOK;}
-	void Repair(){isOK = true;}
+	bool IsOK(){return time - T0 < 0;}
+	void Repair(){time = 0;}
 };
 
 #endif
