@@ -17,6 +17,7 @@ protected://调试时使用
 
 public:
 	People();										//构造
+	People(int pre, int obj);
 	void Check(Elevator <People> *e[N], bool isnew);//轮询电梯
 	void Delete();									//从链表中移除
 	int Direction(){return direction;}
@@ -24,6 +25,7 @@ public:
 	int Presflr(){return presflr;}
 	int Weight(){return weight;}
 	void Arrange(int con){condition = con;}
+	int Condition(){return condition;}
 	People *pNext;//供ListUp/Down使用
 	People *pFront;//供ListUp/Down使用
 	People *next;//供Board/Drop/NotArranged使用
@@ -54,19 +56,36 @@ People::People()
 	pFront = pNext = prev = next = NULL;
 }
 
+People::People(int pre, int obj)
+{
+	//随机生成所在层与目标层
+	presflr = pre;
+	objflr = obj;
+	//生成方向
+	direction = presflr < objflr ? UP : DOWN;
+
+	//随机生成体重
+	weight = 50 + rand() % 50;
+	//TODO：改为正态分布+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//cout<<presflr<<endl<<objflr<<endl<<direction<<endl<<weight<<endl;//测试用代码
+
+	condition = NOTARRANGED;
+	pFront = pNext = prev = next = NULL;
+}
+
 void People::Check(Elevator <People> *e[N], bool isnew)
 {
 	int i, j = -1;//j用于存储准备调用的电梯编号
 
 	for(i = 0; i < N; i++){
 		if(!e[i]->IsFull(weight) && e[i]->isOK){
-			if(e[i]->Direction() == direction){
-				if((presflr - e[i]->Presflr()) * direction > 0){
-					if(j < 0 || (e[i]->Presflr() - e[j]->Presflr()) * direction > 0){
+			if(e[i]->Direction() == direction){//同向电梯
+				if((presflr - e[i]->Presflr()) * direction > 0){//乘客的所在层不低于电梯的所在层
+					if(j < 0 || abs(e[i]->Presflr() - presflr) < abs(e[j]->Presflr() - presflr)){
 						j = i;
 					}
 				}
-			}else if (!e[i]->Direction() && !e[i]->Objflr()){
+			}else if (!e[i]->Direction() && !e[i]->Objflr() && !e[i]->Inside() && !Board[i]->pHead && !Drop[i]->pHead){//电梯正无所事事
 				if(j < 0 || abs(e[i]->Presflr() - presflr) < abs(e[j]->Presflr() - presflr)){
 					j = i;
 				}
@@ -78,6 +97,7 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 		if(j >= 0){
 			condition = WAITING;
 			Board[j]->push_back(this, MODEBD);
+			cout<<presflr<<"\t"<<objflr<<"\t"<<j<<endl;//测试用！！！！！！！！！！
 		}else{
 			condition = NOTARRANGED;
 			NotArranged.push_back(this, MODEBD);
@@ -86,6 +106,7 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 		condition = WAITING;
 		NotArranged.Delete(this, MODEBD);
 		Board[j]->push_back(this, MODEBD);
+		cout<<presflr<<"\t"<<objflr<<"\t"<<j<<endl;//测试用！！！！！！！！！！！！!
 	}
 	
 }
@@ -93,9 +114,9 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 void Refresh(Elevator <People> *e[N])
 {
 	//srand((int)time(0));	//备用方法
-	int n = (int)floor(rand() % 10 / 10.0+ 0.2);	//备用方法
+	//int n = (int)floor(rand() % 10 / 10.0+ 0.2);	//备用方法
 
-	//int n = 1;
+	int n = 1;
 	//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	int i = 0;
@@ -114,7 +135,7 @@ void Refresh(Elevator <People> *e[N])
 			ListDown.push_back(p, MODELIST);
 		}
 		p->Check(e, true);
-		cout<<p->Presflr()<<"\t"<<p->Objflr()<<"\t"<<p->Weight()<<endl;
+		//cout<<p->Presflr()<<"\t"<<p->Objflr()<<"\t"<<p->Weight()<<endl;
 	}
 	
 
@@ -143,10 +164,16 @@ void Show(int *n)//显示各层等待人数
 	}
 	People *i;
 	for(i = ListUp.pHead; i; i = i->pNext){
-		n[i->Presflr()]++;
+		if (i->Condition() != INELE)
+		{
+			n[i->Presflr()]++;
+		}
 	}
 	for(i = ListDown.pHead; i; i = i->pNext){
-		n[i->Presflr()]++;
+		if (i->Condition() != INELE)
+		{
+			n[i->Presflr()]++;
+		}
 	}
 }
 #endif

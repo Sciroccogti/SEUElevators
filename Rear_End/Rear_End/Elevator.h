@@ -106,7 +106,6 @@ public:
 								Board[num]->Delete(i, MODEBD);
 								Drop[num]->push_back(i, MODEBD);
 								i->Arrange(INELE);
-								direction = i->Objflr() - presflr > 0 ? UP : DOWN;
 								inside ++;
 								break;
 							}
@@ -115,13 +114,13 @@ public:
 						int j = objflr;//存储扫描到的乘客目标层
 						int c;//存储即将进行的操作
 						for (i = Drop[num]->pHead; i; i = i->next) {
-							if ((i->Objflr() - presflr) * direction < (j - presflr) * direction || !j) {
+							if (abs(i->Objflr() - presflr) < abs(j - presflr) || !j) {
 								j = i->Objflr();
 								c = OFF;
 							}
 						}
 						for (i = Board[num]->pHead; i; i = i->next) {
-							if ((i->Presflr() - presflr) * direction < (j - presflr) * direction || !j) {
+							if (abs(i->Presflr() - presflr) < abs(j - presflr) || !j) {
 								j = i->Presflr();
 								c = ON;
 							}
@@ -144,7 +143,6 @@ public:
 						TYPE *i;
 						for(i = Drop[num]->pHead; i; i = i->next){
 							if (i->Objflr() == presflr){
-								direction = i->Direction();//方便进行后续任务安排
 								Drop[num]->Delete(i, MODEBD);
 								if (i->Direction() == UP){
 									ListUp.Delete(i, MODELIST);
@@ -161,13 +159,13 @@ public:
 						int j = objflr;
 						int c = 0;
 						for (i = Drop[num]->pHead; i; i = i->next) {
-							if ((i->Objflr() - presflr) * direction < (j - presflr) * direction || !j) {
+							if (abs(i->Objflr() - presflr) < abs(j - presflr) || !j) {
 								j = i->Objflr();
 								c = OFF;
 							}
 						}
 						for (i = Board[num]->pHead; i; i = i->next) {
-							if ((i->Presflr() - presflr) * direction < (j - presflr) * direction || !j) {
+							if (abs(i->Presflr() - presflr) < abs(j - presflr) || !j) {
 								j = i->Presflr();
 								c = ON;
 							}

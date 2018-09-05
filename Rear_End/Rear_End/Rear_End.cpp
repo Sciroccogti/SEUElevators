@@ -15,10 +15,10 @@ int main(){
 	
 	cout<<"\n";
 	*/
-	
+	/*
 		_sleep(200);
 		People *p;
-		p = new People(4,5);
+		p = new People(2,5);
 		if(p->Direction() == UP){
 			ListUp.push_back(p, MODELIST);
 		}else{
@@ -34,7 +34,7 @@ int main(){
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	_sleep(200);
-	p = new People(3,1);
+	p = new People(4,1);
 	if(p->Direction() == UP){
 		ListUp.push_back(p, MODELIST);
 	}else{
@@ -51,7 +51,7 @@ int main(){
 
 
 	_sleep(200);
-	p = new People(2,1);
+	p = new People(3,2);
 	if(p->Direction() == UP){
 		ListUp.push_back(p, MODELIST);
 	}else{
@@ -63,19 +63,19 @@ int main(){
 	cout<<i<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
 	cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<endl;
 	cout<<endl;	
-
-
-	for (j = 0; j < 50; j++)
+	*/
+	
+	for (j = 0; j < 200; j++)
 	{
-		_sleep(100);
-		//Refresh(e);
-		
+		_sleep(50);
+		Refresh(e);
+		/*
 		p = NotArranged.pHead;
 		while(p){
 			p->Check(e, false);
 			p = p->next;
 		}
-		
+		*/
 		for (i = 0; i < N; i++){
 			e[i]->Change();
 			e[i]->Continue();

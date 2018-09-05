@@ -100,10 +100,12 @@ public:
 				else if(p == pHead)
 				{
 					pHead = pHead->pNext;
+					p->pNext->pFront = p->pFront;
 				}
 				else if(p == pRear)
 				{
 					pRear = pRear->pFront;
+					p->pFront->pNext = p->pNext;
 				}
 				else
 				{
@@ -124,10 +126,12 @@ public:
 				else if(p == pHead)
 				{
 					pHead = pHead->next;
+					p->next->prev = p->prev;
 				}
 				else if(p == pRear)
 				{
 					pRear = pRear->prev;
+					p->prev->next = p->next;
 				}
 				else
 				{
