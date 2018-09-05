@@ -95,4 +95,13 @@ public:
 	double m_preflr2;
 	double m_preflr3;
 	void SetPreflr(int num, double preflr);
+	int m_Acc;
+	int m_Inside1;
+	int m_Inside2;
+	int m_Inside3;
+	void SetInside(int num, int inside);
+	CEdit m_Ifrepair1;
+	CEdit m_Ifrepair2;
+	CEdit m_Ifrepair3;
+	void SetRepair(int num, int isok);
 };
