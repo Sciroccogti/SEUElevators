@@ -1,8 +1,10 @@
 /Rear_End/Debug
 /Rear_End/ipch
 /Rear_End/Rear_End/Debug
-/Front_End/Temp1001/Debug
+/Front_End/Front_End/Debug
 /Front_End/ipch
+/Temp1001/Temp1001/Debug
+/Temp1001/ipch
 *.aps
 *.exe
 *.ilk
