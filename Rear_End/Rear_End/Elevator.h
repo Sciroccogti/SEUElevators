@@ -113,22 +113,38 @@ public:
 						}
 
 						int j = objflr;//存储扫描到的乘客目标层
+						int c;//存储即将进行的操作
 						for (i = Drop[num]->pHead; i; i = i->next) {
 							if ((i->Objflr() - presflr) * direction < (j - presflr) * direction || !j) {
 								j = i->Objflr();
+								c = OFF;
 							}
 						}
-						objflr = j;
-						waiting += S;
+						for (i = Board[num]->pHead; i; i = i->next) {
+							if ((i->Presflr() - presflr) * direction < (j - presflr) * direction || !j) {
+								j = i->Presflr();
+								c = ON;
+							}
+						}
+						if(j != presflr){
+							objflr = j;
+							waiting += S;
+							direction = objflr - presflr > 0 ? UP : DOWN;
+						}else{
+							condition = c;
+							waiting += T;
+							direction = STOP;
+						}
 					}
 
 				}else if(condition == OFF){//下客
 					waiting --;			
 					if(waiting == 0){//寻找待下乘客
 						condition = STOP;
-						TYPE *i = Drop[num]->pHead;
+						TYPE *i;
 						for(i = Drop[num]->pHead; i; i = i->next){
 							if (i->Objflr() == presflr){
+								direction = i->Direction();//方便进行后续任务安排
 								Drop[num]->Delete(i, MODEBD);
 								if (i->Direction() == UP){
 									ListUp.Delete(i, MODELIST);
@@ -140,6 +156,32 @@ public:
 								inside --;
 								break;
 							}
+						}
+
+						int j = objflr;
+						int c = 0;
+						for (i = Drop[num]->pHead; i; i = i->next) {
+							if ((i->Objflr() - presflr) * direction < (j - presflr) * direction || !j) {
+								j = i->Objflr();
+								c = OFF;
+							}
+						}
+						for (i = Board[num]->pHead; i; i = i->next) {
+							if ((i->Presflr() - presflr) * direction < (j - presflr) * direction || !j) {
+								j = i->Presflr();
+								c = ON;
+							}
+						}
+						if(j != presflr && j){
+							objflr = j;
+							waiting += S;
+							direction = objflr - presflr > 0 ? UP : DOWN;
+						}else if(j){
+							condition = c;
+							waiting += T;
+							direction = STOP;
+						}else{
+							direction = STOP;
 						}
 					}
 				}
