@@ -6,8 +6,6 @@
 #include "Dialogmain.h"
 #include "afxdialogex.h"
 #include "People.h"
-#include "windows.h"
-#include "resource.h"
 
 // CDialogmain 对话框
 int n[L + 1];
@@ -58,10 +56,6 @@ CDialogmain::CDialogmain(CWnd* pParent /*=NULL*/)
 	m_preflr1 = 0.0;
 	m_preflr2 = 0.0;
 	m_preflr3 = 0.0;
-	m_Acc = 0;
-	m_Inside1 = 0;
-	m_Inside2 = 0;
-	m_Inside3 = 0;
 }
 
 CDialogmain::~CDialogmain()
@@ -112,13 +106,6 @@ void CDialogmain::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_PREFLR1, m_preflr1);
 	DDX_Text(pDX, IDC_PREFLR2, m_preflr2);
 	DDX_Text(pDX, IDC_PREFLR3, m_preflr3);
-	DDX_Text(pDX, IDC_EDITACC, m_Acc);
-	DDX_Text(pDX, IDC_INSIDE1, m_Inside1);
-	DDX_Text(pDX, IDC_INSIDE2, m_Inside2);
-	DDX_Text(pDX, IDC_INSIDE3, m_Inside3);
-	DDX_Control(pDX, IDC_IFREPAIR1, m_Ifrepair1);
-	DDX_Control(pDX, IDC_IFREPAIR2, m_Ifrepair2);
-	DDX_Control(pDX, IDC_IFREPAIR3, m_Ifrepair3);
 }
 
 
@@ -164,7 +151,6 @@ void CDialogmain::OnBnClickedOk()	//点击结束按钮时执行的操作放入�
 {
 	// TODO: 在此添加控件通知处理程序代码
 	//KillTimer(1);
-	exit(1);
 	CDialogEx::OnOK();
 }
 
@@ -230,12 +216,8 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //计时器函数，主要部分�
 		SetTime(e[i]->num,e[i]->time);
 		SetPreflr(e[i]->num,e[i]->presflr);
 		SetObjflr(e[i]->num,e[i]->objflr);
-		SetInside(e[i]->num,e[i]->inside);
 	}
-	m_Acc=v;
-	UpdateData(FALSE);
-
-
+	
 	CDialogEx::OnTimer(nIDEvent);
 }
 
@@ -600,76 +582,4 @@ void CDialogmain::SetPreflr(int num, double preflr)
 		}
 	}
 	UpdateData(FALSE);
-}
-
-
-void CDialogmain::SetInside(int num, int inside)
-{
-	switch(num)
-	{
-	case 0:
-		{
-			m_Inside1=inside;
-			break;
-		}
-	case 1:
-		{
-			m_Inside2=inside;
-			break;
-		}
-	case 2:
-		{
-			m_Inside3=inside;
-			break;
-		}
-	}
-	UpdateData(FALSE);
-}
-
-
-void CDialogmain::SetRepair(int num, int isok)
-{
-	switch(num)
-	{
-	case 0:
-		{
-			if(isok==1)
-				m_Ifrepair1.SetWindowText(L"否");
-			else if(isok==0)
-				{
-					//Beep(1000,3000);
-					m_Ifrepair1.SetWindowText(L"是");
-
-					//MessageBox(L"1号电梯需要维修");
-				}
-
-			break;
-		}
-	case 1:
-		{
-			if(isok==1)
-				m_Ifrepair2.SetWindowText(L"否");
-			else if(isok==0)
-				{
-					//Beep(1000,3000);
-					m_Ifrepair2.SetWindowText(L"是");
-
-					//MessageBox(L"1号电梯需要维修");
-				}
-			break;
-		}
-	case 2:
-		{
-			if(isok==1)
-				m_Ifrepair3.SetWindowText(L"否");
-			else if(isok==0)
-				{
-					//Beep(1000,3000);
-					m_Ifrepair3.SetWindowText(L"是");
-
-					//MessageBox(L"1号电梯需要维修");
-				}
-			break;
-		}
-	}
 }
