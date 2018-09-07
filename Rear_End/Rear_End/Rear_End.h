@@ -22,7 +22,7 @@
 #define N 1				//电梯数量
 #define L 10			//最高楼层
 #define MAX 1600		//最大载重量
-#define S 3				//电梯运行速度S秒/层
+#define S 1				//电梯运行速度S秒/层
 #define T 2				//乘客上下时间
 #define T0 1296000		//维护阈值
 

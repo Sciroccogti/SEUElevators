@@ -97,7 +97,7 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 		if(j >= 0){
 			condition = WAITING;
 			Board[j]->push_back(this, MODEBD);
-			cout<<presflr<<"\t"<<objflr<<"\t"<<j<<endl;//测试用！！！！！！！！！！
+			cout<<presflr<<"\t"<<objflr<<"\t"<<j<<"\t"<<weight<<endl;//测试用！！！！！！！！！！
 		}else{
 			condition = NOTARRANGED;
 			NotArranged.push_back(this, MODEBD);
@@ -106,7 +106,7 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 		condition = WAITING;
 		NotArranged.Delete(this, MODEBD);
 		Board[j]->push_back(this, MODEBD);
-		cout<<presflr<<"\t"<<objflr<<"\t"<<j<<endl;//测试用！！！！！！！！！！！！!
+		cout<<presflr<<"\t"<<objflr<<"\t"<<j<<"\t"<<weight<<endl;//测试用！！！！！！！！！！！！!
 	}
 	
 }

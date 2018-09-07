@@ -109,17 +109,20 @@ public:
 						}
 
 						int j = objflr;//存储扫描到的乘客目标层
+						People * k;
 						int c;//存储即将进行的操作
 						for (i = Drop[num]->pHead; i; i = i->next) {
 							if (abs(i->Objflr() - presflr) < abs(j - presflr) || !j) {
 								j = i->Objflr();
 								c = OFF;
+								k = i;
 							}
 						}
 						for (i = Board[num]->pHead; i; i = i->next) {
 							if (abs(i->Presflr() - presflr) < abs(j - presflr) || !j) {
 								j = i->Presflr();
 								c = ON;
+								k = i;
 							}
 						}
 						if(j != presflr){
@@ -129,6 +132,11 @@ public:
 						}else{
 							condition = c;
 							waiting += T;
+							if(condition == ON){
+								total += k->Weight();
+							} else if (condition == OFF){
+								total -= k->Weight();
+							}
 							direction = STOP;
 						}
 					}
@@ -153,17 +161,20 @@ public:
 							}
 						}
 
+						People *k;
 						int j = objflr;
 						int c = 0;
 						for (i = Drop[num]->pHead; i; i = i->next) {
 							if (abs(i->Objflr() - presflr) < abs(j - presflr) || !j) {
 								j = i->Objflr();
+								k = i;
 								c = OFF;
 							}
 						}
 						for (i = Board[num]->pHead; i; i = i->next) {
 							if (abs(i->Presflr() - presflr) < abs(j - presflr) || !j) {
 								j = i->Presflr();
+								k = i;
 								c = ON;
 							}
 						}
@@ -174,6 +185,11 @@ public:
 						}else if(j){
 							condition = c;
 							waiting += T;
+							if(condition == ON){
+								total += k->Weight();
+							} else if (condition == OFF){
+								total -= k->Weight();
+							}
 							direction = STOP;
 						}else{
 							direction = STOP;

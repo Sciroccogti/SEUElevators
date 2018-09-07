@@ -80,7 +80,7 @@ int main(){
 			e[i]->Change();
 			e[i]->Continue();
 			cout<<"\t"<<setw(10)<<e[i]->Presflr()<<"\t";
-			cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<"\t"<<e[i]->Direction()<<endl;
+			cout<<e[i]->Objflr()<<"\t"<<e[i]->waiting<<"\t"<<e[i]->total<<endl;
 		}
 		cout<<endl;	
 	}
