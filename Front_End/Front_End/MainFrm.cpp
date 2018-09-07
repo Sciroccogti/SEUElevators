@@ -412,7 +412,7 @@ void CMainFrame::OnOndialog()
 {
 	// TODO: 在此添加命令处理程序代码
 	CDialogmain dlg;
-	MessageBox(L"欢迎来到此程序",L"Welcome",NULL);
+	MessageBox(L"欢迎开启SEUElevators电梯仿真之旅！",L"Welcome",NULL);
 	dlg.DoModal();
 
 }
