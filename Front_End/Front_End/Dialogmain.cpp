@@ -130,6 +130,10 @@ ON_BN_CLICKED(IDC_ACC20, &CDialogmain::OnBnClickedAcc20)
 ON_BN_CLICKED(IDC_ACC50, &CDialogmain::OnBnClickedAcc50)
 ON_BN_CLICKED(IDC_BUTTONPAUSE, &CDialogmain::OnBnClickedButtonpause)
 ON_BN_CLICKED(IDC_BUTTONCONTINUE, &CDialogmain::OnBnClickedButtoncontinue)
+//ON_BN_CLICKED(IDC_BUTTON1, &CDialogmain::OnBnClickedButton1)
+ON_BN_CLICKED(IDC_BUTTONREPAIR1, &CDialogmain::OnBnClickedButtonrepair1)
+ON_BN_CLICKED(IDC_BUTTONREPAIR2, &CDialogmain::OnBnClickedButtonrepair2)
+ON_BN_CLICKED(IDC_BUTTONREPAIR3, &CDialogmain::OnBnClickedButtonrepair3)
 END_MESSAGE_MAP()
 
 
@@ -656,4 +660,26 @@ void CDialogmain::CheckTime(int num, int time)
 			}
 		}
 	}
+}
+
+
+
+void CDialogmain::OnBnClickedButtonrepair1()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	e[0]->Repair();
+}
+
+
+void CDialogmain::OnBnClickedButtonrepair2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	e[1]->Repair();
+}
+
+
+void CDialogmain::OnBnClickedButtonrepair3()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	e[2]->Repair();
 }

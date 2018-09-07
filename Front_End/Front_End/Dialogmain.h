@@ -102,4 +102,8 @@ public:
 	int m_Total3;
 	void SetWeight(int num, int total);
 	void CheckTime(int num, int time);
+//	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButtonrepair1();
+	afx_msg void OnBnClickedButtonrepair2();
+	afx_msg void OnBnClickedButtonrepair3();
 };
