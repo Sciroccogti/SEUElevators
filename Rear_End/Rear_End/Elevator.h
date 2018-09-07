@@ -7,7 +7,6 @@
 template <class TYPE>
 class Elevator
 {
-//protected:
 public:
 	int num;		//编号
 	int total;		//总重

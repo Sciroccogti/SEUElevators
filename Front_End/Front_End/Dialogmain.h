@@ -1,13 +1,4 @@
 #pragma once
-
-
-/*#include "stdafx.h"
-#include "Front_End.h"
-//#include "Dialogmain.h"
-#include "afxdialogex.h"*/
-
-
-
 // CDialogmain ¶Ô»°¿ò
 
 class CDialogmain : public CDialogEx
@@ -58,28 +49,18 @@ public:
 	CProgressCtrl m_PrEle1;
 	CProgressCtrl m_PrEle2;
 	CProgressCtrl m_PrEle3;
-//	void MoveUp(int num);
 	virtual BOOL OnInitDialog();
-//	void MoveDown(int num);
-//	void Stop(int num);
-//	void Loading(int num);
 	void SetPeople(void);
 	void Connection(int* ptemp);
-//	afx_msg void OnEnChangeEdit2();
-//	CEdit m_time1;
 	int m_time1;
 	int m_time3;
 	int m_time2;
 	void SetTime(int num, int time);
-//	int GetRefreshNum(void);
 	int SetTransNum(int transportnum);
 	int PrevCondition[3];
 	int PrevFrontCondition[3];
 	double m_PreFlr[3];
 	double m_PreFrontFlr[3];
-//	void ResetCondition(int num);
-//	void ResetConditionDown(int num);
-//	void ResetConditionUp(int num);
 	int v;
 	afx_msg void OnBnClickedAcc2();
 	afx_msg void OnBnClickedAcc10();
@@ -102,7 +83,6 @@ public:
 	int m_Total3;
 	void SetWeight(int num, int total);
 	void CheckTime(int num, int time);
-//	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButtonrepair1();
 	afx_msg void OnBnClickedButtonrepair2();
 	afx_msg void OnBnClickedButtonrepair3();

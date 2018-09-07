@@ -50,8 +50,6 @@ People::People()
 	//随机生成体重
 	weight = 50 + rand() % 50;
 	//TODO：改为正态分布+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	//cout<<presflr<<endl<<objflr<<endl<<direction<<endl<<weight<<endl;//测试用代码
-
 	condition = NOTARRANGED;
 	pFront = pNext = prev = next = NULL;
 }
@@ -67,8 +65,6 @@ People::People(int pre, int obj)
 	//随机生成体重
 	weight = 50 + rand() % 50;
 	//TODO：改为正态分布+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	//cout<<presflr<<endl<<objflr<<endl<<direction<<endl<<weight<<endl;//测试用代码
-
 	condition = NOTARRANGED;
 	pFront = pNext = prev = next = NULL;
 }
@@ -97,7 +93,6 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 		if(j >= 0){
 			condition = WAITING;
 			Board[j]->push_back(this, MODEBD);
-			cout<<presflr<<"\t"<<objflr<<"\t"<<j<<endl;//测试用！！！！！！！！！！
 		}else{
 			condition = NOTARRANGED;
 			NotArranged.push_back(this, MODEBD);
@@ -106,18 +101,13 @@ void People::Check(Elevator <People> *e[N], bool isnew)
 		condition = WAITING;
 		NotArranged.Delete(this, MODEBD);
 		Board[j]->push_back(this, MODEBD);
-		cout<<presflr<<"\t"<<objflr<<"\t"<<j<<endl;//测试用！！！！！！！！！！！！!
 	}
 	
 }
 
 void Refresh(Elevator <People> *e[N])
 {
-	//srand((int)time(0));	//备用方法
 	int n = (int)floor(rand() % 10 / 10.0+ 0.1);	//备用方法
-
-	//int n = 1;
-	//TODO：改为随机、大量++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	int i = 0;
 	People *p = NotArranged.pHead;
@@ -135,7 +125,6 @@ void Refresh(Elevator <People> *e[N])
 			ListDown.push_back(p, MODELIST);
 		}
 		p->Check(e, true);
-		//cout<<p->Presflr()<<"\t"<<p->Objflr()<<"\t"<<p->Weight()<<endl;
 	}
 	
 
