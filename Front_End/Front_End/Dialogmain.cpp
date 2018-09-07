@@ -6,6 +6,7 @@
 #include "Dialogmain.h"
 #include "afxdialogex.h"
 #include "People.h"
+#include "windows.h"
 
 // CDialogmain 对话框
 int n[L + 1];
@@ -56,6 +57,10 @@ CDialogmain::CDialogmain(CWnd* pParent /*=NULL*/)
 	m_preflr1 = 0.0;
 	m_preflr2 = 0.0;
 	m_preflr3 = 0.0;
+	m_acc = 0;
+	m_Total1 = 0;
+	m_Total2 = 0;
+	m_Total3 = 0;
 }
 
 CDialogmain::~CDialogmain()
@@ -106,6 +111,11 @@ void CDialogmain::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_PREFLR1, m_preflr1);
 	DDX_Text(pDX, IDC_PREFLR2, m_preflr2);
 	DDX_Text(pDX, IDC_PREFLR3, m_preflr3);
+	DDX_Text(pDX, IDC_EDITACC, m_acc);
+	DDX_Text(pDX, IDC_TOTAL1, m_Total1);
+	//  DDX_Control(pDX, IDC_TOTAL2, m_Total2);
+	DDX_Text(pDX, IDC_TOTAL2, m_Total2);
+	DDX_Text(pDX, IDC_TOTAL3, m_Total3);
 }
 
 
@@ -216,7 +226,10 @@ void CDialogmain::OnTimer(UINT_PTR nIDEvent)  //计时器函数，主要部分�
 		SetTime(e[i]->num,e[i]->time);
 		SetPreflr(e[i]->num,e[i]->presflr);
 		SetObjflr(e[i]->num,e[i]->objflr);
+		SetWeight(e[i]->num,e[i]->total);
+		CheckTime(e[i]->num,e[i]->time);
 	}
+	SetAcc(NULL,v);
 	
 	CDialogEx::OnTimer(nIDEvent);
 }
@@ -582,4 +595,65 @@ void CDialogmain::SetPreflr(int num, double preflr)
 		}
 	}
 	UpdateData(FALSE);
+}
+
+
+void CDialogmain::SetAcc(int num, int Acc)
+{
+	m_acc = v;
+	UpdateData(FALSE);
+
+}
+
+
+void CDialogmain::SetWeight(int num, int total)
+{
+	switch(num)
+	{
+	case 0:
+		{
+			m_Total1=total;
+			break;
+		}
+	case 1:
+		{
+			m_Total2=total;
+			break;
+		}
+	case 2:
+		{
+			m_Total3=total;
+			break;
+		}
+	}
+	UpdateData(FALSE);
+}
+
+
+void CDialogmain::CheckTime(int num, int time)
+{
+	if(time==1000)
+	{
+		switch(num)
+		{
+		case 0:
+			{
+				Beep(800,2000);
+				MessageBox(L"一号电梯达到阈值");
+				break;
+			}
+		case 1:
+			{
+				Beep(800,2000);
+				MessageBox(L"二号电梯达到阈值");
+				break;
+			}
+		case 2:
+			{
+				Beep(800,2000);
+				MessageBox(L"三号电梯达到阈值");
+				break;
+			}
+		}
+	}
 }

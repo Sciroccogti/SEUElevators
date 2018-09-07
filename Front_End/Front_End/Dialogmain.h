@@ -95,4 +95,11 @@ public:
 	double m_preflr2;
 	double m_preflr3;
 	void SetPreflr(int num, double preflr);
+	int m_acc;
+	void SetAcc(int num, int Acc);
+	int m_Total1;
+	int m_Total2;
+	int m_Total3;
+	void SetWeight(int num, int total);
+	void CheckTime(int num, int time);
 };
