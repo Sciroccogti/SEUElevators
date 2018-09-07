@@ -36,7 +36,8 @@ public:
 		if(Board[num]->pHead){
 			int j = objflr;//存储扫描到的最近待乘乘客所在层
 			for(i = Board[num]->pHead; i; i = i->next){
-				if (i->Presflr() == presflr && condition == STOP && direction == STOP && !waiting){//上当前楼层的乘客
+				if (i->Presflr() == presflr && condition == STOP && direction == STOP && !waiting){
+					//上当前楼层的乘客
 					if(!IsOK() || IsFull(i->Weight())){
 						i->Arrange(NOTARRANGED);
 						Board[num]->Delete(i, MODEBD);
@@ -74,6 +75,7 @@ public:
 					condition = OFF;
 					waiting += T;
 					total -= i->Weight();
+					mass += i->Weight();
 					j = objflr;
 					break;
 				}else if (!waiting && ((i->Objflr() - j) * direction < 0 || !j)){//到下一个目标楼层
@@ -135,6 +137,7 @@ public:
 								total += k->Weight();
 							} else if (condition == OFF){
 								total -= k->Weight();
+								mass += k->Weight();
 							}
 							direction = STOP;
 						}

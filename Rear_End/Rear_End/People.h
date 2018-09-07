@@ -32,10 +32,12 @@ public:
 	People *prev;//供Board/Drop/NotArranged使用
 };
 
-List <People> *Board[N];
-List <People> *Drop[N];
+List <People> *Board[N];//各电梯的待上客链表
+List <People> *Drop[N];//各电梯的待下客链表
 
-List <People> ListUp, ListDown, NotArranged;
+List <People> ListUp, ListDown, NotArranged;//总链表：上行，下行，未分配
+
+int mass;//已运重量
 
 People::People()
 {

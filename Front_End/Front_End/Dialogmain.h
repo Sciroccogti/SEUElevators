@@ -5,18 +5,21 @@ class CDialogmain : public CDialogEx
 {
 	DECLARE_DYNAMIC(CDialogmain)
 
-public:
-	CDialogmain(CWnd* pParent = NULL);   // 标准构造函数
+  public:
+	CDialogmain(CWnd *pParent = NULL); // 标准构造函数
 	virtual ~CDialogmain();
 
-// 对话框数据
-	enum { IDD = IDD_DIALOG1 };
+	// 对话框数据
+	enum
+	{
+		IDD = IDD_DIALOG1
+	};
 
-protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
+  protected:
+	virtual void DoDataExchange(CDataExchange *pDX); // DDX/DDV 支持
 
 	DECLARE_MESSAGE_MAP()
-public:
+  public:
 	CEdit m_EditCondition1;
 	CEdit m_EditCondition2;
 	CEdit m_EditCondition3;
@@ -51,7 +54,7 @@ public:
 	CProgressCtrl m_PrEle3;
 	virtual BOOL OnInitDialog();
 	void SetPeople(void);
-	void Connection(int* ptemp);
+	void Connection(int *ptemp);
 	int m_time1;
 	int m_time3;
 	int m_time2;
@@ -75,7 +78,7 @@ public:
 	double m_preflr1;
 	double m_preflr2;
 	double m_preflr3;
-	void SetPreflr(int num, double preflr);
+	void SetPreflr(int num, int preflr);
 	int m_acc;
 	void SetAcc(int num, int Acc);
 	int m_Total1;
@@ -86,4 +89,6 @@ public:
 	afx_msg void OnBnClickedButtonrepair1();
 	afx_msg void OnBnClickedButtonrepair2();
 	afx_msg void OnBnClickedButtonrepair3();
+	int m_mass;
+	void SetMass(void);
 };

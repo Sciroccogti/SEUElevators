@@ -135,3 +135,11 @@ void CFront_EndDoc::Dump(CDumpContext& dc) const
 
 
 // CFront_EndDoc 命令
+
+
+void CFront_EndDoc::SetTitle(LPCTSTR lpszTitle)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+
+	CDocument::SetTitle(L"SEUElevators");
+}
