@@ -121,6 +121,8 @@ ON_BN_CLICKED(IDC_BUTTONCONTINUE, &CDialogmain::OnBnClickedButtoncontinue)
 ON_BN_CLICKED(IDC_BUTTONREPAIR1, &CDialogmain::OnBnClickedButtonrepair1)
 ON_BN_CLICKED(IDC_BUTTONREPAIR2, &CDialogmain::OnBnClickedButtonrepair2)
 ON_BN_CLICKED(IDC_BUTTONREPAIR3, &CDialogmain::OnBnClickedButtonrepair3)
+ON_WM_PAINT()
+ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 // CDialogmain 消息处理程序
@@ -225,6 +227,8 @@ BOOL CDialogmain::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
+	//{ WM_PAINT, 0, 0, 0, AfxSig_vv,	(AFX_PMSG)(AFX_PMSGW)(static_cast< void (AFX_MSG_CALL CWnd::*)(void) > ( &CDialogmain :: OnPaint)) ;}
+	//{ WM_CTLCOLOR, 0, 0, 0, AfxSig_hDWw, (AFX_PMSG)(AFX_PMSGW) (static_cast< HBRUSH (AFX_MSG_CALL CWnd::*)(CDC*, CWnd*, UINT)>  ( &CDialogmain :: OnCtlColor)) ;}
 	// TODO:  在此添加额外的初始化
 	m_PrEle1.SetRange(0, 20);
 	m_PrEle2.SetRange(0, 20);
@@ -453,3 +457,49 @@ void CDialogmain::SetMass(void)
 	m_mass = mass;
 	UpdateData(FALSE);
 }
+
+
+void CDialogmain::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+	// TODO: 在此处添加消息处理程序代码
+	CRect  rect;  
+	GetClientRect(&rect);  
+	CDC  dcMem;   //定义一个工具箱（设备上下文）
+	dcMem.CreateCompatibleDC(&dc);///建立关联DC 
+	CBitmap  bmpBackground;   //位图对象
+	bmpBackground.LoadBitmap(IDB_BITMAP3);   //IDB_BITMAP是你自己的图对应的ID  
+	BITMAP  bitmap;  
+	bmpBackground.GetBitmap(&bitmap);  //建立绑定关系
+	CBitmap  *pbmpOld=dcMem.SelectObject(&bmpBackground);   //保存原有CDC对象，并选入新CDC对象入DC
+	dc.SetStretchBltMode(COLORONCOLOR);//防止bmp图片失真
+	dc.StretchBlt(0,0,rect.Width(),rect.Height(),&dcMem,0,0,  bitmap.bmWidth,bitmap.bmHeight,SRCCOPY);
+
+	// （个人建议把,rect.Width(),rect.Height()这两个数据 换成你的图片的大小，前提是图片足够大，这样图片不容易失真。关于图片失真，参考：http://blog.csdn.net/abidepan/article/details/7963929 ）
+	dcMem.SelectObject(pbmpOld);
+	bmpBackground.DeleteObject();
+	dcMem.DeleteDC();
+
+	// 不为绘图消息调用 CDialogEx::OnPaint()
+}
+
+/*
+HBRUSH CDialogmain::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+	// TODO:  在此更改 DC 的任何特性
+
+	if (nCtlColor == CTLCOLOR_EDIT)
+	{
+		pDC->SetBkMode(TRANSPARENT);   //设置背景透明
+		pDC->SetTextColor(RGB(0,0,255));
+		return (HBRUSH)GetStockObject(NULL_BRUSH);
+	}else if( nCtlColor == CTLCOLOR_STATIC)      
+	{    
+		pDC->SetBkMode(TRANSPARENT);   //设置背景透明 
+		return   HBRUSH(GetStockObject(HOLLOW_BRUSH));
+	}
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	return hbr;
+}
+*/

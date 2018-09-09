@@ -106,6 +106,9 @@
     <None Include="res\timg[1].bmp">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="res\科幻城市.bmp">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

@@ -91,4 +91,7 @@ class CDialogmain : public CDialogEx
 	afx_msg void OnBnClickedButtonrepair3();
 	int m_mass;
 	void SetMass(void);
+	CBrush m_brush;
+	afx_msg void OnPaint();
+	//afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };
