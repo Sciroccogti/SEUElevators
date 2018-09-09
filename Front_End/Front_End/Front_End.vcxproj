@@ -120,6 +120,7 @@
     <None Include="res\sort_hc.bmp" />
     <None Include="res\Temp1001.ico" />
     <None Include="res\Temp1001Doc.ico" />
+    <None Include="res\timg[1].bmp" />
     <None Include="res\timg[3].bmp" />
     <None Include="res\Toolbar.bmp" />
     <None Include="res\Toolbar256.bmp" />
